@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Where's My MEP? - European Parliament Attendance Tracker
+
+A Next.js application that tracks attendance rates of Members of the European Parliament (MEPs) in roll-call votes over the last 180 days.
+
+## Features
+
+- **Real-time MEP Data**: Displays attendance percentages for all current MEPs
+- **Interactive Leaderboard**: Sortable and filterable table with pagination
+- **Individual MEP Profiles**: Detailed view with attendance stats and notable votes
+- **Search Functionality**: Find MEPs by name or country
+- **Mobile-First Design**: Responsive UI built with Tailwind CSS
+
+## Data Sources
+
+The application uses four CSV datasets:
+
+1. **`meps.csv`** - MEP identity data (name, country, EU group, national party, profile URLs)
+2. **`meps_attendance.csv`** - Attendance statistics (votes cast, total votes, attendance percentage)
+3. **`mep_notable_votes.csv`** - Individual MEP vote positions on notable votes
+4. **`votes_catalog.csv`** - Catalog of all votes with metadata
+
+**Data Provider**: [HowTheyVote.eu](https://howtheyvote.eu/) - Official aggregator of European Parliament roll-call vote data
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd wheres-my-mep-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Ensure data files are present in the `data/` directory:
+   - `meps.csv`
+   - `meps_attendance.csv` 
+   - `mep_notable_votes.csv`
+   - `votes_catalog.csv`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Endpoints
 
-## Deploy on Vercel
+The application provides the following read-only API endpoints:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `GET /api/meps` - List all MEPs with optional search/filter parameters
+- `GET /api/meps/[id]` - Get detailed information for a specific MEP
+- `GET /api/meps/[id]/notable` - Get notable votes for a specific MEP
+- `GET /api/leaderboard` - Get top/bottom attendance leaderboards
+- `GET /api/votes/[vote_id]` - Get details for a specific vote
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically
+
+The app will load CSV data at startup and serve it from memory for optimal performance.
+
+### Other Platforms
+
+The app can be deployed to any platform that supports Next.js:
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## Data Updates
+
+To update the MEP data:
+
+1. Run the data collection scripts to generate new CSV files
+2. Replace the files in the `data/` directory
+3. Redeploy the application
+
+The data is loaded once at startup for optimal performance. No database is required.
+
+## Methodology
+
+- **Attendance Calculation**: Based on roll-call votes in the European Parliament over the last 180 days
+- **Vote Counting**: Abstaining counts as present; not voting counts as absent
+- **Notable Votes**: Selected based on significance, close outcomes, and high participation
+- **Partial Terms**: Some MEPs may have started their term recently, affecting their attendance percentage
+
+## Technology Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Data Processing**: PapaParse for CSV parsing
+- **Deployment**: Vercel (recommended)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Privacy
+
+This application only uses publicly available data from the European Parliament. No personal data is collected or stored.

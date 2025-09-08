@@ -1,0 +1,12 @@
+{
+  "crawl_date": "2025-09-08T14:04:52.059023",
+  "sessions_parsed": 0,
+  "votes_parsed": 1215,
+  "ballots_parsed": 873234,
+  "meps_matched": 773580,
+  "ambiguous_matches": 0,
+  "sources_used": [
+    "HowTheyVote.eu"
+  ],
+  "data_source": "real_ep_data"
+}

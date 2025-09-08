@@ -1,0 +1,173 @@
+import fs from 'fs';
+import path from 'path';
+
+// Type definitions
+export type MEPIdentity = {
+  mep_id: string;
+  name: string;
+  country: string;
+  party: string;           // EU political group
+  national_party: string;
+  profile_url?: string;
+  photo_url?: string;
+};
+
+export type MEPAttendance = {
+  mep_id: string;
+  votes_total_period: number;
+  votes_cast: number;
+  attendance_pct: number;  // 0..100
+  partial_term?: boolean;
+};
+
+export type VoteCatalog = {
+  vote_id: string;
+  vote_date: string;       // YYYY-MM-DD
+  title: string;
+  result?: string;         // adopted/rejected/unknown
+  olp_stage?: string;
+  total_for?: number;
+  total_against?: number;
+  total_abstain?: number;
+  source_url: string;
+};
+
+export type NotableVote = VoteCatalog & {
+  mep_id: string;
+  vote_position: 'For' | 'Against' | 'Abstain' | 'Not voting';
+};
+
+export type EnrichedMEP = MEPIdentity & MEPAttendance;
+
+// Global data storage
+let mepsEnriched: EnrichedMEP[] = [];
+let notableByMep: Record<string, NotableVote[]> = {};
+let votesCatalog: VoteCatalog[] = [];
+let votesCatalogMap: Record<string, VoteCatalog> = {};
+
+// Load JSON data from public directory
+function loadJSON<T>(filePath: string): T {
+  try {
+    const jsonContent = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(jsonContent);
+  } catch (error) {
+    console.error(`Error loading JSON file ${filePath}:`, error);
+    return {} as T;
+  }
+}
+
+// Load and merge all data
+export function loadData(): void {
+  console.log('🔄 Loading MEP data from JSON files...');
+  
+  const publicDataDir = path.join(process.cwd(), 'public', 'data');
+  
+  // Load enriched MEPs data
+  mepsEnriched = loadJSON<EnrichedMEP[]>(path.join(publicDataDir, 'meps.json'));
+  console.log(`📊 Loaded ${mepsEnriched.length} enriched MEPs`);
+  
+  // Load votes catalog
+  votesCatalog = loadJSON<VoteCatalog[]>(path.join(publicDataDir, 'votes.json'));
+  console.log(`📊 Loaded ${votesCatalog.length} votes from catalog`);
+  
+  // Create votes lookup map
+  votesCatalogMap = Object.fromEntries(
+    votesCatalog.map(vote => [vote.vote_id, vote])
+  );
+  
+  // Load notable votes grouped by MEP
+  notableByMep = loadJSON<Record<string, NotableVote[]>>(path.join(publicDataDir, 'notable-votes.json'));
+  console.log(`📊 Loaded notable votes for ${Object.keys(notableByMep).length} MEPs`);
+  
+  // Load metadata
+  const metadata = loadJSON<{ generated_at?: string }>(path.join(publicDataDir, 'metadata.json'));
+  
+  // Validation and logging
+  console.log('\n📈 DATA VALIDATION SUMMARY:');
+  console.log(`- MEPs loaded: ${mepsEnriched.length}`);
+  console.log(`- Votes catalog: ${votesCatalog.length}`);
+  console.log(`- Notable vote records: ${Object.values(notableByMep).flat().length}`);
+  console.log(`- Distinct MEP IDs: ${new Set(mepsEnriched.map(m => m.mep_id)).size}`);
+  
+  const withAttendance = mepsEnriched.filter(m => m.votes_total_period > 0).length;
+  console.log(`- MEPs with attendance data: ${withAttendance} (${(withAttendance/mepsEnriched.length*100).toFixed(1)}%)`);
+  
+  const missingProfile = mepsEnriched.filter(m => !m.profile_url).length;
+  const missingPhoto = mepsEnriched.filter(m => !m.photo_url).length;
+  console.log(`- MEPs missing profile_url: ${missingProfile}`);
+  console.log(`- MEPs missing photo_url: ${missingPhoto}`);
+  
+  if (metadata.generated_at) {
+    console.log(`- Data generated: ${metadata.generated_at}`);
+  }
+  
+  // Spot check examples
+  console.log('\n🔍 SPOT CHECK EXAMPLES:');
+  mepsEnriched.slice(0, 3).forEach((mep, i) => {
+    console.log(`${i + 1}. ${mep.name} (${mep.country}) - ${mep.attendance_pct}% attendance`);
+  });
+  
+  console.log('✅ Data loading complete!\n');
+}
+
+// Query helper functions
+export function listMEPs(): EnrichedMEP[] {
+  return mepsEnriched;
+}
+
+export function getMEP(id: string): EnrichedMEP | null {
+  return mepsEnriched.find(mep => mep.mep_id === id) || null;
+}
+
+export function getNotableVotes(id: string): NotableVote[] {
+  return notableByMep[id] || [];
+}
+
+export function getVote(voteId: string): VoteCatalog | null {
+  return votesCatalogMap[voteId] || null;
+}
+
+export function getLeaderboardTop(n: number = 25): EnrichedMEP[] {
+  return mepsEnriched
+    .filter(mep => mep.votes_total_period > 0)
+    .sort((a, b) => b.attendance_pct - a.attendance_pct)
+    .slice(0, n);
+}
+
+export function getLeaderboardBottom(n: number = 25): EnrichedMEP[] {
+  return mepsEnriched
+    .filter(mep => mep.votes_total_period > 0)
+    .sort((a, b) => a.attendance_pct - b.attendance_pct)
+    .slice(0, n);
+}
+
+export function searchMEPs(query: string, group?: string, country?: string): EnrichedMEP[] {
+  let results = mepsEnriched;
+  
+  if (query) {
+    const searchTerm = query.toLowerCase();
+    results = results.filter(mep => 
+      mep.name.toLowerCase().includes(searchTerm) ||
+      mep.country.toLowerCase().includes(searchTerm)
+    );
+  }
+  
+  if (group) {
+    results = results.filter(mep => 
+      mep.party.toLowerCase().includes(group.toLowerCase())
+    );
+  }
+  
+  if (country) {
+    results = results.filter(mep => 
+      mep.country.toLowerCase().includes(country.toLowerCase())
+    );
+  }
+  
+  return results;
+}
+
+// Initialize data on module load
+if (typeof window === 'undefined') {
+  loadData();
+}
