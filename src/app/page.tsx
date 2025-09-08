@@ -1,11 +1,86 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getLeaderboardTop, getLeaderboardBottom } from '@/lib/data';
+import { useRouter } from 'next/navigation';
+// Remove server-side data imports for client component
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
 
+interface MEP {
+  id: string;
+  name: string;
+  country: string;
+  party: string;
+  attendance_pct: number;
+}
+
 export default function HomePage() {
-  const topMEPs = getLeaderboardTop(10);
-  const bottomMEPs = getLeaderboardBottom(10);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<MEP[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const router = useRouter();
+  
+  const [topMEPs, setTopMEPs] = useState<MEP[]>([]);
+  const [bottomMEPs, setBottomMEPs] = useState<MEP[]>([]);
+  const [loadingLeaderboard, setLoadingLeaderboard] = useState(true);
+
+  // Fetch leaderboard data
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      try {
+        const response = await fetch('/api/leaderboard?limit=10');
+        const data = await response.json();
+        setTopMEPs(data.top);
+        setBottomMEPs(data.bottom);
+      } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+      } finally {
+        setLoadingLeaderboard(false);
+      }
+    };
+
+    fetchLeaderboard();
+  }, []);
+
+  // Search functionality
+  const handleSearch = async (query: string) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const response = await fetch(`/api/meps?q=${encodeURIComponent(query)}`);
+      const results = await response.json();
+      setSearchResults(results.slice(0, 5)); // Show top 5 results
+    } catch (error) {
+      console.error('Search error:', error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/leaderboard?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    
+    // Debounce search
+    const timeoutId = setTimeout(() => {
+      handleSearch(query);
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -30,19 +105,73 @@ export default function HomePage() {
           <h2 className="text-xl font-semibold text-gray-900 mb-4">
             Search MEPs
           </h2>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <input
-              type="text"
-              placeholder="Search by name or country..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            <Link
-              href="/leaderboard"
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              View Full Leaderboard
-            </Link>
-          </div>
+          <form onSubmit={handleSearchSubmit} className="relative">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  placeholder="Search by name or country..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                {isSearching && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                  </div>
+                )}
+              </div>
+              <button
+                type="submit"
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Search
+              </button>
+              <Link
+                href="/leaderboard"
+                className="px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+              >
+                View All
+              </Link>
+            </div>
+            
+            {/* Search Results Dropdown */}
+            {searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                {searchResults.map((mep: MEP) => (
+                  <Link
+                    key={mep.id}
+                    href={`/mep/${mep.id}`}
+                    className="flex items-center justify-between p-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <CountryFlag country={mep.country} className="text-lg" />
+                      <div>
+                        <div className="font-medium text-gray-900">{mep.name}</div>
+                        <div className="text-sm text-gray-600">{mep.country}</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-blue-600">
+                        {mep.attendance_pct}%
+                      </div>
+                      <PartyBadge party={mep.party} />
+                    </div>
+                  </Link>
+                ))}
+                {searchResults.length === 5 && (
+                  <div className="p-3 text-center text-sm text-gray-500 border-t border-gray-100">
+                    <Link 
+                      href={`/leaderboard?q=${encodeURIComponent(searchQuery)}`}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      View all results →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+          </form>
         </div>
 
         {/* Leaderboard Preview */}
@@ -58,10 +187,15 @@ export default function HomePage() {
               </p>
             </div>
             <div className="p-6">
-              <div className="space-y-3">
-                {topMEPs.map((mep, index) => (
+              {loadingLeaderboard ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {topMEPs.map((mep: MEP, index: number) => (
                   <div
-                    key={mep.mep_id}
+                    key={mep.id}
                     className="flex items-center justify-between p-3 bg-green-50 rounded-lg"
                   >
                     <div className="flex items-center space-x-3">
@@ -71,7 +205,7 @@ export default function HomePage() {
                       <CountryFlag country={mep.country} className="text-lg" />
                       <div>
                         <Link
-                          href={`/mep/${mep.mep_id}`}
+                          href={`/mep/${mep.id}`}
                           className="font-medium text-gray-900 hover:text-blue-600"
                         >
                           {mep.name}
@@ -86,8 +220,9 @@ export default function HomePage() {
                       <PartyBadge party={mep.party} />
                     </div>
                   </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -102,10 +237,15 @@ export default function HomePage() {
               </p>
             </div>
             <div className="p-6">
-              <div className="space-y-3">
-                {bottomMEPs.map((mep, index) => (
+              {loadingLeaderboard ? (
+                <div className="flex items-center justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {bottomMEPs.map((mep: MEP, index: number) => (
                   <div
-                    key={mep.mep_id}
+                    key={mep.id}
                     className="flex items-center justify-between p-3 bg-red-50 rounded-lg"
                   >
                     <div className="flex items-center space-x-3">
@@ -115,7 +255,7 @@ export default function HomePage() {
                       <CountryFlag country={mep.country} className="text-lg" />
                       <div>
                         <Link
-                          href={`/mep/${mep.mep_id}`}
+                          href={`/mep/${mep.id}`}
                           className="font-medium text-gray-900 hover:text-blue-600"
                         >
                           {mep.name}
@@ -130,8 +270,9 @@ export default function HomePage() {
                       <PartyBadge party={mep.party} />
                     </div>
                   </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

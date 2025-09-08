@@ -45,6 +45,12 @@ export default function LeaderboardPage() {
   }, [searchQuery, filterCountry, filterParty]);
 
   useEffect(() => {
+    // Check for search query in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlQuery = urlParams.get('q');
+    if (urlQuery) {
+      setSearchQuery(urlQuery);
+    }
     fetchMEPs();
   }, [fetchMEPs]);
 
