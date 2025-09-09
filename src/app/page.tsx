@@ -25,6 +25,29 @@ export default function HomePage() {
   const [bottomMEPs, setBottomMEPs] = useState<MEP[]>([]);
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(true);
 
+  // Notification signup state
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  // Get unique countries for dropdown
+  const [countries, setCountries] = useState<string[]>([]);
+  
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch('/api/meps');
+        const meps = await response.json();
+        const uniqueCountries = Array.from(new Set(meps.map((mep: MEP) => mep.country))).sort() as string[];
+        setCountries(uniqueCountries);
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      }
+    };
+    fetchCountries();
+  }, []);
+
   // Fetch leaderboard data
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -82,6 +105,30 @@ export default function HomePage() {
     return () => clearTimeout(timeoutId);
   };
 
+  // Handle notification signup
+  const handleNotificationSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCountry || !email) {
+      setSubmitMessage('Please select a country and enter your email');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      // For now, just simulate the signup
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setSubmitMessage('✅ You\'ll be notified when MEPs from ' + selectedCountry + ' have low attendance!');
+      setEmail('');
+      setSelectedCountry('');
+    } catch {
+      setSubmitMessage('❌ Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -97,6 +144,60 @@ export default function HomePage() {
           </div>
         </div>
       </header>
+
+      {/* Notification Signup */}
+      <div className="bg-blue-50 border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <form onSubmit={handleNotificationSignup} className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex-1 text-center sm:text-left">
+              <p className="text-lg font-medium text-blue-900">
+                Notify me when my politician stops showing up for work
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <select
+                value={selectedCountry}
+                onChange={(e) => setSelectedCountry(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                required
+              >
+                <option value="">Select Country</option>
+                {countries.map(country => (
+                  <option key={country} value={country}>{country}</option>
+                ))}
+              </select>
+              
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                required
+              />
+              
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              >
+                {isSubmitting ? 'Signing up...' : 'Notify me!'}
+              </button>
+            </div>
+          </form>
+          
+          {submitMessage && (
+            <div className={`mt-3 text-center text-sm ${
+              submitMessage.startsWith('✅') ? 'text-green-700' : 
+              submitMessage.startsWith('❌') ? 'text-red-700' : 
+              'text-blue-700'
+            }`}>
+              {submitMessage}
+            </div>
+          )}
+        </div>
+      </div>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
