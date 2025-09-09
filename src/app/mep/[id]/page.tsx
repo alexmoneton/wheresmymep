@@ -259,6 +259,12 @@ export default function MEPProfilePage() {
         <div className="bg-white rounded-lg shadow-sm border p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Notable Votes</h2>
           
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
+            <p className="text-sm text-blue-800">
+              <strong>Note:</strong> Multiple votes on the same topic are normal - the European Parliament votes on amendments and different versions of proposals separately, which is why you may see several votes with different results for similar topics.
+            </p>
+          </div>
+          
           {notableVotes.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-500">No notable votes found for this MEP.</p>
