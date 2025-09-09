@@ -46,11 +46,11 @@ npm install
 3. Set up Upstash Redis database:
    - Go to [Upstash Console](https://console.upstash.com/)
    - Create a new Redis database
-   - Copy the `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`
+   - Copy the `KV_REST_API_URL` and `KV_REST_API_TOKEN`
    - Create a `.env.local` file in the project root:
    ```bash
-   UPSTASH_REDIS_REST_URL=https://your-database-url.upstash.io
-   UPSTASH_REDIS_REST_TOKEN=your-redis-token-here
+   KV_REST_API_URL=https://your-database-url.upstash.io
+   KV_REST_API_TOKEN=your-redis-token-here
    ```
 
 4. Ensure data files are present in the `data/` directory:
@@ -92,8 +92,8 @@ The application provides the following read-only API endpoints:
 1. Push your code to GitHub
 2. Connect your repository to Vercel
 3. Set up environment variables in Vercel dashboard:
-   - `UPSTASH_REDIS_REST_URL`
-   - `UPSTASH_REDIS_REST_TOKEN`
+   - `KV_REST_API_URL`
+   - `KV_REST_API_TOKEN`
 4. Deploy automatically
 
 The app will load CSV data at startup and serve it from memory for optimal performance.
