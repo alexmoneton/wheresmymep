@@ -8,6 +8,7 @@ A Next.js application that tracks attendance rates of Members of the European Pa
 - **Interactive Leaderboard**: Sortable and filterable table with pagination
 - **Individual MEP Profiles**: Detailed view with attendance stats and notable votes
 - **Search Functionality**: Find MEPs by name or country
+- **Email Notifications**: Sign up to be notified when MEPs from your country have low attendance
 - **Mobile-First Design**: Responsive UI built with Tailwind CSS
 
 ## Data Sources
@@ -27,6 +28,7 @@ The application uses four CSV datasets:
 
 - Node.js 18+ 
 - npm or yarn
+- Upstash Redis database (for email notifications)
 
 ### Installation
 
@@ -41,18 +43,28 @@ cd wheres-my-mep-app
 npm install
 ```
 
-3. Ensure data files are present in the `data/` directory:
+3. Set up Upstash Redis database:
+   - Go to [Upstash Console](https://console.upstash.com/)
+   - Create a new Redis database
+   - Copy the `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`
+   - Create a `.env.local` file in the project root:
+   ```bash
+   UPSTASH_REDIS_REST_URL=https://your-database-url.upstash.io
+   UPSTASH_REDIS_REST_TOKEN=your-redis-token-here
+   ```
+
+4. Ensure data files are present in the `data/` directory:
    - `meps.csv`
    - `meps_attendance.csv` 
    - `mep_notable_votes.csv`
    - `votes_catalog.csv`
 
-4. Run the development server:
+5. Run the development server:
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Available Scripts
 
@@ -70,6 +82,8 @@ The application provides the following read-only API endpoints:
 - `GET /api/meps/[id]/notable` - Get notable votes for a specific MEP
 - `GET /api/leaderboard` - Get top/bottom attendance leaderboards
 - `GET /api/votes/[vote_id]` - Get details for a specific vote
+- `POST /api/notifications/signup` - Sign up for email notifications
+- `GET /api/notifications/signup` - Get notification signups (admin)
 
 ## Deployment
 
@@ -77,7 +91,10 @@ The application provides the following read-only API endpoints:
 
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Deploy automatically
+3. Set up environment variables in Vercel dashboard:
+   - `UPSTASH_REDIS_REST_URL`
+   - `UPSTASH_REDIS_REST_TOKEN`
+4. Deploy automatically
 
 The app will load CSV data at startup and serve it from memory for optimal performance.
 

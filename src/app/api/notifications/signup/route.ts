@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,14 +38,14 @@ export async function POST(request: NextRequest) {
       id: signupId
     };
 
-    // Store in KV with the signup ID as key
-    await kv.set(signupId, signupData);
+    // Store in Redis with the signup ID as key
+    await redis.set(signupId, signupData);
     
     // Also add to a list for easy retrieval
-    await kv.lpush('notification_signups', signupId);
+    await redis.lpush('notification_signups', signupId);
 
     // Store by country for easy filtering
-    await kv.lpush(`signups_by_country:${country}`, signupId);
+    await redis.lpush(`signups_by_country:${country}`, signupId);
 
     return NextResponse.json({
       success: true,
@@ -67,16 +72,16 @@ export async function GET(request: NextRequest) {
 
     if (country) {
       // Get signups for specific country
-      signupIds = await kv.lrange(`signups_by_country:${country}`, 0, -1);
+      signupIds = await redis.lrange(`signups_by_country:${country}`, 0, -1);
     } else {
       // Get all signups
-      signupIds = await kv.lrange('notification_signups', 0, -1);
+      signupIds = await redis.lrange('notification_signups', 0, -1);
     }
 
     // Fetch the actual signup data
     const signups = await Promise.all(
       signupIds.map(async (id) => {
-        const data = await kv.get(id);
+        const data = await redis.get(id);
         return data;
       })
     );
