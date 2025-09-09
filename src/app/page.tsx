@@ -117,11 +117,26 @@ export default function HomePage() {
     setSubmitMessage('');
 
     try {
-      // For now, just simulate the signup
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSubmitMessage('✅ You\'ll be notified when MEPs from ' + selectedCountry + ' have low attendance!');
-      setEmail('');
-      setSelectedCountry('');
+      const response = await fetch('/api/notifications/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          country: selectedCountry
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage('✅ ' + data.message);
+        setEmail('');
+        setSelectedCountry('');
+      } else {
+        setSubmitMessage('❌ ' + data.error);
+      }
     } catch {
       setSubmitMessage('❌ Something went wrong. Please try again.');
     } finally {
