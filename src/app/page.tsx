@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 // Remove server-side data imports for client component
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
+import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 
 interface MEP {
   id: string;
@@ -13,6 +14,7 @@ interface MEP {
   country: string;
   party: string;
   attendance_pct: number;
+  special_role?: string;
 }
 
 export default function HomePage() {
@@ -274,11 +276,16 @@ export default function HomePage() {
                           {mep.name}
                         </Link>
                         <p className="text-sm text-gray-600">{mep.country}</p>
+                        {mep.special_role && (
+                          <div className="mt-1">
+                            <SpecialRoleBadge role={mep.special_role} />
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-semibold text-green-600">
-                        {mep.attendance_pct}%
+                        {mep.special_role ? 'N/A' : `${mep.attendance_pct}%`}
                       </div>
                       <PartyBadge party={mep.party} />
                     </div>
@@ -324,11 +331,16 @@ export default function HomePage() {
                           {mep.name}
                         </Link>
                         <p className="text-sm text-gray-600">{mep.country}</p>
+                        {mep.special_role && (
+                          <div className="mt-1">
+                            <SpecialRoleBadge role={mep.special_role} />
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-semibold text-red-600">
-                        {mep.attendance_pct}%
+                        {mep.special_role ? 'N/A' : `${mep.attendance_pct}%`}
                       </div>
                       <PartyBadge party={mep.party} />
                     </div>

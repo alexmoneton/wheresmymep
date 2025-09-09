@@ -37,13 +37,28 @@ export type NotableVote = VoteCatalog & {
   vote_position: 'For' | 'Against' | 'Abstain' | 'Not voting';
 };
 
-export type EnrichedMEP = MEPIdentity & MEPAttendance;
+export type EnrichedMEP = MEPIdentity & MEPAttendance & {
+  special_role?: string; // e.g., "President", "Vice-President", etc.
+};
 
 // Global data storage
 let mepsEnriched: EnrichedMEP[] = [];
 let notableByMep: Record<string, NotableVote[]> = {};
 let votesCatalog: VoteCatalog[] = [];
 let votesCatalogMap: Record<string, VoteCatalog> = {};
+
+// Function to identify special roles
+function getSpecialRole(mep: MEPIdentity & MEPAttendance): string | undefined {
+  // President of the European Parliament
+  if (mep.name === 'Roberta Metsola') {
+    return 'President';
+  }
+  
+  // Add other special roles as needed
+  // Vice-Presidents, Committee Chairs, etc.
+  
+  return undefined;
+}
 
 // Load JSON data from public directory
 function loadJSON<T>(filePath: string): T {
@@ -65,6 +80,12 @@ export function loadData(): void {
   // Load enriched MEPs data
   mepsEnriched = loadJSON<EnrichedMEP[]>(path.join(publicDataDir, 'meps.json'));
   console.log(`📊 Loaded ${mepsEnriched.length} enriched MEPs`);
+  
+  // Add special roles to MEPs
+  mepsEnriched = mepsEnriched.map(mep => ({
+    ...mep,
+    special_role: getSpecialRole(mep)
+  }));
   
   // Load votes catalog
   votesCatalog = loadJSON<VoteCatalog[]>(path.join(publicDataDir, 'votes.json'));

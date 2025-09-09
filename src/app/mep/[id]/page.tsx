@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
+import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 
 interface MEP {
   mep_id: string;
@@ -18,6 +19,7 @@ interface MEP {
   votes_cast: number;
   attendance_pct: number;
   partial_term?: boolean;
+  special_role?: string;
 }
 
 interface NotableVote {
@@ -159,6 +161,9 @@ export default function MEPProfilePage() {
               <div className="flex items-center space-x-3 mb-2">
                 <h1 className="text-3xl font-bold text-gray-900">{mep.name}</h1>
                 <CountryFlag country={mep.country} className="text-2xl" />
+                {mep.special_role && (
+                  <SpecialRoleBadge role={mep.special_role} className="text-sm" />
+                )}
               </div>
               
               <div className="flex flex-wrap items-center gap-3 mb-4">
@@ -187,9 +192,11 @@ export default function MEPProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">
-                {mep.attendance_pct}%
+                {mep.special_role ? 'N/A' : `${mep.attendance_pct}%`}
               </div>
-              <div className="text-sm text-gray-600">Overall Attendance</div>
+              <div className="text-sm text-gray-600">
+                {mep.special_role ? 'Doesn\'t usually vote' : 'Overall Attendance'}
+              </div>
             </div>
             
             <div className="text-center">

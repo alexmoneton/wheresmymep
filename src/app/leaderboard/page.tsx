@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
+import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 
 interface MEP {
   id: string;
@@ -13,6 +14,7 @@ interface MEP {
   attendance_pct: number;
   votes_cast: number;
   votes_total_period: number;
+  special_role?: string;
 }
 
 export default function LeaderboardPage() {
@@ -231,6 +233,11 @@ export default function LeaderboardPage() {
                       <div className="text-sm font-medium text-gray-900">
                         {mep.name}
                       </div>
+                      {mep.special_role && (
+                        <div className="mt-1">
+                          <SpecialRoleBadge role={mep.special_role} />
+                        </div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -243,8 +250,13 @@ export default function LeaderboardPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-semibold text-gray-900">
-                        {mep.attendance_pct}%
+                        {mep.special_role ? 'N/A' : `${mep.attendance_pct}%`}
                       </div>
+                      {mep.special_role && (
+                        <div className="text-xs text-gray-500">
+                          Doesn&apos;t usually vote
+                        </div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {mep.votes_cast} / {mep.votes_total_period}
