@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   description: 'Track attendance rates of Members of the European Parliament in roll-call votes over the last 180 days.',
   keywords: ['European Parliament', 'MEP', 'attendance', 'voting', 'democracy', 'transparency'],
   authors: [{ name: "Where's My MEP?" }],
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: "Where's My MEP? - European Parliament Attendance Tracker",
     description: 'Track attendance rates of Members of the European Parliament in roll-call votes over the last 180 days.',
