@@ -160,59 +160,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Notification Signup */}
-      <div className="bg-blue-50 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <form onSubmit={handleNotificationSignup} className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="flex-1 text-center sm:text-left">
-              <p className="text-lg font-medium text-blue-900">
-                Notify me when my politician stops showing up for work
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-              <select
-                value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                required
-              >
-                <option value="">Select Country</option>
-                {countries.map(country => (
-                  <option key={country} value={country}>{country}</option>
-                ))}
-              </select>
-              
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                required
-              />
-              
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-              >
-                {isSubmitting ? 'Signing up...' : 'Notify me!'}
-              </button>
-            </div>
-          </form>
-          
-          {submitMessage && (
-            <div className={`mt-3 text-center text-sm ${
-              submitMessage.startsWith('✅') ? 'text-green-700' : 
-              submitMessage.startsWith('❌') ? 'text-red-700' : 
-              'text-blue-700'
-            }`}>
-              {submitMessage}
-            </div>
-          )}
-        </div>
-      </div>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -390,11 +337,66 @@ export default function HomePage() {
                 </div>
               )}
             </div>
-          </div>
         </div>
+      </div>
 
-        {/* Methodology */}
-        <div className="mt-8 bg-blue-50 rounded-lg p-6">
+      {/* Notification Signup */}
+      <div className="mt-8 bg-blue-50 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-900 mb-4">
+          Stay Informed
+        </h3>
+        <form onSubmit={handleNotificationSignup} className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex-1 text-center sm:text-left">
+            <p className="text-base font-medium text-blue-800">
+              Notify me when my politician stops showing up for work
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <select
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+              required
+            >
+              <option value="">Select Country</option>
+              {countries.map(country => (
+                <option key={country} value={country}>{country}</option>
+              ))}
+            </select>
+            
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+              required
+            />
+            
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+            >
+              {isSubmitting ? 'Signing up...' : 'Notify me!'}
+            </button>
+          </div>
+        </form>
+        
+        {submitMessage && (
+          <div className={`mt-3 text-center text-sm ${
+            submitMessage.startsWith('✅') ? 'text-green-700' : 
+            submitMessage.startsWith('❌') ? 'text-red-700' : 
+            'text-blue-700'
+          }`}>
+            {submitMessage}
+          </div>
+        )}
+      </div>
+
+      {/* Methodology */}
+      <div className="mt-8 bg-blue-50 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-2">
             Methodology
           </h3>
