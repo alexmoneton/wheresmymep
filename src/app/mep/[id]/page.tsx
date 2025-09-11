@@ -222,6 +222,24 @@ export default function MEPProfilePage() {
               </p>
             </div>
           )}
+          
+          {mep.partial_term && mep.votes_total_period > 0 && mep.votes_cast === 0 && (
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-blue-800 text-sm">
+                <strong>New MEP:</strong> This MEP recently started their term and hasn&apos;t had a chance to vote yet. 
+                Their attendance will be calculated once they participate in votes.
+              </p>
+            </div>
+          )}
+          
+          {mep.partial_term && mep.votes_total_period > 0 && mep.votes_cast > 0 && mep.votes_total_period <= 100 && (
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-blue-800 text-sm">
+                <strong>Limited term:</strong> This MEP has only been in office for a short time. 
+                Their attendance percentage may not be representative of their full term performance.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Links */}

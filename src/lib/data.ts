@@ -157,9 +157,25 @@ export function getLeaderboardTop(n: number = 25): EnrichedMEP[] {
 
 export function getLeaderboardBottom(n: number = 25): EnrichedMEP[] {
   return mepsEnriched
-    .filter(mep => mep.votes_total_period > 0)
+    .filter(mep => {
+      // Exclude MEPs with special roles (like President) from bottom leaderboard
+      if (mep.special_role) return false;
+      
+      // Only include MEPs who have had a reasonable chance to vote
+      // Exclude MEPs with very few total votes (likely new/replacement MEPs)
+      return mep.votes_total_period > 100;
+    })
     .sort((a, b) => a.attendance_pct - b.attendance_pct)
     .slice(0, n);
+}
+
+export function getMEPsWithLimitedTerms(): EnrichedMEP[] {
+  return mepsEnriched
+    .filter(mep => {
+      // Include MEPs with partial terms or very few votes (likely new/replacement MEPs)
+      return mep.partial_term || mep.votes_total_period <= 100;
+    })
+    .sort((a, b) => a.votes_total_period - b.votes_total_period);
 }
 
 export function searchMEPs(query: string, group?: string, country?: string): EnrichedMEP[] {
