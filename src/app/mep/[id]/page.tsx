@@ -8,16 +8,16 @@ import PartyBadge from '@/components/PartyBadge';
 import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 
 interface MEP {
-  mep_id: string;
+  mep_id: string | null;
   name: string;
   country: string;
   party: string;
   national_party: string;
   profile_url?: string;
   photo_url?: string;
-  votes_total_period: number;
-  votes_cast: number;
-  attendance_pct: number;
+  votes_total_period?: number;
+  votes_cast?: number;
+  attendance_pct?: number;
   partial_term?: boolean;
   special_role?: string;
 }
@@ -192,7 +192,7 @@ export default function MEPProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">
-                {mep.special_role ? 'N/A' : `${mep.attendance_pct}%`}
+                {mep.special_role ? 'N/A' : (mep.attendance_pct !== undefined ? `${mep.attendance_pct}%` : 'N/A')}
               </div>
               <div className="text-sm text-gray-600">
                 {mep.special_role ? 'Doesn\'t usually vote' : 'Overall Attendance'}
@@ -201,20 +201,29 @@ export default function MEPProfilePage() {
             
             <div className="text-center">
               <div className="text-4xl font-bold text-green-600 mb-2">
-                {mep.votes_cast}
+                {mep.votes_cast || 0}
               </div>
               <div className="text-sm text-gray-600">Votes Cast</div>
             </div>
             
             <div className="text-center">
               <div className="text-4xl font-bold text-gray-600 mb-2">
-                {mep.votes_total_period}
+                {mep.votes_total_period || 0}
               </div>
               <div className="text-sm text-gray-600">Total Votes</div>
             </div>
           </div>
           
-          {mep.votes_total_period === 0 && (
+          {!mep.mep_id && (
+            <div className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-md">
+              <p className="text-orange-800 text-sm">
+                <strong>New MEP:</strong> This MEP recently started their term and doesn&apos;t have attendance data yet. 
+                Their attendance will be calculated once they participate in votes.
+              </p>
+            </div>
+          )}
+          
+          {mep.mep_id && mep.votes_total_period === 0 && (
             <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
               <p className="text-yellow-800 text-sm">
                 No data available for this period. This MEP may have started their term recently 
@@ -223,7 +232,7 @@ export default function MEPProfilePage() {
             </div>
           )}
           
-          {mep.partial_term && mep.votes_total_period > 0 && mep.votes_cast === 0 && (
+          {mep.mep_id && mep.partial_term && mep.votes_total_period && mep.votes_total_period > 0 && mep.votes_cast === 0 && (
             <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
               <p className="text-blue-800 text-sm">
                 <strong>New MEP:</strong> This MEP recently started their term and hasn&apos;t had a chance to vote yet. 
@@ -232,7 +241,7 @@ export default function MEPProfilePage() {
             </div>
           )}
           
-          {mep.partial_term && mep.votes_total_period > 0 && mep.votes_cast > 0 && mep.votes_total_period <= 100 && (
+          {mep.mep_id && mep.partial_term && mep.votes_total_period && mep.votes_total_period > 0 && mep.votes_cast && mep.votes_cast > 0 && mep.votes_total_period <= 100 && (
             <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
               <p className="text-blue-800 text-sm">
                 <strong>Limited term:</strong> This MEP has only been in office for a short time. 
@@ -283,7 +292,11 @@ export default function MEPProfilePage() {
             </p>
           </div>
           
-          {notableVotes.length === 0 ? (
+          {!mep.mep_id ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500">This MEP doesn&apos;t have voting data yet as they recently started their term.</p>
+            </div>
+          ) : notableVotes.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-500">No notable votes found for this MEP.</p>
             </div>

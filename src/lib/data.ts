@@ -37,7 +37,7 @@ export type NotableVote = VoteCatalog & {
   vote_position: 'For' | 'Against' | 'Abstain' | 'Not voting';
 };
 
-export type EnrichedMEP = MEPIdentity & MEPAttendance & {
+export type EnrichedMEP = MEPIdentity & Partial<MEPAttendance> & {
   special_role?: string; // e.g., "President", "Vice-President", etc.
 };
 
@@ -48,7 +48,7 @@ let votesCatalog: VoteCatalog[] = [];
 let votesCatalogMap: Record<string, VoteCatalog> = {};
 
 // Function to identify special roles
-function getSpecialRole(mep: MEPIdentity & MEPAttendance): string | undefined {
+function getSpecialRole(mep: MEPIdentity): string | undefined {
   // President of the European Parliament
   if (mep.name === 'Roberta Metsola') {
     return 'President';
@@ -110,7 +110,7 @@ export function loadData(): void {
   console.log(`- Notable vote records: ${Object.values(notableByMep).flat().length}`);
   console.log(`- Distinct MEP IDs: ${new Set(mepsEnriched.map(m => m.mep_id)).size}`);
   
-  const withAttendance = mepsEnriched.filter(m => m.votes_total_period > 0).length;
+  const withAttendance = mepsEnriched.filter(m => (m.votes_total_period || 0) > 0).length;
   console.log(`- MEPs with attendance data: ${withAttendance} (${(withAttendance/mepsEnriched.length*100).toFixed(1)}%)`);
   
   const missingProfile = mepsEnriched.filter(m => !m.profile_url).length;
@@ -140,6 +140,10 @@ export function getMEP(id: string): EnrichedMEP | null {
   return mepsEnriched.find(mep => mep.mep_id === id) || null;
 }
 
+export function getMEPByName(name: string): EnrichedMEP | null {
+  return mepsEnriched.find(mep => mep.name.toLowerCase() === name.toLowerCase()) || null;
+}
+
 export function getNotableVotes(id: string): NotableVote[] {
   return notableByMep[id] || [];
 }
@@ -150,8 +154,8 @@ export function getVote(voteId: string): VoteCatalog | null {
 
 export function getLeaderboardTop(n: number = 25): EnrichedMEP[] {
   return mepsEnriched
-    .filter(mep => mep.votes_total_period > 0)
-    .sort((a, b) => b.attendance_pct - a.attendance_pct)
+    .filter(mep => mep.mep_id && (mep.votes_total_period || 0) > 0)
+    .sort((a, b) => (b.attendance_pct || 0) - (a.attendance_pct || 0))
     .slice(0, n);
 }
 
@@ -161,21 +165,21 @@ export function getLeaderboardBottom(n: number = 25): EnrichedMEP[] {
       // Exclude MEPs with special roles (like President) from bottom leaderboard
       if (mep.special_role) return false;
       
-      // Only include MEPs who have had a reasonable chance to vote
+      // Only include MEPs with valid IDs and who have had a reasonable chance to vote
       // Exclude MEPs with very few total votes (likely new/replacement MEPs)
-      return mep.votes_total_period > 100;
+      return mep.mep_id && (mep.votes_total_period || 0) > 100;
     })
-    .sort((a, b) => a.attendance_pct - b.attendance_pct)
+    .sort((a, b) => (a.attendance_pct || 0) - (b.attendance_pct || 0))
     .slice(0, n);
 }
 
 export function getMEPsWithLimitedTerms(): EnrichedMEP[] {
   return mepsEnriched
     .filter(mep => {
-      // Include MEPs with partial terms or very few votes (likely new/replacement MEPs)
-      return mep.partial_term || mep.votes_total_period <= 100;
+      // Include MEPs without IDs (new/replacement MEPs) or with partial terms or very few votes
+      return !mep.mep_id || mep.partial_term || ((mep.votes_total_period || 0) <= 100);
     })
-    .sort((a, b) => a.votes_total_period - b.votes_total_period);
+    .sort((a, b) => (a.votes_total_period || 0) - (b.votes_total_period || 0));
 }
 
 export function searchMEPs(query: string, group?: string, country?: string): EnrichedMEP[] {

@@ -80,10 +80,13 @@ function convertData() {
   });
   
   const mepsValid = mepsWithId.filter(mep => mep.mep_id);
+  const mepsNoId = mepsWithId.filter(mep => !mep.mep_id);
   console.log(`✅ ${mepsValid.length} MEPs with valid IDs`);
+  console.log(`⚠️  ${mepsNoId.length} MEPs without IDs (new/replacement MEPs)`);
   
-  const mepsIdentity = mepsValid.map(mep => ({
-    mep_id: String(mep.mep_id),
+  // Include ALL MEPs, but handle missing IDs gracefully
+  const mepsIdentity = mepsWithId.map(mep => ({
+    mep_id: mep.mep_id ? String(mep.mep_id) : null,
     name: normalizeText(mep.name),
     country: normalizeText(mep.country),
     party: normalizeText(mep.party),

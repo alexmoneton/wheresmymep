@@ -39,6 +39,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Adina-Ioana Vălean",
+    "country": "Romania",
+    "party": "",
+    "national_party": "National Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718281621016%2020240611%20VALEAN%20Adina-Ioana%20RO%20011.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257087",
     "name": "Adnan Dibrani",
     "country": "Sweden",
@@ -49,6 +62,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1199,
     "attendance_pct": 98.7,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Adrian Axinia",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Alliance for the Union of Romanians",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Adrian-George%20Axinia%20MEP%20%282024%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -260,6 +286,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Alice Bah Kuhnke",
+    "country": "Sweden",
+    "party": "",
+    "national_party": "Green Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Alice%20Bah%20Kuhnke%202014-12-17%20001.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257089",
     "name": "Alice Teodorescu Måwe",
     "country": "Sweden",
@@ -325,6 +364,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Ana Martins",
+    "country": "Portugal",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718797445440%2020240618%20VASCONCELOS%20MARTINS%20Ana%20PT%20034.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "110673",
     "name": "Ana Miguel Pedro",
     "country": "Portugal",
@@ -361,6 +413,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1055,
     "attendance_pct": 86.8,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Andi-Lucian Cristea",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Social Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Andi%20Cristea.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -442,6 +507,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Andrius Kubilius",
+    "country": "Lithuania",
+    "party": "",
+    "national_party": "Homeland Union – Lithuanian Christian Democrats",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Andrius%20Kubilius%202025%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257051",
     "name": "Andrzej Buła",
     "country": "Poland",
@@ -478,6 +556,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1059,
     "attendance_pct": 87.2,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "András Kulja",
+    "country": "Hungary",
+    "party": "",
+    "national_party": "Respect and Freedom Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Andr%C3%A1s%20Kulja%20MEP%20%282024%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -1053,6 +1144,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Beatrice Rugland Timgren",
+    "country": "Sweden",
+    "party": "",
+    "national_party": "Sweden Democrats",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718281287819%2020240612%20RUGLAND%20TIMGREN%20Beatrice%20SE%20007.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257139",
     "name": "Benedetta Scuderi",
     "country": "Italy",
@@ -1063,6 +1167,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1200,
     "attendance_pct": 98.8,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Benoît Cassart",
+    "country": "Belgium",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718636479120%2020240612%20CASSART%20Benoit%20BE%2006B.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -1141,6 +1258,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1206,
     "attendance_pct": 99.3,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Bogdan Zdrojewski",
+    "country": "Poland",
+    "party": "",
+    "national_party": "Civic Platform",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Sv%C4%9Bt%20knihy%202010%20-%20Bogdan%20Zdrojewski.JPG",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -1430,6 +1560,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Chiara Maria Gemma",
+    "country": "Italy",
+    "party": "",
+    "national_party": "Brothers of Italy",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/MEP%20Chiara%20Gemma.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256904",
     "name": "Chloé Ridel",
     "country": "France",
@@ -1599,6 +1742,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Claudiu Târziu",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Alliance for the Union of Romanians",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Claudiu%20T%C3%A2rziu%20-%202025%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Cristian Terheș",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Romanian National Conservative Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/MEP%20Cristian%20Terhe%C8%99%202024.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257130",
     "name": "Cristina Guarda",
     "country": "Italy",
@@ -1677,6 +1846,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "César Luena López",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Spanish Socialist Workers' Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718718621837%2020240611%20LUENA%20Cesar%20ES%20001.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256807",
     "name": "Dainius Žalimas",
     "country": "Lithuania",
@@ -1726,6 +1908,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1110,
     "attendance_pct": 91.4,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Dan Motreanu",
+    "country": "Romania",
+    "party": "",
+    "national_party": "National Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718281651079%2020240612%20MOTREANU%20Dan%20Stefan%20RO%20009.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -1976,6 +2171,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Diana Riba Giner",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Republican Left of Catalonia",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Concentraci%C3%B3%20a%20la%20pres%C3%B3%20de%20Lledoners%20DC85293%20%2842578734314%29%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Diana Șoșoacă",
+    "country": "Romania",
+    "party": "S.O.S. Romania Party",
+    "national_party": "S.O.S. Romania Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Diana%20%C8%98o%C8%99oac%C4%83%20%281%20July%202024%29%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257091",
     "name": "Dick Erixon",
     "country": "Sweden",
@@ -2028,6 +2249,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Dolors Montserrat i Montserrat",
+    "country": "Spain",
+    "party": "",
+    "national_party": "People's Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Dolors%20Montserrat%202025%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Domenico Lucano",
+    "country": "Italy",
+    "party": "",
+    "national_party": "independent politician",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Domenico%20Lucano.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "204346",
     "name": "Dominik Tarczyński",
     "country": "Poland",
@@ -2038,6 +2285,19 @@
     "votes_total_period": 1215,
     "votes_cast": 709,
     "attendance_pct": 58.4,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Dragoș Benea",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Social Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1719323347652%2020240625%20BENEA%20Adrian%20Dragos%20RO%20005.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -2158,6 +2418,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Elisabeth Dieringer-Granza",
+    "country": "Austria",
+    "party": "",
+    "national_party": "Austrian Freedom Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1719559916018%2020240627%20DIERINGER%20Elisabeth%20AT%20012.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256830",
     "name": "Elisabeth Grossmann",
     "country": "Austria",
@@ -2184,6 +2457,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Eliza Vozemberg",
+    "country": "Greece",
+    "party": "",
+    "national_party": "New Democracy",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718698396446%2020190604%20VOZEMBERG%20Elissavet%20EL%206.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "191693",
     "name": "Elsi Katainen",
     "country": "Finland",
@@ -2194,6 +2480,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1119,
     "attendance_pct": 92.1,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Elżbieta Łukacijewska",
+    "country": "Poland",
+    "party": "",
+    "national_party": "Civic Platform",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/ElzbietaLukacijewska.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -2246,6 +2545,32 @@
     "votes_total_period": 1215,
     "votes_cast": 931,
     "attendance_pct": 76.6,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Emmanouíl Fragkos",
+    "country": "Greece",
+    "party": "",
+    "national_party": "Greek Solution",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Emmanouil%20Fragkos%20MEP%20%282019%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Engin Eroğlu",
+    "country": "Germany",
+    "party": "",
+    "national_party": "Free Voters",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Engin%20Eroglu%2C%20Landesvorsitzender%20FREIE%20W%C3%84HLER%20Hessen.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -2665,6 +2990,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Gabriel Mato Adrover",
+    "country": "Spain",
+    "party": "",
+    "national_party": "People's Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718718492678%201649591737843%2020200203%20MATO%20Gabriel%20ES%20019.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257098",
     "name": "Gabriela Firea",
     "country": "Romania",
@@ -2701,6 +3039,19 @@
     "votes_total_period": 1215,
     "votes_cast": 751,
     "attendance_pct": 61.8,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Gaetano Pedullà",
+    "country": "Italy",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1720176569619%2020240705%20PEDULLA%20Gaetano%20IT%20019.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -2873,6 +3224,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Giorgos Aftias",
+    "country": "Greece",
+    "party": "",
+    "national_party": "New Democracy",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718798627855%2020240618%20AFTIAS%20Georgios%20EL%20002.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "197416",
     "name": "Giorgos Georgiou",
     "country": "Cyprus",
@@ -2935,6 +3299,32 @@
     "votes_total_period": 1215,
     "votes_cast": 475,
     "attendance_pct": 39.1,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Giuseppina Picierno",
+    "country": "Italy",
+    "party": "",
+    "national_party": "Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Giuseppina%20Picierno%20daticamera.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Giuseppina Princi",
+    "country": "Italy",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1720443647730%2020240708%20PRINCI%20Giuseppina%20IT%20021.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -3133,6 +3523,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Henna Virkkunen",
+    "country": "Finland",
+    "party": "",
+    "national_party": "National Coalition Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718869849735%2020240619%20VIRKKUNEN%20Henna%20FI%20008.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257028",
     "name": "Henrik Dahl",
     "country": "Kingdom of Denmark",
@@ -3224,6 +3627,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Idoia Mendia Cueva",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Socialist Party of the Basque Country – Basque Country Left",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Foto%20perfil%20Vicelehendakari%20Idoia.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Ignazio Marino",
+    "country": "Italy",
+    "party": "",
+    "national_party": "Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Ignazio%20Marino%20-%20Festivaletteratura%202012%2001.JPG",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257127",
     "name": "Ilaria Salis",
     "country": "Italy",
@@ -3234,6 +3663,32 @@
     "votes_total_period": 1215,
     "votes_cast": 1197,
     "attendance_pct": 98.5,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Ilhan Kyuchuk",
+    "country": "Bulgaria",
+    "party": "",
+    "national_party": "Movement for Rights and Freedoms",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Ilhan%20Kyuchyuk.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Iliya Lazarov",
+    "country": "Bulgaria",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718705210498%2020240617%20LAZAROV%20Ilia%20BG%20008.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -3260,6 +3715,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1206,
     "attendance_pct": 99.3,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Ioannis Maniatis",
+    "country": "Greece",
+    "party": "",
+    "national_party": "Panhellenic Socialist Movement",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718289219610%2020240611%20MANIATIS%20Ioannis%20EL%2005.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -3341,6 +3809,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Isabel Wiseler-Santos Lima",
+    "country": "Luxembourg",
+    "party": "",
+    "national_party": "Christian Social People's Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718810238391%2020240619%20WISELER-LIMA%20Isabel%20LU%20011.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "96675",
     "name": "Isabella Lövin",
     "country": "Sweden",
@@ -3393,6 +3874,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Iulian Claudiu Manda",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Social Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Claudiu%20Manda%201721733549073%2020240723%20EP-171140A%20DE1%20EG%2070%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "39725",
     "name": "Iuliu Winkler",
     "country": "Romania",
@@ -3429,6 +3923,19 @@
     "votes_total_period": 1215,
     "votes_cast": 865,
     "attendance_pct": 71.2,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Ivaylo Vulchev",
+    "country": "Bulgaria",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718705240687%2020240617%20VALCHEV%20Ivaylo%20BG%20007.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -3614,6 +4121,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Javier López Fernández",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Socialists' Party of Catalonia",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Javi%20L%C3%B3pez%2C%20Plenari%20del%20Parlament%20Europeu%20%28Estrasburg%29.png",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "28347",
     "name": "Javier Moreno Sánchez",
     "country": "Spain",
@@ -3741,6 +4261,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1204,
     "attendance_pct": 99.1,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Joachim Brudziński",
+    "country": "Poland",
+    "party": "",
+    "national_party": "Law and Justice",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Joachim%20Brudzi%C5%84ski%202008.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -4238,6 +4771,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Klára Dostálová",
+    "country": "Czech Republic",
+    "party": "",
+    "national_party": "ANO 2011",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718282852630%2020240611%20DOSTALOVA%20Klara%20CZ%20005.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Konstantinos Papadakis",
+    "country": "Greece",
+    "party": "",
+    "national_party": "Communist Party of Greece",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1719323469891%2020240625%20PAPADAKIS%20Konstantinos%20EL%20011.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "124884",
     "name": "Kosma Złotowski",
     "country": "Poland",
@@ -4248,6 +4807,32 @@
     "votes_total_period": 1215,
     "votes_cast": 1204,
     "attendance_pct": 99.1,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Kostas Arvanitis",
+    "country": "Greece",
+    "party": "",
+    "national_party": "SYRIZA",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718798627499%2020240618%20ARVANITIS%20Konstantinos%20EL%20007.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Kostas Mavrides",
+    "country": "Cyprus",
+    "party": "",
+    "national_party": "Democratic Party (Cyprus)",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/MEP%20Costas%20Mavrides.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -4274,6 +4859,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1105,
     "attendance_pct": 90.9,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Kristoffer Hjort Storm",
+    "country": "Kingdom of Denmark",
+    "party": "",
+    "national_party": "Denmark Democrats - Inger Støjberg",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718282771483%2020240612%20STORM%20Kristoffer%20DK%20008.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -4472,6 +5070,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Leïla Chaibi",
+    "country": "France",
+    "party": "",
+    "national_party": "La France insoumise",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Portrait%20de%20Le%C3%AFla%20Chaibi%20en%202020.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256805",
     "name": "Li Andersson",
     "country": "Finland",
@@ -4498,6 +5109,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Lina Gálvez Muñoz",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Spanish Socialist Workers' Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Lina%20G%C3%A1lvez%20Mu%C3%B1oz%202018%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "98582",
     "name": "Loránt Vincze",
     "country": "Romania",
@@ -4508,6 +5132,32 @@
     "votes_total_period": 1215,
     "votes_cast": 1005,
     "attendance_pct": 82.7,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Loukas Fourlas",
+    "country": "Cyprus",
+    "party": "",
+    "national_party": "Democratic Rally",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/MEP%20Loukas%20Fourlas.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Luboš Blaha",
+    "country": "Slovakia",
+    "party": "",
+    "national_party": "Direction – Social Democracy",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1721116438621%2020240716%20BLAHA%20Lubos%20SK%20005.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -4550,6 +5200,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Luis Lazarus",
+    "country": "Romania",
+    "party": "",
+    "national_party": "S.O.S. Romania Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718870277777%2020240619%20LAZARUS%20Luis%20Vicentiu%20RO%20009.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "190713",
     "name": "Lukas Mandl",
     "country": "Austria",
@@ -4573,6 +5236,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1139,
     "attendance_pct": 93.7,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Luke 'Ming' Flanagan",
+    "country": "Ireland",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Luke%20%27Ming%27%20Flanagan%20Strokestown%202011.png",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -4628,6 +5304,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Majdouline Sbaï",
+    "country": "France",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718282655426%2020240612%20SBAI%20Majdouline%20FR%20010.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "197781",
     "name": "Malik Azmani",
     "country": "Kingdom of the Netherlands",
@@ -4664,6 +5353,19 @@
     "votes_total_period": 1215,
     "votes_cast": 808,
     "attendance_pct": 66.5,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Manolis Kefalogiannis",
+    "country": "Greece",
+    "party": "",
+    "national_party": "New Democracy",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1652013475271%2020190926%20EP-092234A%20WME%20416.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -5278,6 +5980,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Mary Khan-Hohloch",
+    "country": "Germany",
+    "party": "",
+    "national_party": "Young Alternative for Germany",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718704738470%2020240617%20KHAN%20Mary%20DE%20007.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "María Esther Herranz García",
+    "country": "Spain",
+    "party": "",
+    "national_party": "People's Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718810508506%2020240619%20HERRANZ%20GARCIA%20Esther%20ES%20006.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "125670",
     "name": "Massimiliano Salini",
     "country": "Italy",
@@ -5460,6 +6188,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Michalis Catzipantela",
+    "country": "Cyprus",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/MEP%20Michalis%20Hatzipantelas.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "257037",
     "name": "Michał Kobosko",
     "country": "Poland",
@@ -5574,6 +6315,19 @@
     "votes_total_period": 1215,
     "votes_cast": 922,
     "attendance_pct": 75.9,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Mircea Hava",
+    "country": "Romania",
+    "party": "",
+    "national_party": "National Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718799078557%2020240618%20HAVA%20Mircea%20Gheorghe%20RO%20005.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -5980,6 +6734,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Nikos Anadiotis",
+    "country": "Greece",
+    "party": "",
+    "national_party": "Victory",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1719994675204%2020240703%20ANADIOTIS%20Nikolaos%20EL%20010%20MOBILE.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256952",
     "name": "Nikos Pappas",
     "country": "Greece",
@@ -6055,6 +6822,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1193,
     "attendance_pct": 98.2,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Níkos Papandréou",
+    "country": "Greece",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718289251061%2020240612%20PAPANDREOU%20Nikos%20EL%2004.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -6396,6 +7176,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Petŭr Volgin",
+    "country": "Bulgaria",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718798517361%2020240618%20VOLGIN%20Petar%20BG%20006.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "197687",
     "name": "Philippe Olivier",
     "country": "France",
@@ -6640,6 +7433,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1211,
     "attendance_pct": 99.7,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Rareș Bogdan",
+    "country": "Romania",
+    "party": "",
+    "national_party": "National Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Rare%C8%99%20Bogdan%20-%2001.03.2024%20Vizita%20Pre%C8%99edintelui%20Senatului%20Rom%C3%A2niei%2C%20Nicolae-Ionel%20Ciuc%C4%83%2C%20%C3%AEn%20Republica%20Moldova%20-%2053561002106.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -6929,6 +7735,32 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Rosa María Serrano Sierra",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Spanish Socialist Workers' Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718810567665%2020240619%20SERRANO%20SIERRA%20Rosa%20Maria%20ES%20009.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Roxana Mînzatu",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Social Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C3%AEnzatu%20EC%20Portrait%202024.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256890",
     "name": "Rudi Kennes",
     "country": "Belgium",
@@ -7098,6 +7930,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Saraswati Matthieu",
+    "country": "Belgium",
+    "party": "",
+    "national_party": "Groen",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Saraswati%20Matthieu%202022.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "197470",
     "name": "Saskia Bricmont",
     "country": "Belgium",
@@ -7225,6 +8070,45 @@
     "votes_total_period": 1215,
     "votes_cast": 228,
     "attendance_pct": 18.8,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Siegbert Droese",
+    "country": "Germany",
+    "party": "",
+    "national_party": "Alternative for Germany",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1720623956644%2020240710%20DROESE%20Siegbert%20Frank%20DE%20008.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Siegfried Mureșan",
+    "country": "Romania",
+    "party": "",
+    "national_party": "National Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718698107626%2020240617%20MURESAN%20Siegfried%20RO%20004.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Sigrid Friis Proschowsky",
+    "country": "Kingdom of Denmark",
+    "party": "",
+    "national_party": "Danish Social Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/A%20photo%20of%20Sigrid%20Friis%20%28cropped%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -7982,6 +8866,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Vicent Marzà i Ibàñez",
+    "country": "Spain",
+    "party": "",
+    "national_party": "Valencian Nationalist Bloc",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1721744697984%2020240618%20MARZA%20IBANEZ%20Vicent%20ES%200052.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "88882",
     "name": "Victor Negrescu",
     "country": "Romania",
@@ -8060,6 +8957,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Virgil Popescu",
+    "country": "Romania",
+    "party": "",
+    "national_party": "National Liberal Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Virgil-Daniel%20Popescu%20MEP%20%282024%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "197627",
     "name": "Virginie Joron",
     "country": "France",
@@ -8099,6 +9009,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Vlad Voiculescu",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Save Romania Union",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718281726080%2020240611%20VASILE%20VOICULESCU%20Vlad%20RO%20006.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "256813",
     "name": "Vladimir Prebilič",
     "country": "Slovenia",
@@ -8122,6 +9045,19 @@
     "votes_total_period": 1215,
     "votes_cast": 829,
     "attendance_pct": 68.2,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Vytenis Andriukaitis",
+    "country": "Lithuania",
+    "party": "",
+    "national_party": "Social Democratic Party of Lithuania",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Vytenis%20Povilas%20Andriukaitis.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -8161,6 +9097,19 @@
     "votes_total_period": 1215,
     "votes_cast": 1141,
     "attendance_pct": 93.9,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Yana Toom",
+    "country": "Estonia",
+    "party": "",
+    "national_party": "Estonian Centre Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Yana%20Toom%20-%20Estonian%20part%20-%20Citizens%E2%80%99%20Corner%20debate%20on%20fighting%20against%20terrorism%20%2830982427090%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
@@ -8229,6 +9178,19 @@
     "partial_term": false
   },
   {
+    "mep_id": null,
+    "name": "Éric Sargiacomo",
+    "country": "France",
+    "party": "",
+    "national_party": "Socialist Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718798729050%2020240618%20SARGIACOMO%20Eric%20FR%20008.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
     "mep_id": "197468",
     "name": "Özlem Demirel",
     "country": "Germany",
@@ -8291,6 +9253,32 @@
     "votes_total_period": 1215,
     "votes_cast": 800,
     "attendance_pct": 65.8,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Șerban-Dimitrie Sturdza",
+    "country": "Romania",
+    "party": "",
+    "national_party": "",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/%C8%98erban-Dimitrie%20Sturdza%20MEP%20%282024%29.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
+  },
+  {
+    "mep_id": null,
+    "name": "Ștefan Mușoiu",
+    "country": "Romania",
+    "party": "",
+    "national_party": "Social Democratic Party",
+    "profile_url": "",
+    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/%C8%98tefan%20Mu%C8%99oiu%2C%20portret%20oficial%202025.jpg",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   }
 ]
