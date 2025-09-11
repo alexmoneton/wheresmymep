@@ -165,9 +165,15 @@ export function getLeaderboardBottom(n: number = 25): EnrichedMEP[] {
       // Exclude MEPs with special roles (like President) from bottom leaderboard
       if (mep.special_role) return false;
       
-      // Only include MEPs with valid IDs and who have had a reasonable chance to vote
+      // Exclude MEPs without IDs (new/replacement MEPs like Jaroslav Knot)
+      if (!mep.mep_id) return false;
+      
+      // Exclude MEPs with partial terms (they haven't had a fair chance to vote)
+      if (mep.partial_term) return false;
+      
+      // Only include MEPs who have had a reasonable chance to vote
       // Exclude MEPs with very few total votes (likely new/replacement MEPs)
-      return mep.mep_id && (mep.votes_total_period || 0) > 100;
+      return (mep.votes_total_period || 0) > 100;
     })
     .sort((a, b) => (a.attendance_pct || 0) - (b.attendance_pct || 0))
     .slice(0, n);
