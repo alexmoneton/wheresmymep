@@ -39,6 +39,7 @@ export type NotableVote = VoteCatalog & {
 
 export type EnrichedMEP = MEPIdentity & Partial<MEPAttendance> & {
   special_role?: string; // e.g., "President", "Vice-President", etc.
+  sick_leave?: boolean; // MEP is on sick leave
 };
 
 // Global data storage
@@ -47,7 +48,7 @@ let notableByMep: Record<string, NotableVote[]> = {};
 let votesCatalog: VoteCatalog[] = [];
 let votesCatalogMap: Record<string, VoteCatalog> = {};
 
-// Function to identify special roles
+// Function to identify special roles and status
 function getSpecialRole(mep: MEPIdentity): string | undefined {
   // President of the European Parliament
   if (mep.name === 'Roberta Metsola') {
@@ -58,6 +59,18 @@ function getSpecialRole(mep: MEPIdentity): string | undefined {
   // Vice-Presidents, Committee Chairs, etc.
   
   return undefined;
+}
+
+// Function to identify MEPs on sick leave
+function isOnSickLeave(mep: MEPIdentity): boolean {
+  // Anja Hazekamp is on sick leave due to breast cancer
+  if (mep.name === 'Anja Hazekamp') {
+    return true;
+  }
+  
+  // Add other MEPs on sick leave as needed
+  
+  return false;
 }
 
 // Load JSON data from public directory
@@ -81,10 +94,11 @@ export function loadData(): void {
   mepsEnriched = loadJSON<EnrichedMEP[]>(path.join(publicDataDir, 'meps.json'));
   console.log(`📊 Loaded ${mepsEnriched.length} enriched MEPs`);
   
-  // Add special roles to MEPs
+  // Add special roles and sick leave status to MEPs
   mepsEnriched = mepsEnriched.map(mep => ({
     ...mep,
-    special_role: getSpecialRole(mep)
+    special_role: getSpecialRole(mep),
+    sick_leave: isOnSickLeave(mep)
   }));
   
   // Load votes catalog
@@ -164,6 +178,9 @@ export function getLeaderboardBottom(n: number = 25): EnrichedMEP[] {
     .filter(mep => {
       // Exclude MEPs with special roles (like President) from bottom leaderboard
       if (mep.special_role) return false;
+      
+      // Exclude MEPs on sick leave (like Anja Hazekamp)
+      if (mep.sick_leave) return false;
       
       // Exclude MEPs without IDs (new/replacement MEPs like Jaroslav Knot)
       if (!mep.mep_id) return false;

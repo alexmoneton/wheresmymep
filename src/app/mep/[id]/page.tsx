@@ -20,6 +20,7 @@ interface MEP {
   attendance_pct?: number;
   partial_term?: boolean;
   special_role?: string;
+  sick_leave?: boolean;
 }
 
 interface NotableVote {
@@ -192,10 +193,10 @@ export default function MEPProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">
-                {mep.special_role ? 'N/A' : (mep.attendance_pct !== undefined ? `${mep.attendance_pct}%` : 'N/A')}
+                {mep.special_role ? 'N/A' : mep.sick_leave ? 'N/A' : (mep.attendance_pct !== undefined ? `${mep.attendance_pct}%` : 'N/A')}
               </div>
               <div className="text-sm text-gray-600">
-                {mep.special_role ? 'Doesn\'t usually vote' : 'Overall Attendance'}
+                {mep.special_role ? 'Doesn\'t usually vote' : mep.sick_leave ? 'On sick leave' : 'Overall Attendance'}
               </div>
             </div>
             
@@ -213,6 +214,15 @@ export default function MEPProfilePage() {
               <div className="text-sm text-gray-600">Total Votes</div>
             </div>
           </div>
+          
+          {mep.sick_leave && (
+            <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-md">
+              <p className="text-purple-800 text-sm">
+                <strong>On Sick Leave:</strong> This MEP is currently on sick leave and unable to attend votes. 
+                Their attendance data reflects this period and should not be considered representative of their normal performance.
+              </p>
+            </div>
+          )}
           
           {!mep.mep_id && (
             <div className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-md">
@@ -292,7 +302,11 @@ export default function MEPProfilePage() {
             </p>
           </div>
           
-          {!mep.mep_id ? (
+          {mep.sick_leave ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500">This MEP is currently on sick leave and doesn&apos;t have recent voting data.</p>
+            </div>
+          ) : !mep.mep_id ? (
             <div className="text-center py-8">
               <p className="text-gray-500">This MEP doesn&apos;t have voting data yet as they recently started their term.</p>
             </div>
