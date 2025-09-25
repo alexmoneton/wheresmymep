@@ -21,6 +21,11 @@ interface MEP {
 }
 
 export default function LeaderboardPage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const [meps, setMeps] = useState<MEP[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<'attendance_pct' | 'name' | 'country'>('attendance_pct');

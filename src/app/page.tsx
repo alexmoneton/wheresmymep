@@ -22,6 +22,11 @@ interface MEP {
 }
 
 export default function HomePage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<MEP[]>([]);
   const [isSearching, setIsSearching] = useState(false);

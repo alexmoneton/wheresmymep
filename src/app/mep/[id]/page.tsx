@@ -40,6 +40,11 @@ interface NotableVote {
 }
 
 export default function MEPProfilePage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const params = useParams();
   const mepId = params.id as string;
   

@@ -13,6 +13,11 @@ interface Signup {
 }
 
 export default function AdminSignupsPage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const [signups, setSignups] = useState<Signup[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
