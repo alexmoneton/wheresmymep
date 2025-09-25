@@ -98,7 +98,7 @@ export default function DataLicensePage() {
           <h3>For API Usage</h3>
           <p>
             API users should include:
-          </li>
+          </p>
           <ul>
             <li>Clear attribution in any public-facing applications</li>
             <li>Link to our platform in data visualizations or reports</li>
