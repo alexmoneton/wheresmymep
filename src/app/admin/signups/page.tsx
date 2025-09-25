@@ -1,16 +1,25 @@
-'use client';
+import { Metadata } from 'next';
 
-// Force dynamic rendering to avoid static generation issues
 export const dynamic = 'force-dynamic';
 
-import dynamic from 'next/dynamic';
-
-// Dynamically import the component to prevent build-time execution
-const AdminSignupsContent = dynamic(() => import('./AdminSignupsContent'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>
-});
+export const metadata: Metadata = {
+  title: 'Admin Signups | Where\'s My MEP?',
+  description: 'Admin panel for managing notification signups',
+};
 
 export default function AdminSignupsPage() {
-  return <AdminSignupsContent />;
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+            Admin Signups
+          </h1>
+          <p className="text-gray-600">
+            This page is currently under maintenance. Please check back later.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
