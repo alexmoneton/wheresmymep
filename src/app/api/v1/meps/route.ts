@@ -30,10 +30,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Check rate limit
-    const { success, limit, reset, remaining } = await ratelimit.limit(`api:${user.id}`);
+    const { success, limit: rateLimit, reset, remaining } = await ratelimit.limit(`api:${user.id}`);
     if (!success) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded', limit, reset, remaining },
+        { error: 'Rate limit exceeded', limit: rateLimit, reset, remaining },
         { status: 429 }
       );
     }
