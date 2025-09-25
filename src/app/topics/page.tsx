@@ -1,58 +1,25 @@
 import { Metadata } from 'next';
-import { PrismaClient } from '@prisma/client';
-import { generatePageSEO } from '@/app/seo.config';
-import { generateCollectionPageJSONLD } from '@/lib/seo/jsonld';
-import TopicsClientPage from './TopicsClientPage';
 
-const prisma = new PrismaClient();
+export const dynamic = 'force-dynamic';
 
-export const revalidate = 43200; // 12 hours
+export const metadata: Metadata = {
+  title: 'Policy Topics | Where\'s My MEP?',
+  description: 'View MEP rankings and voting patterns by policy area in the European Parliament',
+};
 
-async function getTopics() {
-  return await prisma.topic.findMany({
-    orderBy: {
-      name: 'asc',
-    },
-  });
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'Policy Topics - MEP Rankings | Where\'s My MEP?',
-    'Explore MEP rankings and voting patterns across different policy topics. Track how Members of the European Parliament vote on climate, energy, migration, digital policy, and more.',
-    '/topics'
-  );
-
-  return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
-  };
-}
-
-export default async function TopicsPage() {
-  const topics = await getTopics();
-
-  // Generate JSON-LD
-  const jsonld = generateCollectionPageJSONLD(
-    {
-      name: 'Policy Topics - MEP Rankings',
-      description: 'MEP rankings and voting patterns across different policy areas in the European Parliament',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'}/topics`,
-      numberOfItems: topics.length,
-    },
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'
-  );
-
+export default function TopicsPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-      />
-      <TopicsClientPage topics={topics} />
-    </>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+            Policy Topics
+          </h1>
+          <p className="text-gray-600">
+            This page is currently under maintenance. Please check back later.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
