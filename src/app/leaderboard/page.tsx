@@ -21,6 +21,10 @@ interface MEP {
 }
 
 function LeaderboardPageContent() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
 
   const [meps, setMeps] = useState<MEP[]>([]);
   const [loading, setLoading] = useState(true);

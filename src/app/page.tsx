@@ -22,6 +22,10 @@ interface MEP {
 }
 
 function HomePageContent() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<MEP[]>([]);

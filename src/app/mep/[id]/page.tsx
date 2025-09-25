@@ -40,6 +40,10 @@ interface NotableVote {
 }
 
 function MEPProfilePageContent() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
 
   const params = useParams();
   const mepId = params.id as string;
