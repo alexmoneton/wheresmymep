@@ -21,11 +21,7 @@ interface MEP {
   special_role?: string;
 }
 
-export default function HomePage() {
-  // Prevent rendering during build time
-  if (typeof window === 'undefined') {
-    return null;
-  }
+function HomePageContent() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<MEP[]>([]);
@@ -504,4 +500,13 @@ export default function HomePage() {
       </footer>
     </div>
   );
+}
+
+export default function HomePage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
+
+  return <HomePageContent />;
 }

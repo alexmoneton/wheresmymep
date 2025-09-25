@@ -20,11 +20,7 @@ interface MEP {
   special_role?: string;
 }
 
-export default function LeaderboardPage() {
-  // Prevent rendering during build time
-  if (typeof window === 'undefined') {
-    return null;
-  }
+function LeaderboardPageContent() {
 
   const [meps, setMeps] = useState<MEP[]>([]);
   const [loading, setLoading] = useState(true);
@@ -345,4 +341,13 @@ export default function LeaderboardPage() {
       </div>
     </div>
   );
+}
+
+export default function LeaderboardPage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
+
+  return <LeaderboardPageContent />;
 }

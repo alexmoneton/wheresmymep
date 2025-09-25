@@ -39,11 +39,7 @@ interface NotableVote {
   source_url: string;
 }
 
-export default function MEPProfilePage() {
-  // Prevent rendering during build time
-  if (typeof window === 'undefined') {
-    return null;
-  }
+function MEPProfilePageContent() {
 
   const params = useParams();
   const mepId = params.id as string;
@@ -389,4 +385,13 @@ export default function MEPProfilePage() {
       </main>
     </div>
   );
+}
+
+export default function MEPProfilePage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
+
+  return <MEPProfilePageContent />;
 }

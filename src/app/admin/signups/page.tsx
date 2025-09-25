@@ -12,11 +12,7 @@ interface Signup {
   id: string;
 }
 
-export default function AdminSignupsPage() {
-  // Prevent rendering during build time
-  if (typeof window === 'undefined') {
-    return null;
-  }
+function AdminSignupsContent() {
 
   const [signups, setSignups] = useState<Signup[]>([]);
   const [loading, setLoading] = useState(true);
@@ -150,4 +146,13 @@ export default function AdminSignupsPage() {
       </div>
     </div>
   );
+}
+
+export default function AdminSignupsPage() {
+  // Prevent rendering during build time
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
+
+  return <AdminSignupsContent />;
 }
