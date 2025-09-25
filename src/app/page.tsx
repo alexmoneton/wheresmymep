@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
 import SpecialRoleBadge from '@/components/SpecialRoleBadge';
+import Navigation from '@/components/Navigation';
 
 interface MEP {
   id: string;
@@ -148,6 +149,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -407,25 +410,86 @@ export default function HomePage() {
         )}
       </div>
 
-      {/* Methodology */}
-      <div className="mt-8 bg-blue-50 rounded-lg p-6">
+        {/* Internal Links */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Link 
+            href="/committees"
+            className="p-6 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow"
+          >
+            <h3 className="text-lg font-semibold text-blue-600 mb-2">Committees</h3>
+            <p className="text-sm text-gray-600">Explore parliamentary committees and their members</p>
+          </Link>
+          <Link 
+            href="/topics"
+            className="p-6 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow"
+          >
+            <h3 className="text-lg font-semibold text-blue-600 mb-2">Policy Topics</h3>
+            <p className="text-sm text-gray-600">View MEP rankings by policy area</p>
+          </Link>
+          <Link 
+            href="/rankings"
+            className="p-6 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow"
+          >
+            <h3 className="text-lg font-semibold text-blue-600 mb-2">All Rankings</h3>
+            <p className="text-sm text-gray-600">Comprehensive MEP performance rankings</p>
+          </Link>
+        </div>
+
+        {/* Methodology */}
+        <div className="mt-8 bg-blue-50 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-2">
             Methodology
           </h3>
           <p className="text-sm text-blue-800">
             Attendance is calculated based on roll-call votes in the European Parliament over the last 180 days. 
             Abstaining counts as present; not voting counts as absent. Some MEPs may have partial terms 
-            affecting their attendance percentage.
+            affecting their attendance percentage. <Link href="/methodology" className="text-blue-600 hover:text-blue-800 underline">Learn more about our methodology</Link>.
           </p>
         </div>
       </main>
 
       {/* Footer */}
       <footer className="bg-white border-t mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center text-sm text-gray-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Platform</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><Link href="/meps" className="hover:text-blue-600">All MEPs</Link></li>
+                <li><Link href="/committees" className="hover:text-blue-600">Committees</Link></li>
+                <li><Link href="/topics" className="hover:text-blue-600">Policy Topics</Link></li>
+                <li><Link href="/rankings" className="hover:text-blue-600">Rankings</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Resources</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><Link href="/about" className="hover:text-blue-600">About</Link></li>
+                <li><Link href="/methodology" className="hover:text-blue-600">Methodology</Link></li>
+                <li><Link href="/data-license" className="hover:text-blue-600">Data License</Link></li>
+                <li><Link href="/pricing" className="hover:text-blue-600">Pricing</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Features</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><Link href="/alerts" className="hover:text-blue-600">Alerts</Link></li>
+                <li><Link href="/api-keys" className="hover:text-blue-600">API Access</Link></li>
+                <li><Link href="/export" className="hover:text-blue-600">Data Export</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-4">Data Sources</h3>
+              <p className="text-sm text-gray-600">
+                European Parliament roll-call votes<br />
+                HowTheyVote.eu processed data<br />
+                Official committee records
+              </p>
+            </div>
+          </div>
+          <div className="border-t mt-8 pt-8 text-center text-sm text-gray-600">
             <p>
-              Data source: HowTheyVote.eu • European Parliament roll-call votes
+              © 2024 Where's My MEP? • Increasing transparency in the European Parliament
             </p>
           </div>
         </div>

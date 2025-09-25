@@ -1,8 +1,11 @@
+'use client';
+
 interface CountryFlagProps {
   country: string;
   className?: string;
 }
 
+// Simple country flag emoji mapping
 const countryFlags: Record<string, string> = {
   'Austria': '🇦🇹',
   'Belgium': '🇧🇪',
@@ -31,22 +34,14 @@ const countryFlags: Record<string, string> = {
   'Slovenia': '🇸🇮',
   'Spain': '🇪🇸',
   'Sweden': '🇸🇪',
-  'United Kingdom': '🇬🇧',
-  'Kingdom of Denmark': '🇩🇰',
-  'Kingdom of the Netherlands': '🇳🇱',
-  'German Democratic Republic': '🇩🇪',
-  'Polish People\'s Republic': '🇵🇱',
-  'Socialist Federal Republic of Yugoslavia': '🇷🇸',
-  'Soviet Union': '🇷🇺',
-  'State of Palestine': '🇵🇸',
-  'Tunisia': '🇹🇳',
-  'Algeria': '🇩🇿',
-  'Morocco': '🇲🇦',
-  'Bosnia and Herzegovina': '🇧🇦',
-  'United States': '🇺🇸',
 };
 
 export default function CountryFlag({ country, className = '' }: CountryFlagProps) {
   const flag = countryFlags[country] || '🏳️';
-  return <span className={className}>{flag}</span>;
+  
+  return (
+    <span className={className} title={country}>
+      {flag}
+    </span>
+  );
 }
