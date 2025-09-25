@@ -1,82 +1,25 @@
 import { Metadata } from 'next';
-import { PrismaClient } from '@prisma/client';
-import { generatePageSEO } from '@/app/seo.config';
-import { generateCollectionPageJSONLD } from '@/lib/seo/jsonld';
-import DossiersClientPage from './DossiersClientPage';
 
-const prisma = new PrismaClient();
+export const dynamic = 'force-dynamic';
 
-export const revalidate = 43200; // 12 hours
+export const metadata: Metadata = {
+  title: 'Legislative Dossiers | Where\'s My MEP?',
+  description: 'Explore legislative dossiers and voting records in the European Parliament',
+};
 
-async function getDossiers() {
-  return await prisma.dossier.findMany({
-    include: {
-      votes: {
-        include: {
-          mepVotes: {
-            include: {
-              mep: {
-                include: {
-                  country: true,
-                  party: true,
-                },
-              },
-            },
-          },
-        },
-        orderBy: {
-          date: 'desc',
-        },
-      },
-      tags: {
-        include: {
-          tag: true,
-        },
-      },
-    },
-    orderBy: {
-      title: 'asc',
-    },
-  });
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'Legislative Dossiers - European Parliament Proposals | Where\'s My MEP?',
-    'Explore current legislative dossiers and proposals in the European Parliament. Track the progress of key policy initiatives and see how MEPs vote on important legislation.',
-    '/dossiers'
-  );
-
-  return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
-  };
-}
-
-export default async function DossiersPage() {
-  const dossiers = await getDossiers();
-
-  // Generate JSON-LD
-  const jsonld = generateCollectionPageJSONLD(
-    {
-      name: 'Legislative Dossiers',
-      description: 'Current legislative proposals and dossiers in the European Parliament',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'}/dossiers`,
-      numberOfItems: dossiers.length,
-    },
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'
-  );
-
+export default function DossiersPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-      />
-      <DossiersClientPage dossiers={dossiers} />
-    </>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+            Legislative Dossiers
+          </h1>
+          <p className="text-gray-600">
+            This page is currently under maintenance. Please check back later.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

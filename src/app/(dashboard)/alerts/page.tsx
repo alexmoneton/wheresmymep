@@ -1,25 +1,25 @@
 import { Metadata } from 'next';
-import { generatePageSEO } from '@/app/seo.config';
-import AlertsClientPage from './AlertsClientPage';
 
-export const revalidate = 0; // Always fresh
+export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'Alerts - Track MEP Activity | Where\'s My MEP?',
-    'Set up alerts to track MEP attendance, voting patterns, and policy positions. Get notified when your representatives miss votes or change their positions.',
-    '/alerts'
-  );
-
-  return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
-  };
-}
+export const metadata: Metadata = {
+  title: 'Alerts - Track MEP Activity | Where\'s My MEP?',
+  description: 'Set up alerts to track MEP attendance, voting patterns, and policy positions. Get notified when your representatives miss votes or change their positions.',
+};
 
 export default function AlertsPage() {
-  return <AlertsClientPage />;
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+            Alerts
+          </h1>
+          <p className="text-gray-600">
+            This page is currently under maintenance. Please check back later.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }

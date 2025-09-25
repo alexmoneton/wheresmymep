@@ -1,72 +1,25 @@
 import { Metadata } from 'next';
-import { PrismaClient } from '@prisma/client';
-import { generatePageSEO } from '@/app/seo.config';
-import { generateCollectionPageJSONLD } from '@/lib/seo/jsonld';
-import VotesClientPage from './VotesClientPage';
 
-const prisma = new PrismaClient();
+export const dynamic = 'force-dynamic';
 
-export const revalidate = 43200; // 12 hours
+export const metadata: Metadata = {
+  title: 'Voting Records | Where\'s My MEP?',
+  description: 'Explore voting records and roll-call votes in the European Parliament',
+};
 
-async function getVotes() {
-  return await prisma.vote.findMany({
-    include: {
-      dossier: true,
-      mepVotes: {
-        include: {
-          mep: {
-            include: {
-              country: true,
-              party: true,
-            },
-          },
-        },
-      },
-    },
-    orderBy: {
-      date: 'desc',
-    },
-    take: 100, // Most recent 100 votes
-  });
-}
-
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'Recent Votes - European Parliament Roll-Call Votes | Where\'s My MEP?',
-    'Explore recent roll-call votes in the European Parliament. Track how MEPs voted on key policy issues, amendments, and legislative proposals.',
-    '/votes'
-  );
-
-  return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
-  };
-}
-
-export default async function VotesPage() {
-  const votes = await getVotes();
-
-  // Generate JSON-LD
-  const jsonld = generateCollectionPageJSONLD(
-    {
-      name: 'Recent European Parliament Votes',
-      description: 'Recent roll-call votes in the European Parliament with MEP voting records',
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'}/votes`,
-      numberOfItems: votes.length,
-    },
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'
-  );
-
+export default function VotesPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-      />
-      <VotesClientPage votes={votes} />
-    </>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+            Voting Records
+          </h1>
+          <p className="text-gray-600">
+            This page is currently under maintenance. Please check back later.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
