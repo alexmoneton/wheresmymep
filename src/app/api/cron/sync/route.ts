@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ingestData } from '../../../../ingestion';
+import { ingestData } from '../../../../../ingestion/index';
 
 export async function POST(request: NextRequest) {
   try {
