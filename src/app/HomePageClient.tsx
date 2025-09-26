@@ -128,10 +128,10 @@ export default function HomePageClient({ topMEPs, bottomMEPs, stats }: HomePageC
                       </div>
                       <div className="text-right">
                         <div className="text-sm font-semibold text-green-600">
-                          {mep.attendancePct}%
+                          {mep.attendancePct ? `${mep.attendancePct}%` : 'N/A'}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {mep.votesCast}/{mep.votesTotal} votes
+                          {mep.votesCast && mep.votesTotal ? `${mep.votesCast}/${mep.votesTotal} votes` : 'Data loading...'}
                         </div>
                       </div>
                     </div>
@@ -184,10 +184,10 @@ export default function HomePageClient({ topMEPs, bottomMEPs, stats }: HomePageC
                       </div>
                       <div className="text-right">
                         <div className="text-sm font-semibold text-red-600">
-                          {mep.attendancePct}%
+                          {mep.attendancePct ? `${mep.attendancePct}%` : 'N/A'}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {mep.votesCast}/{mep.votesTotal} votes
+                          {mep.votesCast && mep.votesTotal ? `${mep.votesCast}/${mep.votesTotal} votes` : 'Data loading...'}
                         </div>
                       </div>
                     </div>

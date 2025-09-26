@@ -14,36 +14,55 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 async function getLeaderboardData() {
-  // Get top performers (highest attendance)
-  const topMEPs = await prisma.mEP.findMany({
-    where: { 
-      active: true,
-      attendancePct: { not: null }
-    },
-    include: {
-      country: true,
-      party: true,
-    },
-    orderBy: { attendancePct: 'desc' },
-    take: 10,
-  });
+  try {
+    // Try to get MEPs with attendance data (new schema)
+    const topMEPs = await prisma.mEP.findMany({
+      where: { 
+        active: true,
+        attendancePct: { not: null }
+      },
+      include: {
+        country: true,
+        party: true,
+      },
+      orderBy: { attendancePct: 'desc' },
+      take: 10,
+    });
 
-  // Get bottom performers (lowest attendance, excluding special cases)
-  const bottomMEPs = await prisma.mEP.findMany({
-    where: { 
-      active: true,
-      attendancePct: { not: null },
-      votesTotal: { gt: 100 }, // Exclude MEPs with very few votes
-    },
-    include: {
-      country: true,
-      party: true,
-    },
-    orderBy: { attendancePct: 'asc' },
-    take: 10,
-  });
+    const bottomMEPs = await prisma.mEP.findMany({
+      where: { 
+        active: true,
+        attendancePct: { not: null },
+        votesTotal: { gt: 100 },
+      },
+      include: {
+        country: true,
+        party: true,
+      },
+      orderBy: { attendancePct: 'asc' },
+      take: 10,
+    });
 
-  return { topMEPs, bottomMEPs };
+    return { topMEPs, bottomMEPs };
+  } catch (error) {
+    // Fallback for old schema - just get some MEPs without attendance data
+    console.log('Using fallback leaderboard data (old schema)');
+    
+    const fallbackMEPs = await prisma.mEP.findMany({
+      where: { active: true },
+      include: {
+        country: true,
+        party: true,
+      },
+      take: 20,
+    });
+
+    // Split into top and bottom (just for display purposes)
+    const topMEPs = fallbackMEPs.slice(0, 10);
+    const bottomMEPs = fallbackMEPs.slice(10, 20);
+
+    return { topMEPs, bottomMEPs };
+  }
 }
 
 async function getStats() {
