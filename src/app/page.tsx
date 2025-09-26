@@ -1,11 +1,4 @@
-import { Metadata } from 'next';
-
 export const dynamic = 'force-dynamic';
-
-export const metadata: Metadata = {
-  title: 'Where\'s My MEP? - European Parliament Attendance Tracker',
-  description: 'Track attendance rates and voting records of Members of the European Parliament. Monitor MEP performance, committee work, and policy positions with comprehensive data and insights.',
-};
 
 export default function HomePage() {
   return (
@@ -18,17 +11,9 @@ export default function HomePage() {
           <p className="text-lg text-gray-600 mb-6">
             Track attendance rates and voting records of Members of the European Parliament
           </p>
-          <div className="space-y-4">
-            <p className="text-gray-600">
-              Database connection: {process.env.DATABASE_URL ? '✅ Connected' : '❌ Not configured'}
-            </p>
-            <p className="text-gray-600">
-              Environment: {process.env.NODE_ENV || 'development'}
-            </p>
-            <p className="text-gray-600">
-              This site is currently under maintenance. Please check back later.
-            </p>
-          </div>
+          <p className="text-gray-600">
+            This site is currently under maintenance. Please check back later.
+          </p>
         </div>
       </div>
     </div>
