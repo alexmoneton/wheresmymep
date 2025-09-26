@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import { ingestData } from '../../../../ingestion';
+import { ingestData } from '../../../../ingestion';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     
     // Run ingestion
     console.log('🔄 Starting ingestion via API...');
-    // await ingestData(); // TODO: Implement ingestion function
+    await ingestData();
     
     // Trigger revalidation
     const revalidationResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate`, {

@@ -4,7 +4,8 @@ import { MEPIdentity, MEPAttendance, VoteCatalog, NotableVote } from './normaliz
 const prisma = new PrismaClient();
 
 export async function upsertCountry(name: string, code: string) {
-  const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  // Use country code as slug to avoid conflicts
+  const slug = code.toLowerCase();
   
   return await prisma.country.upsert({
     where: { code },
