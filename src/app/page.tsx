@@ -5,6 +5,7 @@ import HomePageClient from './HomePageClient';
 const prisma = new PrismaClient();
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Force immediate revalidation
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
