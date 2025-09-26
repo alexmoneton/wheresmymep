@@ -18,9 +18,17 @@ export default function HomePage() {
           <p className="text-lg text-gray-600 mb-6">
             Track attendance rates and voting records of Members of the European Parliament
           </p>
-          <p className="text-gray-600">
-            This site is currently under maintenance. Please check back later.
-          </p>
+          <div className="space-y-4">
+            <p className="text-gray-600">
+              Database connection: {process.env.DATABASE_URL ? '✅ Connected' : '❌ Not configured'}
+            </p>
+            <p className="text-gray-600">
+              Environment: {process.env.NODE_ENV || 'development'}
+            </p>
+            <p className="text-gray-600">
+              This site is currently under maintenance. Please check back later.
+            </p>
+          </div>
         </div>
       </div>
     </div>

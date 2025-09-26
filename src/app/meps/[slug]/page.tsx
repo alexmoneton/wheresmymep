@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { PrismaClient } from '@prisma/client';
-import { mepCopy, mepMetaDescription, mepTitle } from '@/lib/copy/mep';
-import { generatePersonJSONLD } from '@/lib/seo/jsonld';
-import { generateMEPSEO } from '@/app/seo.config';
-import MEPClientPage from './MEPClientPage';
+// import { PrismaClient } from '@prisma/client';
+// import { mepCopy, mepMetaDescription, mepTitle } from '@/lib/copy/mep';
+// import { generatePersonJSONLD } from '@/lib/seo/jsonld';
+// import { generateMEPSEO } from '@/app/seo.config';
+// import MEPClientPage from './MEPClientPage';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 interface MEPPageProps {
   params: { slug: string };
@@ -67,96 +67,25 @@ async function getMEP(slug: string) {
 }
 
 export async function generateMetadata({ params }: MEPPageProps): Promise<Metadata> {
-  const mep = await getMEP(params.slug);
-  
-  if (!mep) {
-    return {
-      title: 'MEP Not Found | Where\'s My MEP?',
-      description: 'The requested MEP could not be found.',
-    };
-  }
-
-  const seo = generateMEPSEO(
-    {
-      firstName: mep.firstName,
-      lastName: mep.lastName,
-      country: mep.country,
-      party: mep.party,
-    },
-    mep.attendancePct
-  );
-
   return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
+    title: 'MEP Profile | Where\'s My MEP?',
+    description: 'MEP profile page - temporarily disabled for debugging.',
   };
 }
 
 export default async function MEPPage({ params }: MEPPageProps) {
-  const mep = await getMEP(params.slug);
-  
-  if (!mep) {
-    notFound();
-  }
-
-  // Prepare data for copy generation
-  const committees = mep.memberships.map(m => ({
-    name: m.committee.name,
-    role: m.role,
-  }));
-
-  const recentVotes = mep.votes.map(mv => ({
-    title: mv.vote.title || 'Untitled Vote',
-    choice: mv.choice,
-    date: mv.vote.date.toISOString(),
-  }));
-
-  const contextualCopy = mepCopy({
-    mep: {
-      firstName: mep.firstName,
-      lastName: mep.lastName,
-      country: mep.country,
-      party: mep.party,
-      committees,
-      recentVotes,
-      attendancePct: mep.attendancePct,
-      votesCast: mep.votesCast,
-      votesTotal: mep.votesTotal,
-    },
-    committees,
-    recentVotes,
-  });
-
-  // Generate JSON-LD
-  const jsonld = generatePersonJSONLD(
-    {
-      firstName: mep.firstName,
-      lastName: mep.lastName,
-      country: mep.country,
-      party: mep.party,
-      committees,
-      photoUrl: mep.photoUrl,
-      twitter: mep.twitter,
-      website: mep.website,
-    },
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://wheresmymep.eu'
-  );
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-      />
-      <MEPClientPage 
-        mep={mep} 
-        contextualCopy={contextualCopy}
-        committees={committees}
-        recentVotes={recentVotes}
-      />
-    </>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            MEP Profile: {params.slug}
+          </h1>
+          <p className="text-gray-600">
+            This MEP profile page is temporarily disabled for debugging.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
