@@ -26,8 +26,8 @@ model Party {
   name         String
   abbreviation String?
   euGroup      String?
-  country      Country @relation(fields: [countryId], references: [id])
-  countryId    String
+  country      Country? @relation(fields: [countryId], references: [id])
+  countryId    String?
   slug         String @unique
   meps         MEP[]
   
@@ -60,6 +60,9 @@ model MEP {
   startDate    DateTime?
   endDate      DateTime?
   active       Boolean @default(true)
+  attendancePct Int?
+  votesCast    Int @default(0)
+  votesTotal   Int @default(0)
   memberships  Membership[]
   votes        MEPVote[]
   attendance   Attendance[]

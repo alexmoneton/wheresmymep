@@ -1,6 +1,10 @@
 #!/usr/bin/env tsx
 
+import { config } from 'dotenv';
 import { PrismaClient } from '@prisma/client';
+
+// Load environment variables
+config({ path: '.env.local' });
 import { loadHowTheyVoteData, loadExistingJSONData, mergeMEPData } from './howtheyvote';
 import { 
   batchUpsertMEPs, 

@@ -17,10 +17,12 @@ export async function upsertCountry(name: string, code: string) {
 export async function upsertParty(name: string, abbreviation: string | null, euGroup: string | null, countryId: string) {
   const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   
+  // For EU political groups, we don't need country association
+  // They are pan-European groups
   return await prisma.party.upsert({
     where: { slug },
-    update: { name, abbreviation, euGroup, countryId },
-    create: { name, abbreviation, euGroup, countryId, slug },
+    update: { name, abbreviation, euGroup, countryId: null }, // EU groups are not country-specific
+    create: { name, abbreviation, euGroup, countryId: null, slug }, // EU groups are not country-specific
   });
 }
 
@@ -42,14 +44,65 @@ export async function upsertMEP(mepData: MEPIdentity & Partial<MEPAttendance>) {
   
   const slug = mepData.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   
+  // Map country name to country code
+  const countryCodeMap: Record<string, string> = {
+    'Austria': 'AT',
+    'Belgium': 'BE', 
+    'Bulgaria': 'BG',
+    'Croatia': 'HR',
+    'Cyprus': 'CY',
+    'Czechia': 'CZ',
+    'Denmark': 'DK',
+    'Estonia': 'EE',
+    'Finland': 'FI',
+    'France': 'FR',
+    'Germany': 'DE',
+    'Greece': 'GR',
+    'Hungary': 'HU',
+    'Ireland': 'IE',
+    'Italy': 'IT',
+    'Latvia': 'LV',
+    'Lithuania': 'LT',
+    'Luxembourg': 'LU',
+    'Malta': 'MT',
+    'Netherlands': 'NL',
+    'Poland': 'PL',
+    'Portugal': 'PT',
+    'Romania': 'RO',
+    'Slovakia': 'SK',
+    'Slovenia': 'SI',
+    'Spain': 'ES',
+    'Sweden': 'SE',
+  };
+  
+  const countryCode = countryCodeMap[mepData.country] || mepData.country.substring(0, 2).toUpperCase();
+  
   // Find or create country
-  const country = await upsertCountry(mepData.country, mepData.country.substring(0, 2).toUpperCase());
+  const country = await upsertCountry(mepData.country, countryCode);
+  
+  // Map EU political groups to parties
+  const euGroupMap: Record<string, { name: string; abbreviation: string }> = {
+    'European People\'s Party (Christian Democrats)': { name: 'European People\'s Party (Christian Democrats)', abbreviation: 'EPP' },
+    'Progressive Alliance of Socialists and Democrats': { name: 'Progressive Alliance of Socialists and Democrats', abbreviation: 'S&D' },
+    'Renew Europe Group': { name: 'Renew Europe', abbreviation: 'RE' },
+    'European Conservatives and Reformists Group': { name: 'European Conservatives and Reformists', abbreviation: 'ECR' },
+    'Identity and Democracy Group': { name: 'Identity and Democracy', abbreviation: 'ID' },
+    'The Left group in the European Parliament - GUE/NGL': { name: 'The Left', abbreviation: 'GUE/NGL' },
+    'Group of the Greens/European Free Alliance': { name: 'Greens/European Free Alliance', abbreviation: 'Greens/EFA' },
+    'Non-attached Members': { name: 'Non-attached Members', abbreviation: 'NI' },
+  };
   
   // Find or create party
   let party = null;
   if (mepData.party) {
-    party = await upsertParty(mepData.party, null, null, country.id);
+    const partyInfo = euGroupMap[mepData.party] || { name: mepData.party, abbreviation: null };
+    party = await upsertParty(partyInfo.name, partyInfo.abbreviation, partyInfo.abbreviation, '');
   }
+  
+  // Calculate attendance percentage
+  const attendancePct = mepData.votes_total_period && mepData.votes_cast 
+    ? Math.round((mepData.votes_cast / mepData.votes_total_period) * 100)
+    : null;
   
   return await prisma.mEP.upsert({
     where: { epId: mepData.mep_id },
@@ -60,6 +113,9 @@ export async function upsertMEP(mepData: MEPIdentity & Partial<MEPAttendance>) {
       photoUrl: mepData.photo_url,
       countryId: country.id,
       partyId: party?.id,
+      attendancePct,
+      votesCast: mepData.votes_cast || 0,
+      votesTotal: mepData.votes_total_period || 0,
       twitter: null, // Will be populated separately
       website: null, // Will be populated separately
       email: null, // Will be populated separately
@@ -73,6 +129,9 @@ export async function upsertMEP(mepData: MEPIdentity & Partial<MEPAttendance>) {
       photoUrl: mepData.photo_url,
       countryId: country.id,
       partyId: party?.id,
+      attendancePct,
+      votesCast: mepData.votes_cast || 0,
+      votesTotal: mepData.votes_total_period || 0,
       active: true,
     },
   });
