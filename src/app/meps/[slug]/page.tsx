@@ -47,22 +47,12 @@ async function getMEP(slug: string) {
     return null;
   }
 
-  // Get attendance data
-  const attendance = await prisma.attendance.findMany({
-    where: { mepId: mep.id },
-    orderBy: { date: 'desc' },
-    take: 180, // Last 180 days
-  });
-
-  const totalVotes = attendance.length;
-  const presentVotes = attendance.filter(a => a.present).length;
-  const attendancePct = totalVotes > 0 ? Math.round((presentVotes / totalVotes) * 100) : 0;
-
+  // Use attendance data from MEP model (already calculated)
   return {
     ...mep,
-    attendancePct,
-    votesCast: presentVotes,
-    votesTotal: totalVotes,
+    attendancePct: mep.attendancePct || 0,
+    votesCast: mep.votesCast || 0,
+    votesTotal: mep.votesTotal || 0,
   };
 }
 
