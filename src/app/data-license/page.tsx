@@ -1,23 +1,14 @@
 import { Metadata } from 'next';
-import { generatePageSEO } from '@/app/seo.config';
+// import { generatePageSEO } from '@/app/seo.config';
 
 // Force dynamic rendering to avoid static generation issues
 export const dynamic = 'force-dynamic';
 export const revalidate = 86400; // 24 hours
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'Data License & Attribution | Where\'s My MEP?',
-    'Learn about our data sources, licensing, and attribution requirements for European Parliament data used on Where\'s My MEP?.',
-    '/data-license'
-  );
-
   return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
+    title: 'Data License & Attribution | Where\'s My MEP?',
+    description: 'Learn about our data sources, licensing, and attribution requirements for European Parliament data used on Where\'s My MEP?.',
   };
 }
 

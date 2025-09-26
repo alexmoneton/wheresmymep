@@ -1,23 +1,14 @@
 import { Metadata } from 'next';
-import { generatePageSEO } from '@/app/seo.config';
+// import { generatePageSEO } from '@/app/seo.config';
 
 // Force dynamic rendering to avoid static generation issues
 export const dynamic = 'force-dynamic';
 export const revalidate = 86400; // 24 hours
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'Methodology - How We Calculate MEP Attendance | Where\'s My MEP?',
-    'Learn about our methodology for calculating MEP attendance rates, voting patterns, and performance rankings in the European Parliament.',
-    '/methodology'
-  );
-
   return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
+    title: 'Methodology - How We Calculate MEP Attendance | Where\'s My MEP?',
+    description: 'Learn about our methodology for calculating MEP attendance rates, voting patterns, and performance rankings in the European Parliament.',
   };
 }
 

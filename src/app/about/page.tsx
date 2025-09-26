@@ -1,23 +1,14 @@
 import { Metadata } from 'next';
-import { generatePageSEO } from '@/app/seo.config';
+// import { generatePageSEO } from '@/app/seo.config';
 
 // Force dynamic rendering to avoid static generation issues
 export const dynamic = 'force-dynamic';
 export const revalidate = 86400; // 24 hours
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = generatePageSEO(
-    'About Where\'s My MEP? - European Parliament Transparency',
-    'Learn about Where\'s My MEP?, our mission to increase transparency in the European Parliament, and how we track MEP attendance and voting records.',
-    '/about'
-  );
-
   return {
-    title: seo.title,
-    description: seo.description,
-    canonical: seo.canonical,
-    openGraph: seo.openGraph,
-    twitter: seo.twitter,
+    title: 'About Where\'s My MEP? - European Parliament Transparency',
+    description: 'Learn about Where\'s My MEP?, our mission to increase transparency in the European Parliament, and how we track MEP attendance and voting records.',
   };
 }
 
