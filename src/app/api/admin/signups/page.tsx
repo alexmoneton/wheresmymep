@@ -1,16 +1,21 @@
-'use client';
+import { NextRequest, NextResponse } from 'next/server';
 
-// Force dynamic rendering to avoid static generation issues
 export const dynamic = 'force-dynamic';
 
-import dynamic from 'next/dynamic';
-
-// Dynamically import the component to prevent build-time execution
-const AdminSignupsContent = dynamic(() => import('./AdminSignupsContent'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>
-});
-
-export default function AdminSignupsPage() {
-  return <AdminSignupsContent />;
+export async function GET(request: NextRequest) {
+  try {
+    // This is a placeholder API endpoint
+    // In a real implementation, you would fetch signup data from your database
+    return NextResponse.json({
+      message: 'Admin signups endpoint',
+      data: [],
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error in admin signups API:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
 }
