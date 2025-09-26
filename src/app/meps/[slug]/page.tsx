@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 // import { mepCopy, mepMetaDescription, mepTitle } from '@/lib/copy/mep';
 // import { generatePersonJSONLD } from '@/lib/seo/jsonld';
 // import { generateMEPSEO } from '@/app/seo.config';
 // import MEPClientPage from './MEPClientPage';
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 interface MEPPageProps {
   params: { slug: string };
@@ -74,18 +74,51 @@ export async function generateMetadata({ params }: MEPPageProps): Promise<Metada
 }
 
 export default async function MEPPage({ params }: MEPPageProps) {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            MEP Profile: {params.slug}
-          </h1>
-          <p className="text-gray-600">
-            This MEP profile page is temporarily disabled for debugging.
-          </p>
+  try {
+    // Test database connection
+    const mepCount = await prisma.mEP.count();
+    
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              MEP Profile: {params.slug}
+            </h1>
+            <div className="space-y-4">
+              <p className="text-gray-600">
+                Database connection: ✅ Working
+              </p>
+              <p className="text-gray-600">
+                Total MEPs in database: {mepCount}
+              </p>
+              <p className="text-gray-600">
+                This MEP profile page is being tested with database connection.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              MEP Profile: {params.slug}
+            </h1>
+            <div className="space-y-4">
+              <p className="text-red-600">
+                Database connection: ❌ Error
+              </p>
+              <p className="text-gray-600">
+                Error: {error instanceof Error ? error.message : 'Unknown error'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
