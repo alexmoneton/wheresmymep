@@ -238,3 +238,5 @@ export default function MEPsClientPage({ meps, countries, parties, committees }:
     </div>
   );
 }
+
+

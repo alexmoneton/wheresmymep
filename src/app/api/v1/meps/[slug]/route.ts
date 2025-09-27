@@ -1,47 +1,58 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { APIKeyManager } from '@/lib/api-keys';
+import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limit';
 
 const prisma = new PrismaClient();
 
-// Initialize rate limiter
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(100, '1 m'), // 100 requests per minute
-});
-
+// GET /api/v1/meps/[slug] - Get specific MEP by slug
 export async function GET(
   request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
   try {
-    // Check API key
+    // Get API key from headers
     const apiKey = request.headers.get('x-api-key');
+    
     if (!apiKey) {
-      return NextResponse.json({ error: 'API key required' }, { status: 401 });
-    }
-
-    // Verify API key
-    const user = await prisma.user.findUnique({
-      where: { apiKey },
-      include: { subscriptions: true },
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
-    }
-
-    // Check rate limit
-    const { success, limit, reset, remaining } = await ratelimit.limit(`api:${user.id}`);
-    if (!success) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded', limit, reset, remaining },
-        { status: 429 }
+        { error: 'API key required. Include x-api-key header.' },
+        { status: 401 }
       );
     }
 
-    // Get MEP
+    // Validate API key
+    const keyValidation = await APIKeyManager.validateAPIKey(apiKey);
+    if (!keyValidation.valid) {
+      return NextResponse.json(
+        { error: 'Invalid API key' },
+        { status: 401 }
+      );
+    }
+
+    // Check rate limit
+    const userTier = keyValidation.user?.subscriptions?.length > 0 ? 'pro' : 'free';
+    const rateLimitResult = await checkRateLimit(apiKey, userTier);
+    
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { 
+          error: 'Rate limit exceeded',
+          limit: rateLimitResult.limit,
+          remaining: rateLimitResult.remaining,
+          reset: rateLimitResult.reset,
+        },
+        { 
+          status: 429,
+          headers: getRateLimitHeaders(rateLimitResult)
+        }
+      );
+    }
+
+    // Update last used timestamp
+    await APIKeyManager.updateLastUsed(apiKey);
+
+    // Get MEP by slug
     const mep = await prisma.mEP.findUnique({
       where: { slug: params.slug },
       include: {
@@ -60,30 +71,18 @@ export async function GET(
               },
             },
           },
-          orderBy: {
-            vote: {
-              date: 'desc',
-            },
-          },
-          take: 50,
+          orderBy: { vote: { date: 'desc' } },
+          take: 20, // Limit recent votes
         },
       },
     });
 
     if (!mep) {
-      return NextResponse.json({ error: 'MEP not found' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'MEP not found' },
+        { status: 404 }
+      );
     }
-
-    // Get attendance data
-    const attendance = await prisma.attendance.findMany({
-      where: { mepId: mep.id },
-      orderBy: { date: 'desc' },
-      take: 180, // Last 180 days
-    });
-
-    const totalVotes = attendance.length;
-    const presentVotes = attendance.filter(a => a.present).length;
-    const attendancePct = totalVotes > 0 ? Math.round((presentVotes / totalVotes) * 100) : 0;
 
     // Format response
     const formattedMep = {
@@ -91,57 +90,66 @@ export async function GET(
       epId: mep.epId,
       firstName: mep.firstName,
       lastName: mep.lastName,
+      fullName: `${mep.firstName} ${mep.lastName}`,
       slug: mep.slug,
-      photoUrl: mep.photoUrl,
       country: {
-        name: mep.country.name,
         code: mep.country.code,
-        slug: mep.country.slug,
+        name: mep.country.name,
       },
       party: mep.party ? {
         name: mep.party.name,
         abbreviation: mep.party.abbreviation,
-        slug: mep.party.slug,
+        euGroup: mep.party.euGroup,
       } : null,
-      committees: mep.memberships.map(m => ({
-        name: m.committee.name,
-        code: m.committee.code,
-        role: m.role,
+      committees: mep.memberships.map(membership => ({
+        code: membership.committee.code,
+        name: membership.committee.name,
+        role: membership.role,
       })),
       attendance: {
-        percentage: attendancePct,
-        votesCast: presentVotes,
-        totalVotes: totalVotes,
+        percentage: mep.attendancePct,
+        votesCast: mep.votesCast,
+        votesTotal: mep.votesTotal,
       },
-      recentVotes: mep.votes.map(mv => ({
-        id: mv.vote.id,
-        title: mv.vote.title,
-        date: mv.vote.date,
-        choice: mv.choice,
-        dossier: mv.vote.dossier ? {
-          title: mv.vote.dossier.title,
-          code: mv.vote.dossier.code,
+      recentVotes: mep.votes.map(mepVote => ({
+        id: mepVote.vote.id,
+        title: mepVote.vote.title,
+        date: mepVote.vote.date.toISOString(),
+        choice: mepVote.choice,
+        dossier: mepVote.vote.dossier ? {
+          code: mepVote.vote.dossier.code,
+          title: mepVote.vote.dossier.title,
+          slug: mepVote.vote.dossier.slug,
         } : null,
       })),
+      photoUrl: mep.photoUrl,
       twitter: mep.twitter,
       website: mep.website,
       email: mep.email,
+      active: mep.active,
     };
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       data: formattedMep,
-      rateLimit: {
-        limit,
-        remaining,
-        reset,
+      meta: {
+        timestamp: new Date().toISOString(),
+        version: '1.0',
       },
     });
 
+    // Add rate limit headers
+    Object.entries(getRateLimitHeaders(rateLimitResult)).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+
+    return response;
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('Error fetching MEP:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     );
+  } finally {
+    await prisma.$disconnect();
   }
 }

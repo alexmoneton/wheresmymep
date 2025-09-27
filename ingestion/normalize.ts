@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // Validation schemas
 export const MEPIdentitySchema = z.object({
-  mep_id: z.string(),
+  mep_id: z.string().nullable(),
   name: z.string(),
   country: z.string(),
   party: z.string(),
@@ -12,7 +12,7 @@ export const MEPIdentitySchema = z.object({
 });
 
 export const MEPAttendanceSchema = z.object({
-  mep_id: z.string(),
+  mep_id: z.string().nullable(),
   votes_total_period: z.number(),
   votes_cast: z.number(),
   attendance_pct: z.number().min(0).max(100),

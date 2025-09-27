@@ -62,3 +62,5 @@ export function voteTitle(vote: VoteData): string {
   
   return `${title} - ${dateText} | Where's My MEP?`;
 }
+
+

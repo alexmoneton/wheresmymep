@@ -8,6 +8,7 @@ config({ path: '.env.local' });
 import { loadHowTheyVoteData, loadExistingJSONData, mergeMEPData } from './howtheyvote';
 import { 
   batchUpsertMEPs, 
+  batchUpsertMEPsWithoutID,
   batchUpsertVotes, 
   batchUpsertMEPVotes,
   upsertCountry,
@@ -155,9 +156,28 @@ async function ingestMEPData() {
   // Merge MEP and attendance data
   const enrichedMEPs = mergeMEPData(data.meps, data.attendance);
   
-  // Upsert MEPs
-  const meps = await batchUpsertMEPs(enrichedMEPs);
-  console.log(`✅ Upserted ${meps.length} MEPs`);
+  // Separate MEPs with and without IDs
+  const mepsWithIDs = enrichedMEPs.filter(mep => mep.mep_id && mep.mep_id !== null);
+  const mepsWithoutIDs = enrichedMEPs.filter(mep => !mep.mep_id || mep.mep_id === null);
+  
+  console.log(`📊 Found ${mepsWithIDs.length} MEPs with IDs and ${mepsWithoutIDs.length} MEPs without IDs`);
+  
+  // Upsert MEPs with IDs (existing functionality)
+  const meps = await batchUpsertMEPs(mepsWithIDs);
+  console.log(`✅ Upserted ${meps.length} MEPs with attendance data`);
+  
+  // Upsert MEPs without IDs (new functionality)
+  if (mepsWithoutIDs.length > 0) {
+    const mepsWithoutIDData = mepsWithoutIDs.map(mep => ({
+      name: mep.name,
+      country: mep.country,
+      party: mep.party,
+      photo_url: mep.photo_url
+    }));
+    
+    const mepsWithoutID = await batchUpsertMEPsWithoutID(mepsWithoutIDData);
+    console.log(`✅ Upserted ${mepsWithoutID.length} MEPs without attendance data`);
+  }
   
   return data;
 }

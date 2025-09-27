@@ -95,35 +95,43 @@ export default function HomePageClient({ topMEPs, bottomMEPs, stats }: HomePageC
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Top Performers */}
           <div className="bg-white rounded-lg shadow-sm border">
-            <div className="px-6 py-4 border-b border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50">
               <h2 className="text-xl font-semibold text-gray-900 flex items-center">
                 <span className="text-green-600 mr-2">🏆</span>
                 Top Performers
               </h2>
               <p className="text-sm text-gray-600 mt-1">Highest attendance rates</p>
             </div>
-            <div className="divide-y divide-gray-200">
+            <div className="divide-y divide-gray-100">
               {topMEPs.map((mep, index) => {
                 const fullName = `${mep.firstName} ${mep.lastName}`;
                 const slug = fullName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                 
                 return (
-                  <div key={mep.id} className="px-6 py-4 hover:bg-gray-50">
+                  <div key={mep.id} className="px-6 py-5 hover:bg-green-50 border-l-4 border-green-200">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                           <span className="text-sm font-medium text-green-800">{index + 1}</span>
                         </div>
-                        <div>
-                          <Link 
-                            href={`/meps/${slug}`}
-                            className="text-sm font-medium text-gray-900 hover:text-blue-600"
-                          >
-                            {fullName}
-                          </Link>
-                          <p className="text-xs text-gray-500">
-                            {mep.country.name} • {mep.party?.name || 'Independent'}
-                          </p>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">🇪🇺</span>
+                          <div>
+                            <Link 
+                              href={`/meps/${slug}`}
+                              className="text-sm font-medium text-gray-900 hover:text-blue-600"
+                            >
+                              {fullName}
+                            </Link>
+                            <div className="flex items-center space-x-2 mt-1">
+                              <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                                {mep.country.name}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {mep.party?.name || 'Independent'}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div className="text-right">
@@ -139,7 +147,7 @@ export default function HomePageClient({ topMEPs, bottomMEPs, stats }: HomePageC
                 );
               })}
             </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+            <div className="px-6 py-3 bg-gradient-to-r from-green-50 to-emerald-50 border-t border-gray-200">
               <Link 
                 href="/rankings/attendance"
                 className="text-sm text-blue-600 hover:text-blue-800 font-medium"
@@ -151,35 +159,43 @@ export default function HomePageClient({ topMEPs, bottomMEPs, stats }: HomePageC
 
           {/* Bottom Performers */}
           <div className="bg-white rounded-lg shadow-sm border">
-            <div className="px-6 py-4 border-b border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-red-50 to-pink-50">
               <h2 className="text-xl font-semibold text-gray-900 flex items-center">
                 <span className="text-red-600 mr-2">⚠️</span>
                 Needs Attention
               </h2>
               <p className="text-sm text-gray-600 mt-1">Lowest attendance rates</p>
             </div>
-            <div className="divide-y divide-gray-200">
+            <div className="divide-y divide-gray-100">
               {bottomMEPs.map((mep, index) => {
                 const fullName = `${mep.firstName} ${mep.lastName}`;
                 const slug = fullName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                 
                 return (
-                  <div key={mep.id} className="px-6 py-4 hover:bg-gray-50">
+                  <div key={mep.id} className="px-6 py-5 hover:bg-red-50 border-l-4 border-red-200">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
                           <span className="text-sm font-medium text-red-800">{index + 1}</span>
                         </div>
-                        <div>
-                          <Link 
-                            href={`/meps/${slug}`}
-                            className="text-sm font-medium text-gray-900 hover:text-blue-600"
-                          >
-                            {fullName}
-                          </Link>
-                          <p className="text-xs text-gray-500">
-                            {mep.country.name} • {mep.party?.name || 'Independent'}
-                          </p>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">🇪🇺</span>
+                          <div>
+                            <Link 
+                              href={`/meps/${slug}`}
+                              className="text-sm font-medium text-gray-900 hover:text-blue-600"
+                            >
+                              {fullName}
+                            </Link>
+                            <div className="flex items-center space-x-2 mt-1">
+                              <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                                {mep.country.name}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {mep.party?.name || 'Independent'}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div className="text-right">
@@ -195,7 +211,7 @@ export default function HomePageClient({ topMEPs, bottomMEPs, stats }: HomePageC
                 );
               })}
             </div>
-            <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+            <div className="px-6 py-3 bg-gradient-to-r from-red-50 to-pink-50 border-t border-gray-200">
               <Link 
                 href="/rankings/attendance"
                 className="text-sm text-blue-600 hover:text-blue-800 font-medium"

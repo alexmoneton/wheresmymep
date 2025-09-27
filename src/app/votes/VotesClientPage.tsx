@@ -288,3 +288,5 @@ export default function VotesClientPage({ votes }: VotesClientPageProps) {
     </div>
   );
 }
+
+

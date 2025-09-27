@@ -41,3 +41,5 @@ export function dossierTitle(dossier: DossierData): string {
   const { title, code } = dossier;
   return `${title}${code ? ` (${code})` : ''} | Where's My MEP?`;
 }
+
+

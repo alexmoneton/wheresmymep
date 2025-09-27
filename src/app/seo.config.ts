@@ -148,3 +148,5 @@ export const generateTopicSEO = (topic: { name: string; description?: string }) 
   
   return generatePageSEO(title, description, path);
 };
+
+

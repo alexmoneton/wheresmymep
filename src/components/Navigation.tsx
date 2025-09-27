@@ -14,6 +14,7 @@ export default function Navigation() {
     { name: 'Committees', href: '/committees' },
     { name: 'Topics', href: '/topics' },
     { name: 'Rankings', href: '/rankings' },
+    { name: 'API Docs', href: '/api-docs' },
     { name: 'About', href: '/about' },
   ];
 
@@ -44,6 +45,16 @@ export default function Navigation() {
             <Link href="/pricing">
               <Button variant="outline" size="sm">
                 Pricing
+              </Button>
+            </Link>
+            <Link href="/api-keys">
+              <Button variant="outline" size="sm">
+                API Keys
+              </Button>
+            </Link>
+            <Link href="/dashboard">
+              <Button variant="outline" size="sm">
+                Dashboard
               </Button>
             </Link>
             <Link href="/alerts">
@@ -77,6 +88,16 @@ export default function Navigation() {
                     <Link href="/pricing" onClick={() => setIsOpen(false)}>
                       <Button variant="outline" className="w-full mb-2">
                         Pricing
+                      </Button>
+                    </Link>
+                    <Link href="/api-keys" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full mb-2">
+                        API Keys
+                      </Button>
+                    </Link>
+                    <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full mb-2">
+                        Dashboard
                       </Button>
                     </Link>
                     <Link href="/alerts" onClick={() => setIsOpen(false)}>

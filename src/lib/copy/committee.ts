@@ -40,3 +40,5 @@ export function committeeTitle(committee: CommitteeData): string {
   const { name, code } = committee;
   return `${name} (${code}) Committee | Where's My MEP?`;
 }
+
+

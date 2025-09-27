@@ -330,3 +330,5 @@ export default function RankingClientPage({ rankingData }: RankingClientPageProp
     </div>
   );
 }
+
+

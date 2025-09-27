@@ -240,3 +240,5 @@ export default function CommitteesClientPage({ committees, totalCommittees, tota
     </div>
   );
 }
+
+

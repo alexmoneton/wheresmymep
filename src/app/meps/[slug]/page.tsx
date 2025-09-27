@@ -38,7 +38,7 @@ async function getMEP(slug: string) {
             date: 'desc',
           },
         },
-        take: 10,
+        take: 50,
       },
     },
   });

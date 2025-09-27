@@ -39,7 +39,7 @@ export function processMEPsData(csvData: any[]): MEPIdentity[] {
     .map(row => {
       try {
         const mepData = {
-          mep_id: row.mep_id || row.id,
+          mep_id: (row.mep_id || row.id || '').trim() || null, // Convert empty strings to null
           name: row.name,
           country: row.country,
           party: row.party,

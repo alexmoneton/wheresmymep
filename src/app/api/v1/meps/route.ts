@@ -1,124 +1,150 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { APIKeyManager } from '@/lib/api-keys';
+import { checkRateLimit, getRateLimitHeaders } from '@/lib/rate-limit';
 
 const prisma = new PrismaClient();
 
-// Initialize rate limiter
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(100, '1 m'), // 100 requests per minute
-});
-
+// GET /api/v1/meps - Get all MEPs with optional filtering
 export async function GET(request: NextRequest) {
   try {
-    // Check API key
+    // Get API key from headers
     const apiKey = request.headers.get('x-api-key');
+    
     if (!apiKey) {
-      return NextResponse.json({ error: 'API key required' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'API key required. Include x-api-key header.' },
+        { status: 401 }
+      );
     }
 
-    // Verify API key
-    const user = await prisma.user.findUnique({
-      where: { apiKey },
-      include: { subscriptions: true },
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid API key' }, { status: 401 });
+    // Validate API key
+    const keyValidation = await APIKeyManager.validateAPIKey(apiKey);
+    if (!keyValidation.valid) {
+      return NextResponse.json(
+        { error: 'Invalid API key' },
+        { status: 401 }
+      );
     }
 
     // Check rate limit
-    const { success, limit: rateLimit, reset, remaining } = await ratelimit.limit(`api:${user.id}`);
-    if (!success) {
+    const userTier = keyValidation.user?.subscriptions?.length > 0 ? 'pro' : 'free';
+    const rateLimitResult = await checkRateLimit(apiKey, userTier);
+    
+    if (!rateLimitResult.success) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded', limit: rateLimit, reset, remaining },
-        { status: 429 }
+        { 
+          error: 'Rate limit exceeded',
+          limit: rateLimitResult.limit,
+          remaining: rateLimitResult.remaining,
+          reset: rateLimitResult.reset,
+        },
+        { 
+          status: 429,
+          headers: getRateLimitHeaders(rateLimitResult)
+        }
       );
     }
+
+    // Update last used timestamp
+    await APIKeyManager.updateLastUsed(apiKey);
 
     // Parse query parameters
     const { searchParams } = new URL(request.url);
     const country = searchParams.get('country');
     const party = searchParams.get('party');
     const committee = searchParams.get('committee');
-    const topic = searchParams.get('topic');
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
+    const sortBy = searchParams.get('sortBy') || 'lastName';
+    const sortOrder = searchParams.get('sortOrder') || 'asc';
 
-    // Build query
-    const where: any = {
-      active: true,
-    };
-
+    // Build where clause
+    const where: any = { active: true };
+    
     if (country) {
-      where.country = { slug: country };
+      where.country = { code: country.toUpperCase() };
     }
-
+    
     if (party) {
-      where.party = { slug: party };
+      where.party = { euGroup: party };
     }
 
-    if (committee) {
-      where.memberships = {
-        some: {
-          committee: { slug: committee },
-        },
-      };
+    // Build orderBy clause
+    const orderBy: any = {};
+    if (sortBy === 'attendance') {
+      orderBy.attendancePct = sortOrder;
+    } else if (sortBy === 'votes') {
+      orderBy.votesCast = sortOrder;
+    } else {
+      orderBy[sortBy] = sortOrder;
     }
 
     // Get MEPs
-    const meps = await prisma.mEP.findMany({
-      where,
-      include: {
-        country: true,
-        party: true,
-        memberships: {
-          include: {
-            committee: true,
+    const [meps, total] = await Promise.all([
+      prisma.mEP.findMany({
+        where,
+        include: {
+          country: true,
+          party: true,
+          memberships: {
+            include: {
+              committee: true,
+            },
           },
         },
-      },
-      take: Math.min(limit, 100), // Max 100 per request
-      skip: offset,
-      orderBy: {
-        lastName: 'asc',
-      },
-    });
+        orderBy,
+        take: Math.min(limit, 100), // Cap at 100
+        skip: offset,
+      }),
+      prisma.mEP.count({ where }),
+    ]);
 
-    // Get total count
-    const total = await prisma.mEP.count({ where });
+    // Filter by committee if specified
+    let filteredMeps = meps;
+    if (committee) {
+      filteredMeps = meps.filter(mep => 
+        mep.memberships.some(membership => 
+          membership.committee.code === committee.toUpperCase()
+        )
+      );
+    }
 
     // Format response
-    const formattedMeps = meps.map(mep => ({
+    const formattedMeps = filteredMeps.map(mep => ({
       id: mep.id,
       epId: mep.epId,
       firstName: mep.firstName,
       lastName: mep.lastName,
+      fullName: `${mep.firstName} ${mep.lastName}`,
       slug: mep.slug,
-      photoUrl: mep.photoUrl,
       country: {
-        name: mep.country.name,
         code: mep.country.code,
-        slug: mep.country.slug,
+        name: mep.country.name,
       },
       party: mep.party ? {
         name: mep.party.name,
         abbreviation: mep.party.abbreviation,
-        slug: mep.party.slug,
+        euGroup: mep.party.euGroup,
       } : null,
-      committees: mep.memberships.map(m => ({
-        name: m.committee.name,
-        code: m.committee.code,
-        role: m.role,
+      committees: mep.memberships.map(membership => ({
+        code: membership.committee.code,
+        name: membership.committee.name,
+        role: membership.role,
       })),
+      attendance: {
+        percentage: mep.attendancePct,
+        votesCast: mep.votesCast,
+        votesTotal: mep.votesTotal,
+      },
+      photoUrl: mep.photoUrl,
       twitter: mep.twitter,
       website: mep.website,
       email: mep.email,
+      active: mep.active,
     }));
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       data: formattedMeps,
       pagination: {
         total,
@@ -126,18 +152,25 @@ export async function GET(request: NextRequest) {
         offset,
         hasMore: offset + limit < total,
       },
-      rateLimit: {
-        limit,
-        remaining,
-        reset,
+      meta: {
+        timestamp: new Date().toISOString(),
+        version: '1.0',
       },
     });
 
+    // Add rate limit headers
+    Object.entries(getRateLimitHeaders(rateLimitResult)).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+
+    return response;
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('Error fetching MEPs:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     );
+  } finally {
+    await prisma.$disconnect();
   }
 }

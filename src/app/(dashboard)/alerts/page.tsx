@@ -1,25 +1,20 @@
 import { Metadata } from 'next';
-
-export const dynamic = 'force-dynamic';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { redirect } from 'next/navigation';
+import AlertsClientPage from './AlertsClientPage';
 
 export const metadata: Metadata = {
-  title: 'Alerts - Track MEP Activity | Where\'s My MEP?',
-  description: 'Set up alerts to track MEP attendance, voting patterns, and policy positions. Get notified when your representatives miss votes or change their positions.',
+  title: 'Manage Alerts | Where\'s My MEP?',
+  description: 'Set up and manage alerts for MEP activity, voting patterns, and attendance changes.',
 };
 
-export default function AlertsPage() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">
-            Alerts
-          </h1>
-          <p className="text-gray-600">
-            This page is currently under maintenance. Please check back later.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+export default async function AlertsPage() {
+  const session = await getServerSession(authOptions);
+  
+  if (!session) {
+    redirect('/auth/signin');
+  }
+
+  return <AlertsClientPage user={session.user} />;
 }

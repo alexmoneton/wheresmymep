@@ -42,19 +42,28 @@ NEXTAUTH_SECRET=your-secure-random-secret
 NEXTAUTH_URL=https://your-domain.vercel.app
 ```
 
-### Optional (for full functionality):
+### Alert System Variables:
 ```
 EMAIL_SERVER_HOST=smtp.resend.com
 EMAIL_SERVER_PORT=587
 EMAIL_SERVER_USER=resend
 EMAIL_SERVER_PASSWORD=your-resend-key
-EMAIL_FROM=noreply@wheresmymep.eu
-STRIPE_PUBLIC_KEY=pk_...
-STRIPE_SECRET_KEY=sk_...
+EMAIL_FROM=alerts@wheresmymep.eu
+RESEND_API_KEY=your-resend-api-key
+CRON_SECRET=your-secure-cron-secret
+```
+
+### API System Variables:
+```
+UPSTASH_REDIS_REST_URL=https://your-redis-url.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your-redis-token
+```
+
+### Stripe Integration Variables:
+```
+STRIPE_PUBLIC_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
-UPSTASH_REDIS_REST_URL=https://...
-UPSTASH_REDIS_REST_TOKEN=...
-RESEND_API_KEY=re_...
 ```
 
 ## Step 5: Run Database Migrations
@@ -73,7 +82,16 @@ Check these endpoints:
 - `/sitemap.xml` - Sitemap
 - `/robots.txt` - Robots file
 
-## Step 7: Set Up Custom Domain (Optional)
+## Step 7: Set Up Alert Cron Job
+To enable real-time alert processing, set up a Vercel Cron job:
+
+1. In Vercel dashboard, go to Functions tab
+2. Add a new Cron Job with:
+   - **Path**: `/api/cron/process-alerts`
+   - **Schedule**: `*/15 * * * *` (every 15 minutes)
+   - **Headers**: `Authorization: Bearer YOUR_CRON_SECRET`
+
+## Step 8: Set Up Custom Domain (Optional)
 1. In Vercel dashboard, go to Domains
 2. Add your custom domain
 3. Update DNS records as instructed
@@ -81,6 +99,9 @@ Check these endpoints:
 ## Current Status:
 ✅ Prisma schema fixed and client generated
 ✅ Vercel configuration created
+✅ Alert system implemented
+✅ API system implemented
+✅ Stripe integration implemented
 ⏳ Waiting for Vercel authentication
 ⏳ Need to set up database
 ⏳ Ready to deploy

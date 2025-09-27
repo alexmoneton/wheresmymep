@@ -185,3 +185,5 @@ export default function RankingsClientPage({ rankingCategories }: RankingsClient
     </div>
   );
 }
+
+
