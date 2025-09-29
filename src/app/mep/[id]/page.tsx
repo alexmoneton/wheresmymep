@@ -6,6 +6,11 @@ import Link from 'next/link';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
 import SpecialRoleBadge from '@/components/SpecialRoleBadge';
+import { useFlag } from '@/lib/useFlag';
+import { CreateAlertModal } from '@/components/CreateAlertModal';
+import { ExportCSVButton } from '@/components/ExportCSVButton';
+import { Button } from '@/components/ui/button';
+import { Bell } from 'lucide-react';
 
 interface MEP {
   mep_id: string | null;
@@ -44,6 +49,10 @@ export default function MEPProfilePage() {
   const [notableVotes, setNotableVotes] = useState<NotableVote[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Feature flags
+  const [alertsEnabled] = useFlag('alerts');
+  const [csvEnabled] = useFlag('csv');
 
   const fetchMEPData = useCallback(async () => {
     try {
@@ -159,11 +168,23 @@ export default function MEPProfilePage() {
             </div>
             
             <div className="flex-1">
-              <div className="flex items-center space-x-3 mb-2">
-                <h1 className="text-3xl font-bold text-gray-900">{mep.name}</h1>
-                <CountryFlag country={mep.country} className="text-2xl" />
-                {mep.special_role && (
-                  <SpecialRoleBadge role={mep.special_role} className="text-sm" />
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center space-x-3">
+                  <h1 className="text-3xl font-bold text-gray-900">{mep.name}</h1>
+                  <CountryFlag country={mep.country} className="text-2xl" />
+                  {mep.special_role && (
+                    <SpecialRoleBadge role={mep.special_role} className="text-sm" />
+                  )}
+                </div>
+                
+                {/* Alert Button - only show if alerts feature is enabled */}
+                {alertsEnabled && (
+                  <CreateAlertModal>
+                    <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                      <Bell className="h-4 w-4" />
+                      <span>Create alert</span>
+                    </Button>
+                  </CreateAlertModal>
                 )}
               </div>
               
@@ -294,7 +315,14 @@ export default function MEPProfilePage() {
 
         {/* Notable Votes */}
         <div className="bg-white rounded-lg shadow-sm border p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Notable Votes</h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">Notable Votes</h2>
+            
+            {/* CSV Export Button - only show if csv feature is enabled and there are votes */}
+            {csvEnabled && notableVotes.length > 0 && (
+              <ExportCSVButton filename={`mep-${mep.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} />
+            )}
+          </div>
           
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
             <p className="text-sm text-blue-800">
@@ -315,16 +343,27 @@ export default function MEPProfilePage() {
               <p className="text-gray-500">No notable votes found for this MEP.</p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {notableVotes.map((vote) => (
-                <div key={vote.vote_id} className="border border-gray-200 rounded-lg p-6">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                        {vote.title}
-                      </h3>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
-                        <span>{formatDate(vote.vote_date)}</span>
+            <div className="overflow-x-auto">
+              <table className="w-full" data-exportable="true">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    <th className="text-left py-3 px-4 font-medium text-gray-900">Vote Title</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-900">Date</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-900">Result</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-900">Position</th>
+                    <th className="text-left py-3 px-4 font-medium text-gray-900">Vote Counts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {notableVotes.map((vote) => (
+                    <tr key={vote.vote_id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                      <td className="py-3 px-4">
+                        <div className="font-medium text-gray-900 text-sm leading-tight">{vote.title}</div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="text-sm text-gray-500">{formatDate(vote.vote_date)}</div>
+                      </td>
+                      <td className="py-3 px-4">
                         {vote.result && (
                           <span className={`px-2 py-1 rounded text-xs ${
                             vote.result.toLowerCase() === 'adopted' 
@@ -334,34 +373,25 @@ export default function MEPProfilePage() {
                             {vote.result}
                           </span>
                         )}
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 md:mt-0 md:ml-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getVotePositionColor(vote.vote_position)}`}>
-                        {vote.vote_position}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {(vote.total_for || vote.total_against || vote.total_abstain) && (
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
-                      {vote.total_for && <span>For: {vote.total_for}</span>}
-                      {vote.total_against && <span>Against: {vote.total_against}</span>}
-                      {vote.total_abstain && <span>Abstain: {vote.total_abstain}</span>}
-                    </div>
-                  )}
-                  
-                  <a
-                    href={vote.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 text-sm"
-                  >
-                    View official vote record →
-                  </a>
-                </div>
-              ))}
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getVotePositionColor(vote.vote_position)}`}>
+                          {vote.vote_position}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="text-sm text-gray-600">
+                          {vote.total_for && `For: ${vote.total_for}`}
+                          {vote.total_for && (vote.total_against || vote.total_abstain) && ', '}
+                          {vote.total_against && `Against: ${vote.total_against}`}
+                          {vote.total_against && vote.total_abstain && ', '}
+                          {vote.total_abstain && `Abstain: ${vote.total_abstain}`}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>
