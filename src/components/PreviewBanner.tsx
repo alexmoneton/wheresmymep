@@ -10,18 +10,25 @@ export function PreviewBanner() {
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    // Check if any flag is enabled
-    const checkFlags = () => {
-      const hasFlags = hasAnyFlagEnabled();
-      setIsVisible(hasFlags);
+    // Check if banner should be shown
+    const checkBannerVisibility = () => {
+      // Check if any ff_* key exists in localStorage (has overrides)
+      const hasOverrides = ['ff_alerts', 'ff_csv', 'ff_actradar', 'ff_changes'].some(
+        key => localStorage.getItem(key) !== null
+      );
+      
+      // Check if force preview banner is enabled
+      const forcePreview = process.env.NEXT_PUBLIC_FORCE_PREVIEW_BANNER === 'true';
+      
+      setIsVisible(hasOverrides || forcePreview);
     };
 
     // Check on mount
-    checkFlags();
+    checkBannerVisibility();
 
     // Listen for storage changes
     const handleStorageChange = () => {
-      checkFlags();
+      checkBannerVisibility();
     };
 
     window.addEventListener('storage', handleStorageChange);

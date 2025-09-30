@@ -16,52 +16,63 @@ export function processMagicLinks(): void {
 
   const urlParams = new URLSearchParams(window.location.search);
   const currentUrl = new URL(window.location.href);
+  let changed = false;
 
-  // Handle actradar parameter
+  // Handle bulk toggle
+  if (urlParams.has('all')) {
+    const on = ['on','true','1','yes'].includes(urlParams.get('all')!.toLowerCase());
+    ['alerts','csv','actradar','changes'].forEach(n => setFlag(n as any, on));
+    urlParams.delete('all');
+    changed = true;
+  }
+
+  // Handle individual parameters
   const actradarParam = urlParams.get('actradar');
   if (actradarParam === 'on') {
     setFlag('actradar', true);
-    // Remove the parameter from URL
     urlParams.delete('actradar');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   } else if (actradarParam === 'off') {
     setFlag('actradar', false);
-    // Remove the parameter from URL
     urlParams.delete('actradar');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   }
 
-  // Handle other feature flags if needed in the future
   const alertsParam = urlParams.get('alerts');
   if (alertsParam === 'on') {
     setFlag('alerts', true);
     urlParams.delete('alerts');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   } else if (alertsParam === 'off') {
     setFlag('alerts', false);
     urlParams.delete('alerts');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   }
 
   const csvParam = urlParams.get('csv');
   if (csvParam === 'on') {
     setFlag('csv', true);
     urlParams.delete('csv');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   } else if (csvParam === 'off') {
     setFlag('csv', false);
     urlParams.delete('csv');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   }
 
   const changesParam = urlParams.get('changes');
   if (changesParam === 'on') {
     setFlag('changes', true);
     urlParams.delete('changes');
-    updateUrl(urlParams, currentUrl);
+    changed = true;
   } else if (changesParam === 'off') {
     setFlag('changes', false);
     urlParams.delete('changes');
+    changed = true;
+  }
+
+  // Update URL if any parameters were processed
+  if (changed) {
     updateUrl(urlParams, currentUrl);
   }
 }
