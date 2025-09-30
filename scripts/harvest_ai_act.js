@@ -4,12 +4,12 @@ const PUBLISH_BASE = process.env.PUBLISH_BASE; // e.g. https://wheresmymep.eu
 const ADMIN_SECRET = process.env.ADMIN_SECRET;
 const SOURCES = (process.env.AI_ACT_SOURCES || "").split(",").map(s => s.trim()).filter(Boolean);
 
-// Default AI Act sources if none provided
+// Default AI Act sources if none provided - using RSS feeds for better data
 const DEFAULT_SOURCES = [
-  'https://www.europarl.europa.eu/topics/en/article/20240315STO18152/artificial-intelligence-act-meps-adopt-landmark-law',
-  'https://www.europarl.europa.eu/news/en/press-room/20240315IPR18152/artificial-intelligence-act-meps-adopt-landmark-law',
-  'https://www.europarl.europa.eu/plenary/en/votes.xml', // EP votes feed
-  'https://www.europarl.europa.eu/committees/en/ai-act-implementation' // AI Act implementation page
+  'https://www.europarl.europa.eu/thinktank/en/rss.xml', // EP Think Tank RSS
+  'https://digital-strategy.ec.europa.eu/en/rss.xml', // EC Digital Strategy RSS
+  'https://www.europarl.europa.eu/news/en/rss.xml', // EP News RSS
+  'https://www.europarl.europa.eu/plenary/en/votes.xml' // EP votes feed
 ];
 
 const ALL_SOURCES = SOURCES.length > 0 ? SOURCES : DEFAULT_SOURCES;
@@ -50,8 +50,8 @@ async function scrapeSources() {
         continue;
       }
       
-      const html = await res.text();
-      const parsedItems = parseSourceContent(url, html);
+      const content = await res.text();
+      const parsedItems = parseSourceContent(url, content);
       items.push(...parsedItems);
       
       log(`Found ${parsedItems.length} items from ${url}`);
@@ -64,18 +64,81 @@ async function scrapeSources() {
   return items;
 }
 
-function parseSourceContent(url, html) {
+function parseRSSContent(url, xmlContent) {
   const items = [];
   const hostname = new URL(url).hostname;
   
-  // Simple HTML parsing - extract titles and links
+  // Simple RSS parsing - extract items
+  const itemRegex = /<item[^>]*>(.*?)<\/item>/gis;
+  const titleRegex = /<title[^>]*><!\[CDATA\[(.*?)\]\]><\/title>|<title[^>]*>(.*?)<\/title>/i;
+  const linkRegex = /<link[^>]*>(.*?)<\/link>/i;
+  const pubDateRegex = /<pubDate[^>]*>(.*?)<\/pubDate>/i;
+  const descriptionRegex = /<description[^>]*><!\[CDATA\[(.*?)\]\]><\/description>|<description[^>]*>(.*?)<\/description>/i;
+  
+  let itemMatch;
+  while ((itemMatch = itemRegex.exec(xmlContent)) !== null) {
+    const itemContent = itemMatch[1];
+    
+    const titleMatch = itemContent.match(titleRegex);
+    const linkMatch = itemContent.match(linkRegex);
+    const pubDateMatch = itemContent.match(pubDateRegex);
+    const descMatch = itemContent.match(descriptionRegex);
+    
+    if (titleMatch && linkMatch) {
+      const title = (titleMatch[1] || titleMatch[2] || '').trim();
+      const link = linkMatch[1].trim();
+      const description = descMatch ? (descMatch[1] || descMatch[2] || '').trim() : '';
+      const pubDate = pubDateMatch ? pubDateMatch[1].trim() : asISO(today);
+      
+      // Check if it's AI Act related
+      const isAIAct = title.toLowerCase().includes('ai act') || 
+                     title.toLowerCase().includes('artificial intelligence') ||
+                     description.toLowerCase().includes('ai act') ||
+                     description.toLowerCase().includes('artificial intelligence');
+      
+      if (isAIAct) {
+        items.push({
+          type: "guidance",
+          title: title,
+          date: pubDate,
+          topic: "ai-act",
+          link: link
+        });
+      }
+    }
+  }
+  
+  // If no AI Act items found, create a general update
+  if (items.length === 0) {
+    items.push({
+      type: "note",
+      title: `EU updates from ${hostname}`,
+      date: asISO(today),
+      topic: "transparency",
+      link: url
+    });
+  }
+  
+  return items;
+}
+
+function parseSourceContent(url, content) {
+  const items = [];
+  const hostname = new URL(url).hostname;
+  
+  // Check if it's an RSS feed
+  if (url.includes('.xml') || content.includes('<rss') || content.includes('<feed')) {
+    return parseRSSContent(url, content);
+  }
+  
+  // HTML parsing for regular web pages
   const titleRegex = /<title[^>]*>([^<]+)<\/title>/i;
   const h1Regex = /<h1[^>]*>([^<]+)<\/h1>/gi;
   const h2Regex = /<h2[^>]*>([^<]+)<\/h2>/gi;
   const linkRegex = /<a[^>]+href=["']([^"']+)["'][^>]*>([^<]+)<\/a>/gi;
   
   // Extract main title
-  const titleMatch = html.match(titleRegex);
+  const titleMatch = content.match(titleRegex);
   if (titleMatch) {
     const title = titleMatch[1].trim();
     if (title.toLowerCase().includes('ai act') || title.toLowerCase().includes('artificial intelligence')) {
@@ -91,7 +154,7 @@ function parseSourceContent(url, html) {
   
   // Extract headings
   let headingMatch;
-  while ((headingMatch = h1Regex.exec(html)) !== null) {
+  while ((headingMatch = h1Regex.exec(content)) !== null) {
     const heading = headingMatch[1].trim();
     if (heading.toLowerCase().includes('ai act') || heading.toLowerCase().includes('artificial intelligence')) {
       items.push({
@@ -104,7 +167,7 @@ function parseSourceContent(url, html) {
     }
   }
   
-  while ((headingMatch = h2Regex.exec(html)) !== null) {
+  while ((headingMatch = h2Regex.exec(content)) !== null) {
     const heading = headingMatch[1].trim();
     if (heading.toLowerCase().includes('ai act') || heading.toLowerCase().includes('artificial intelligence')) {
       items.push({
@@ -119,7 +182,7 @@ function parseSourceContent(url, html) {
   
   // Extract relevant links
   let linkMatch;
-  while ((linkMatch = linkRegex.exec(html)) !== null) {
+  while ((linkMatch = linkRegex.exec(content)) !== null) {
     const [fullMatch, href, text] = linkMatch;
     const linkText = text.trim();
     
