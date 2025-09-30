@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { fetchLeaderboard, type LeaderboardRow } from '@/lib/meps/leaderboard';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
-import { SearchInput } from '@/components/SearchInput';
+import { LeaderboardSearch } from '@/components/LeaderboardSearch';
 
 export const revalidate = 43200; // 12 hours
 
@@ -92,7 +92,7 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
             
             {/* Search */}
             <div className="max-w-md">
-              <SearchInput defaultValue={query} />
+              <LeaderboardSearch defaultValue={query} />
             </div>
           </div>
 
@@ -156,9 +156,7 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          {mep.countryCode && (
-                            <CountryFlag countryCode={mep.countryCode} className="mr-2" />
-                          )}
+                          <CountryFlag country={mep.country} className="mr-2" />
                           <span className="text-sm text-gray-900">{mep.country}</span>
                         </div>
                       </td>
