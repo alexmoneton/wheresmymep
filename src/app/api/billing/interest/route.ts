@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { incrementDailyCounter, incrementDailyZSet } from '@/lib/redis'
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,6 +22,17 @@ export async function POST(request: NextRequest) {
       userAgent: request.headers.get('user-agent'),
       ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip')
     })
+
+    // Increment metrics counters
+    try {
+      await Promise.all([
+        incrementDailyCounter('billing_interest'),
+        incrementDailyZSet('billing_interest')
+      ]);
+    } catch (metricsError) {
+      console.error('Failed to increment metrics:', metricsError);
+      // Don't fail the request if metrics fail
+    }
     
     // Send email if ALERT_FORWARD_EMAIL is set
     if (process.env.ALERT_FORWARD_EMAIL) {

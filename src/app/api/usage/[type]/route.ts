@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getUsage, incrementUsage, type UsageType } from '@/lib/usage'
+import { incrementDailyCounter, incrementDailyZSet } from '@/lib/redis'
 
 export async function GET(
   request: NextRequest,
@@ -43,6 +44,20 @@ export async function POST(
     
     // Increment usage
     const updatedUsage = await incrementUsage(type)
+    
+    // Increment metrics counters for CSV exports
+    if (type === 'csv') {
+      try {
+        await Promise.all([
+          incrementDailyCounter('csv_exported'),
+          incrementDailyZSet('csv_exported')
+        ]);
+      } catch (metricsError) {
+        console.error('Failed to increment CSV metrics:', metricsError);
+        // Don't fail the request if metrics fail
+      }
+    }
+    
     return NextResponse.json(updatedUsage)
   } catch (error) {
     console.error('Error incrementing usage:', error)

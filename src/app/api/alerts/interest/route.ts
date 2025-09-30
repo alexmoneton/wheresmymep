@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { Resend } from 'resend';
+import { incrementDailyCounter, incrementDailyZSet } from '@/lib/redis';
 
 // Validation schema
 const interestSchema = z.object({
@@ -43,6 +44,17 @@ export async function POST(request: NextRequest) {
       path,
       timestamp: new Date().toISOString(),
     });
+
+    // Increment metrics counters
+    try {
+      await Promise.all([
+        incrementDailyCounter('alerts_created'),
+        incrementDailyZSet('alerts_created')
+      ]);
+    } catch (metricsError) {
+      console.error('Failed to increment metrics:', metricsError);
+      // Don't fail the request if metrics fail
+    }
 
     // If ALERT_FORWARD_EMAIL is configured, send an email
     if (process.env.ALERT_FORWARD_EMAIL) {
