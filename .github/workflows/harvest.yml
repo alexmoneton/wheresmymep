@@ -1,14 +1,12 @@
-name: automated-data-harvest
+name: nightly-harvest
 on:
   schedule:
-    - cron: "0 6 * * *"     # 06:00 UTC daily (after EP sessions)
-    - cron: "0 18 * * *"    # 18:00 UTC daily (evening update)
-  workflow_dispatch:        # allow manual run
+    - cron: "0 4 * * 1-5"   # 04:00 UTC Mon–Fri
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  harvest-mep-data:
-    name: Harvest MEP Data
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,14 +15,60 @@ jobs:
           node-version: 18
           cache: npm
       - run: npm ci
-      - name: Harvest MEP Data
-        run: node scripts/harvest_mep_data.js
-        env:
-          PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
-          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+
+      # AI Act
       - name: Harvest AI Act
+        id: ai_act
         run: npm run harvest:ai-act
+        continue-on-error: true
         env:
           PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
           ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
-          AI_ACT_SOURCES: ${{ secrets.AI_ACT_SOURCES }}  # optional comma list
+          AI_ACT_SOURCES: ${{ secrets.AI_ACT_SOURCES }}
+
+      - name: Email on AI Act failure
+        if: steps.ai_act.outcome == 'failure'
+        run: |
+          curl -s -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer ${{ secrets.RESEND_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d @- <<'JSON'
+          {
+            "from": "${{ secrets.ALERT_FROM }}",
+            "to": ["${{ secrets.ALERT_EMAIL }}"],
+            "subject": "❌ Nightly harvest FAILED — AI Act",
+            "html": "<p>The AI Act harvest failed on <b>${{ github.ref_name }}</b>.</p><p><a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>View logs in GitHub Actions</a></p>"
+          }
+          JSON
+
+      # MEPs
+      - name: Harvest MEP stats
+        id: meps
+        run: npm run harvest:meps
+        continue-on-error: true
+        env:
+          PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          MEP_VOTES_SOURCE: ${{ secrets.MEP_VOTES_SOURCE }}
+          EP_VOTES_PAGE: ${{ secrets.EP_VOTES_PAGE }}
+          EP_XML_FETCH: ${{ vars.EP_XML_FETCH || 4 }}
+
+      - name: Email on MEPs failure
+        if: steps.meps.outcome == 'failure'
+        run: |
+          curl -s -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer ${{ secrets.RESEND_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d @- <<'JSON'
+          {
+            "from": "${{ secrets.ALERT_FROM }}",
+            "to": ["${{ secrets.ALERT_EMAIL }}"],
+            "subject": "❌ Nightly harvest FAILED — MEP stats",
+            "html": "<p>The MEP stats harvest failed on <b>${{ github.ref_name }}</b>.</p><p><a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>View logs in GitHub Actions</a></p>"
+          }
+          JSON
+
+      # Final guard: fail job if any failed
+      - name: Fail job if any harvest failed
+        if: steps.ai_act.outcome == 'failure' || steps.meps.outcome == 'failure'
+        run: exit 1
