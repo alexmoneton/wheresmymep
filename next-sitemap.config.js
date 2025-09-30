@@ -13,154 +13,82 @@ module.exports = {
     '/ai-act/what-changed',
   ],
   additionalPaths: async (config) => {
-    const { PrismaClient } = require('@prisma/client');
-    const prisma = new PrismaClient();
-    
     const paths = [];
     
     try {
-      // Get all MEPs
-      const meps = await prisma.mEP.findMany({
-        select: { slug: true, firstName: true, lastName: true },
-        where: { active: true }
-      });
+      // Only add pSEO pages if enabled
+      const pseoEnabled = process.env.NEXT_PUBLIC_PSEO_ENABLE === 'true';
       
-      for (const mep of meps) {
+      if (pseoEnabled) {
+        // Add AI Act Radar topic pages
+        const aiActTopics = [
+          'logging',
+          'dataset-governance', 
+          'post-market-monitoring',
+          'transparency',
+          'risk-management'
+        ];
+        
+        for (const topic of aiActTopics) {
+          paths.push({
+            loc: `/ai-act/topics/${topic}`,
+            lastmod: new Date().toISOString(),
+            changefreq: 'weekly',
+            priority: 0.7,
+          });
+        }
+        
+        // Add weekly pages (current week only for now)
+        const currentWeek = `W${Math.ceil((new Date().getTime() - new Date(new Date().getFullYear(), 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000))}`;
         paths.push({
-          loc: `/meps/${mep.slug}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.8,
-        });
-      }
-      
-      // Get all committees
-      const committees = await prisma.committee.findMany({
-        select: { slug: true, name: true }
-      });
-      
-      for (const committee of committees) {
-        paths.push({
-          loc: `/committees/${committee.slug}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.7,
-        });
-      }
-      
-      // Get all dossiers
-      const dossiers = await prisma.dossier.findMany({
-        select: { slug: true, title: true }
-      });
-      
-      for (const dossier of dossiers) {
-        paths.push({
-          loc: `/dossiers/${dossier.slug}`,
+          loc: `/ai-act/updates/week/${currentWeek}`,
           lastmod: new Date().toISOString(),
           changefreq: 'weekly',
           priority: 0.6,
         });
+        
+        // Add country pages (common EU countries)
+        const countries = [
+          'germany', 'france', 'italy', 'spain', 'poland', 'romania', 'netherlands',
+          'belgium', 'greece', 'czech-republic', 'portugal', 'sweden', 'hungary',
+          'austria', 'bulgaria', 'denmark', 'finland', 'slovakia', 'ireland',
+          'croatia', 'lithuania', 'slovenia', 'latvia', 'estonia', 'cyprus',
+          'luxembourg', 'malta'
+        ];
+        
+        for (const country of countries) {
+          paths.push({
+            loc: `/country/${country}`,
+            lastmod: new Date().toISOString(),
+            changefreq: 'weekly',
+            priority: 0.6,
+          });
+        }
+        
+        // Add party pages (major EU parties)
+        const parties = [
+          'european-peoples-party', 'progressive-alliance-of-socialists-and-democrats',
+          'renew-europe', 'european-conservatives-and-reformists',
+          'identity-and-democracy', 'the-left', 'greens-european-free-alliance'
+        ];
+        
+        for (const party of parties) {
+          paths.push({
+            loc: `/party/${party}`,
+            lastmod: new Date().toISOString(),
+            changefreq: 'weekly',
+            priority: 0.6,
+          });
+        }
       }
       
-      // Get all votes
-      const votes = await prisma.vote.findMany({
-        select: { id: true, title: true },
-        take: 1000, // Limit to most recent 1000 votes
-        orderBy: { date: 'desc' }
-      });
-      
-      for (const vote of votes) {
-        paths.push({
-          loc: `/votes/${vote.id}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'monthly',
-          priority: 0.5,
-        });
-      }
-      
-      // Get all topics
-      const topics = await prisma.topic.findMany({
-        select: { slug: true, name: true }
-      });
-      
-      for (const topic of topics) {
-        paths.push({
-          loc: `/topics/${topic.slug}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.6,
-        });
-      }
-      
-      // Get all countries
-      const countries = await prisma.country.findMany({
-        select: { slug: true, name: true }
-      });
-      
-      for (const country of countries) {
-        paths.push({
-          loc: `/meps/country/${country.slug}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.7,
-        });
-      }
-      
-      // Get all parties
-      const parties = await prisma.party.findMany({
-        select: { slug: true, name: true }
-      });
-      
-      for (const party of parties) {
-        paths.push({
-          loc: `/meps/party/${party.slug}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.7,
-        });
-      }
-      
-      // Ranking pages
-      const rankingPages = [
-        'attendance',
-        'most-active',
-        'climate-environment',
-        'energy',
-        'migration-asylum',
-        'digital-technology',
-        'trade-economy',
-        'agriculture',
-        'health',
-        'education-culture',
-        'transport',
-        'defense-security',
-        'foreign-affairs',
-        'human-rights',
-        'democracy-rule-of-law',
-        'justice-home-affairs',
-      ];
-      
-      for (const ranking of rankingPages) {
-        paths.push({
-          loc: `/rankings/${ranking}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.6,
-        });
-      }
-      
-      // Add AI Act Radar pages
-      const aiActPages = [
+      // Always add static AI Act pages
+      const staticAiActPages = [
         '/ai-act',
-        '/ai-act/pricing',
-        '/ai-act/topics/logging',
-        '/ai-act/topics/dataset-governance',
-        '/ai-act/topics/post-market-monitoring',
-        '/ai-act/topics/transparency',
-        '/ai-act/topics/risk-management',
+        '/ai-act/pricing'
       ];
       
-      for (const page of aiActPages) {
+      for (const page of staticAiActPages) {
         paths.push({
           loc: page,
           lastmod: new Date().toISOString(),
@@ -171,8 +99,6 @@ module.exports = {
       
     } catch (error) {
       console.error('Error generating additional sitemap paths:', error);
-    } finally {
-      await prisma.$disconnect();
     }
     
     return paths;
@@ -208,7 +134,7 @@ module.exports = {
       };
     }
     
-    if (path.startsWith('/meps/') && !path.includes('/country/') && !path.includes('/party/')) {
+    if (path.startsWith('/mep/')) {
       return {
         loc: path,
         lastmod: new Date().toISOString(),
@@ -217,16 +143,16 @@ module.exports = {
       };
     }
     
-    if (path.startsWith('/committees/')) {
+    if (path.startsWith('/country/')) {
       return {
         loc: path,
         lastmod: new Date().toISOString(),
         changefreq: 'weekly',
-        priority: 0.7,
+        priority: 0.6,
       };
     }
     
-    if (path.startsWith('/dossiers/')) {
+    if (path.startsWith('/party/')) {
       return {
         loc: path,
         lastmod: new Date().toISOString(),
@@ -244,16 +170,16 @@ module.exports = {
       };
     }
     
-    if (path.startsWith('/topics/')) {
+    if (path.startsWith('/ai-act/topics/')) {
       return {
         loc: path,
         lastmod: new Date().toISOString(),
         changefreq: 'weekly',
-        priority: 0.6,
+        priority: 0.7,
       };
     }
     
-    if (path.startsWith('/rankings/')) {
+    if (path.startsWith('/ai-act/updates/week/')) {
       return {
         loc: path,
         lastmod: new Date().toISOString(),

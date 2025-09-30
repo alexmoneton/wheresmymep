@@ -6,7 +6,8 @@ import { Button } from '@/components/shadcn/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
 import { Badge } from '@/components/shadcn/ui/badge';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
-import { ArrowLeft, Bell, FileText } from 'lucide-react';
+import { RelatedLinks } from '@/components/RelatedLinks';
+import { ArrowLeft, Bell, FileText, AlertTriangle } from 'lucide-react';
 
 interface ChangeItem {
   type: string;
@@ -30,26 +31,36 @@ interface TopicData {
 
 interface TopicPageClientProps {
   topicData: TopicData;
+  topicItems?: ChangeItem[];
+  generatedCopy?: string;
+  shouldIndex?: boolean;
+  bundle?: any;
 }
 
-export function TopicPageClient({ topicData }: TopicPageClientProps) {
+export function TopicPageClient({ topicData, topicItems = [], generatedCopy, shouldIndex, bundle }: TopicPageClientProps) {
   const [recentChanges, setRecentChanges] = useState<ChangeItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load the sample data and filter by topic
-    fetch('/data/ai-act/changes.sample.json')
-      .then(response => response.json())
-      .then((data: ChangesData) => {
-        const topicItems = data.items.filter(item => item.topic === topicData.topic);
-        setRecentChanges(topicItems.slice(0, 5)); // Show latest 5
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Failed to load changes data:', error);
-        setLoading(false);
-      });
-  }, [topicData.topic]);
+    // Use server-provided data if available, otherwise fallback to client fetch
+    if (topicItems.length > 0) {
+      setRecentChanges(topicItems.slice(0, 5));
+      setLoading(false);
+    } else {
+      // Fallback to client-side fetch
+      fetch('/data/ai-act/changes.sample.json')
+        .then(response => response.json())
+        .then((data: ChangesData) => {
+          const items = data.items.filter(item => item.topic === topicData.topic);
+          setRecentChanges(items.slice(0, 5));
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Failed to load changes data:', error);
+          setLoading(false);
+        });
+    }
+  }, [topicData.topic, topicItems]);
 
 
   const getTypeColor = (type: string) => {
@@ -106,12 +117,42 @@ export function TopicPageClient({ topicData }: TopicPageClientProps) {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            AI Act — {topicData.title}
-          </h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-3xl font-bold text-gray-900">
+              AI Act — {topicData.title}
+            </h1>
+            {!shouldIndex && (
+              <Badge variant="outline" className="text-orange-600 border-orange-200">
+                <AlertTriangle className="h-3 w-3 mr-1" />
+                pSEO (off)
+              </Badge>
+            )}
+          </div>
           <p className="text-lg text-gray-600">
             {topicData.description}
           </p>
+          
+          {/* Generated copy if available */}
+          {generatedCopy && (
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <h3 className="font-medium text-blue-900 mb-2">Latest Updates</h3>
+              <p className="text-blue-800 text-sm leading-relaxed">
+                {generatedCopy}
+              </p>
+            </div>
+          )}
+          
+          {/* Last updated info */}
+          {bundle && (
+            <div className="mt-4 text-sm text-gray-500">
+              Last updated: {bundle.generatedAt ? new Date(bundle.generatedAt).toLocaleDateString() : 'Recently'}
+              {bundle.sources && bundle.sources.length > 0 && (
+                <span className="ml-2">
+                  • Sources: {bundle.sources.join(', ')}
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Main Content */}
@@ -230,6 +271,15 @@ export function TopicPageClient({ topicData }: TopicPageClientProps) {
             </Card>
           </div>
         </div>
+        
+        {/* Related Links */}
+        <RelatedLinks 
+          context="topic" 
+          data={{ 
+            topic: topicData.topic,
+            topTopics: bundle ? [...new Set(bundle.items.map((item: any) => item.topic))].slice(0, 3) : []
+          }} 
+        />
       </main>
     </div>
   );

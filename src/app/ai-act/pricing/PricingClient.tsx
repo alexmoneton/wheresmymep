@@ -1,12 +1,40 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/shadcn/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
 import { Badge } from '@/components/shadcn/ui/badge';
-import { ArrowLeft, Check, Mail } from 'lucide-react';
+import { ArrowLeft, Check, Mail, Loader2 } from 'lucide-react';
 
 export function PricingClient() {
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const handleStripeCheckout = async (product: string) => {
+    setLoading(product);
+    try {
+      const response = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ product }),
+      });
+
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL received');
+        setLoading(null);
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setLoading(null);
+    }
+  };
+
   const plans = [
     {
       name: 'Team',
@@ -21,7 +49,8 @@ export function PricingClient() {
         'Basic support'
       ],
       cta: 'Get started',
-      popular: false
+      popular: false,
+      product: 'team'
     },
     {
       name: 'Business',
@@ -37,7 +66,8 @@ export function PricingClient() {
         'Custom alert rules'
       ],
       cta: 'Start free trial',
-      popular: true
+      popular: true,
+      product: 'actradar-business'
     },
     {
       name: 'Enterprise',
@@ -54,7 +84,8 @@ export function PricingClient() {
         'Dedicated support'
       ],
       cta: 'Contact sales',
-      popular: false
+      popular: false,
+      product: 'enterprise'
     }
   ];
 
@@ -132,8 +163,23 @@ export function PricingClient() {
                 <Button 
                   className={`w-full ${plan.popular ? 'bg-purple-600 hover:bg-purple-700' : ''}`}
                   variant={plan.popular ? 'default' : 'outline'}
+                  onClick={() => {
+                    if (plan.product === 'actradar-business') {
+                      handleStripeCheckout(plan.product);
+                    } else if (plan.product === 'enterprise') {
+                      window.location.href = 'mailto:hello@wheresmymep.eu?subject=AI Act Radar Enterprise Inquiry';
+                    }
+                  }}
+                  disabled={loading === plan.product}
                 >
-                  {plan.cta}
+                  {loading === plan.product ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    plan.cta
+                  )}
                 </Button>
               </CardContent>
             </Card>
