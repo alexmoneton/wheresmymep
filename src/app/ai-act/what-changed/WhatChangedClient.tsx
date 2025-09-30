@@ -26,8 +26,8 @@ export function WhatChangedClient() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load the sample data from public path
-    fetch('/data/ai-act/changes.sample.json', { cache: 'no-store' })
+    // Load the changes data from API endpoint
+    fetch('/api/ai-act/changes', { cache: 'no-store' })
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -280,6 +280,13 @@ export function WhatChangedClient() {
               Get weekly digest alerts
             </Button>
           </CreateAlertModal>
+        </div>
+
+        {/* Note about early entries */}
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-500">
+            Early entries may be illustrative until official links are published.
+          </p>
         </div>
       </main>
     </div>

@@ -78,3 +78,4 @@ function updateUrl(urlParams: URLSearchParams, currentUrl: URL): void {
   // Use replaceState to avoid adding to browser history
   window.history.replaceState({}, '', newUrl);
 }
+
