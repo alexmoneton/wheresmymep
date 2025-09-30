@@ -1,84 +1,33 @@
-import { NextResponse } from 'next/server';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { NextResponse } from 'next/server'
+import { promises as fs } from 'fs'
+import path from 'path'
+
+export const runtime = 'nodejs'          // make sure we're NOT on Edge
+export const dynamic = 'force-dynamic'   // don't cache the route
+
+const FALLBACK = {
+  week: 'fallback',
+  items: [
+    { type: 'guidance',       title: 'New guideline on high-risk systems logging',     date: '2025-09-24', link: '#', topic: 'logging' },
+    { type: 'delegated_act',  title: 'Draft DA on post-market monitoring',            date: '2025-09-23', link: '#', topic: 'post-market-monitoring' },
+    { type: 'obligation',     title: 'Clarified duty for providers (Article 16)',     date: '2025-09-22', link: '#', topic: 'transparency' }
+  ],
+}
 
 export async function GET() {
   try {
-    // Try to read the sample data file
-    const filePath = join(process.cwd(), 'public', 'data', 'ai-act', 'changes.sample.json');
-    
-    try {
-      const fileContent = readFileSync(filePath, 'utf8');
-      const data = JSON.parse(fileContent);
-      
-      // Validate the data structure
-      if (data && typeof data.week === 'string' && Array.isArray(data.items)) {
-        return NextResponse.json(data, {
-          headers: {
-            'Cache-Control': 'no-store',
-          },
-        });
-      }
-    } catch (fileError) {
-      // File doesn't exist or is invalid, fall through to fallback
-      console.warn('Failed to read changes.sample.json:', fileError);
+    const filePath = path.join(process.cwd(), 'public', 'data', 'ai-act', 'changes.sample.json')
+    const file = await fs.readFile(filePath, 'utf8')
+    const data = JSON.parse(file)
+    if (data && Array.isArray(data.items) && data.items.length > 0) {
+      return new NextResponse(JSON.stringify(data), {
+        headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
+      })
     }
-    
-    // Fallback data with the same structure
-    const fallbackData = {
-      week: "fallback",
-      items: [
-        {
-          type: "guidance",
-          title: "Sample guidance document",
-          date: "2025-01-15",
-          topic: "sample-topic",
-          link: "#"
-        },
-        {
-          type: "note",
-          title: "Sample note for testing",
-          date: "2025-01-14",
-          topic: "sample-topic",
-          link: "#"
-        }
-      ]
-    };
-    
-    return NextResponse.json(fallbackData, {
-      headers: {
-        'Cache-Control': 'no-store',
-      },
-    });
-    
-  } catch (error) {
-    console.error('Error in /api/ai-act/changes:', error);
-    
-    // Return fallback data even on error to ensure page still renders
-    const fallbackData = {
-      week: "fallback",
-      items: [
-        {
-          type: "guidance",
-          title: "Sample guidance document",
-          date: "2025-01-15",
-          topic: "sample-topic",
-          link: "#"
-        },
-        {
-          type: "note",
-          title: "Sample note for testing",
-          date: "2025-01-14",
-          topic: "sample-topic",
-          link: "#"
-        }
-      ]
-    };
-    
-    return NextResponse.json(fallbackData, {
-      headers: {
-        'Cache-Control': 'no-store',
-      },
-    });
+  } catch (_) {
+    // ignore and fall back
   }
+  return new NextResponse(JSON.stringify(FALLBACK), {
+    headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
+  })
 }
