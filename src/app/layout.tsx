@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import Providers from "./providers";
+import { PreviewBanner } from "@/components/PreviewBanner";
+import { MagicLinkHandler } from "@/components/MagicLinkHandler";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,9 +48,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          {children}
-        </Providers>
+        <MagicLinkHandler />
+        <PreviewBanner />
+        {children}
         <Analytics />
       </body>
     </html>

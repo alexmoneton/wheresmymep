@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow the "what-changed" page for now (temporary)
+Disallow: /ai-act/what-changed
+
+Sitemap: https://wheresmymep.eu/sitemap.xml
