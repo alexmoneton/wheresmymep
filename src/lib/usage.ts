@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import { isProEAR } from './pro-ear'
 
 export type UsageType = 'alert' | 'csv'
 
@@ -7,6 +8,7 @@ export interface UsageData {
   limit: number
   remaining: number
   resetAt: string
+  isPro?: boolean
 }
 
 interface UsageCookie {
@@ -31,6 +33,7 @@ export async function getUsage(type: UsageType): Promise<UsageData> {
   
   const currentMonthKey = getCurrentMonthKey()
   const limits = getDefaultLimits()
+  const isPro = isProEAR()
   
   let usage: UsageCookie
   
@@ -51,8 +54,8 @@ export async function getUsage(type: UsageType): Promise<UsageData> {
   }
   
   const used = type === 'alert' ? usage.alerts : usage.csv
-  const limit = type === 'alert' ? limits.alerts : limits.csv
-  const remaining = Math.max(0, limit - used)
+  const limit = isPro ? Infinity : (type === 'alert' ? limits.alerts : limits.csv)
+  const remaining = isPro ? Infinity : Math.max(0, limit - used)
   
   // Calculate next reset date (first day of next month)
   const nextMonth = new Date()
@@ -64,7 +67,8 @@ export async function getUsage(type: UsageType): Promise<UsageData> {
     used,
     limit,
     remaining,
-    resetAt: nextMonth.toISOString()
+    resetAt: nextMonth.toISOString(),
+    isPro
   }
 }
 
@@ -74,6 +78,7 @@ export async function incrementUsage(type: UsageType): Promise<UsageData> {
   
   const currentMonthKey = getCurrentMonthKey()
   const limits = getDefaultLimits()
+  const isPro = isProEAR()
   
   let usage: UsageCookie
   
@@ -110,8 +115,8 @@ export async function incrementUsage(type: UsageType): Promise<UsageData> {
   })
   
   const used = type === 'alert' ? usage.alerts : usage.csv
-  const limit = type === 'alert' ? limits.alerts : limits.csv
-  const remaining = Math.max(0, limit - used)
+  const limit = isPro ? Infinity : (type === 'alert' ? limits.alerts : limits.csv)
+  const remaining = isPro ? Infinity : Math.max(0, limit - used)
   
   // Calculate next reset date (first day of next month)
   const nextMonth = new Date()
@@ -123,6 +128,7 @@ export async function incrementUsage(type: UsageType): Promise<UsageData> {
     used,
     limit,
     remaining,
-    resetAt: nextMonth.toISOString()
+    resetAt: nextMonth.toISOString(),
+    isPro
   }
 }
