@@ -21,19 +21,31 @@ export function processMagicLinks(): void {
   // Handle bulk toggle
   if (urlParams.has('all')) {
     const on = ['on','true','1','yes'].includes(urlParams.get('all')!.toLowerCase());
-    ['alerts','csv','actradar','changes'].forEach(n => setFlag(n as any, on));
+    const flagsToSet = ['alerts','csv','changes'];
+    // Only include actradar if KILL_ACTRADAR is not set
+    if (process.env.KILL_ACTRADAR !== 'true') {
+      flagsToSet.push('actradar');
+    }
+    flagsToSet.forEach(n => setFlag(n as any, on));
     urlParams.delete('all');
     changed = true;
   }
 
   // Handle individual parameters
   const actradarParam = urlParams.get('actradar');
-  if (actradarParam === 'on') {
-    setFlag('actradar', true);
-    urlParams.delete('actradar');
-    changed = true;
-  } else if (actradarParam === 'off') {
-    setFlag('actradar', false);
+  // Only process actradar if KILL_ACTRADAR is not set
+  if (actradarParam && process.env.KILL_ACTRADAR !== 'true') {
+    if (actradarParam === 'on') {
+      setFlag('actradar', true);
+      urlParams.delete('actradar');
+      changed = true;
+    } else if (actradarParam === 'off') {
+      setFlag('actradar', false);
+      urlParams.delete('actradar');
+      changed = true;
+    }
+  } else if (actradarParam && process.env.KILL_ACTRADAR === 'true') {
+    // Remove actradar param if KILL_ACTRADAR is set
     urlParams.delete('actradar');
     changed = true;
   }

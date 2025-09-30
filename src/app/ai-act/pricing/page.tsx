@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 import { PricingClient } from './PricingClient';
 
 export const metadata: Metadata = {
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function PricingPage() {
+  // Hard kill switch for EU Act Radar
+  if (process.env.KILL_ACTRADAR === 'true') {
+    redirect('/who-funds');
+  }
+
   return <PricingClient />;
 }

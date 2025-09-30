@@ -73,6 +73,11 @@ export async function generateMetadata({ params }: WeekPageProps): Promise<Metad
 }
 
 export default async function WeekPage({ params }: WeekPageProps) {
+  // Hard kill switch for EU Act Radar
+  if (process.env.KILL_ACTRADAR === 'true') {
+    notFound()
+  }
+
   const { week } = await params
   
   // Get pSEO data
