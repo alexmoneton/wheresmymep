@@ -2,9 +2,9 @@
 
 import { useFlag } from '@/lib/useFlag';
 import { resetFlagsToDefaults } from '@/lib/flags';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/shadcn/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
+import { Checkbox } from '@/components/shadcn/ui/checkbox';
 import { Bell, Download, FileText, Radar } from 'lucide-react';
 
 export function PreviewPageClient() {

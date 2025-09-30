@@ -1,14 +1,33 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/shadcn/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
 import { Bell, ArrowRight, Shield, FileText, Gavel } from 'lucide-react';
 
 export function AIActIndexClient() {
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="text-blue-600 hover:text-blue-800">
+              ← Back to Where&apos;s My MEP?
+            </Link>
+            <nav className="flex items-center space-x-6">
+              <Link href="/ai-act" className="text-gray-900 font-medium">
+                EU Act Radar
+              </Link>
+              <Link href="/ai-act/pricing" className="text-gray-600 hover:text-gray-900">
+                Pricing
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-purple-50 to-blue-50 border-b">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

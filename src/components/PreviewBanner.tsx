@@ -52,21 +52,18 @@ export function PreviewBanner() {
     return null;
   }
 
-  // Check if Act Radar is specifically enabled
-  const actRadarEnabled = getFlag('actradar');
-
   return (
-    <div className={`border-b px-4 py-2 text-sm ${actRadarEnabled ? 'bg-purple-50 border-purple-200' : 'bg-blue-50 border-blue-200'}`}>
+    <div className="border-b px-4 py-2 text-sm bg-blue-50 border-blue-200">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <span className={`font-medium ${actRadarEnabled ? 'text-purple-800' : 'text-blue-800'}`}>
-            {actRadarEnabled ? 'Act Radar (preview) is ON' : 'Preview features are ON'}
+          <span className="font-medium text-blue-800">
+            Preview features are ON
           </span>
-          <span className={actRadarEnabled ? 'text-purple-600' : 'text-blue-600'}>
+          <span className="text-blue-600">
             — manage at{' '}
             <Link 
               href="/preview" 
-              className={`underline hover:${actRadarEnabled ? 'text-purple-800' : 'text-blue-800'} focus:outline-none focus:ring-2 focus:ring-${actRadarEnabled ? 'purple' : 'blue'}-500 focus:ring-offset-2 rounded`}
+              className="underline hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
             >
               /preview
             </Link>
@@ -74,7 +71,7 @@ export function PreviewBanner() {
         </div>
         <button
           onClick={handleDismiss}
-          className={`${actRadarEnabled ? 'text-purple-600 hover:text-purple-800 focus:ring-purple-500' : 'text-blue-600 hover:text-blue-800 focus:ring-blue-500'} focus:outline-none focus:ring-2 focus:ring-offset-2 rounded p-1`}
+          className="text-blue-600 hover:text-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 rounded p-1"
           aria-label="Dismiss preview banner"
         >
           <X className="h-4 w-4" />

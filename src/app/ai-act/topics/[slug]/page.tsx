@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getFlag } from '@/lib/flags';
 import { TopicPageClient } from './TopicPageClient';
 
 interface TopicPageProps {
@@ -18,11 +17,11 @@ export async function generateMetadata({ params }: TopicPageProps): Promise<Meta
   }
 
   return {
-    title: `AI Act — ${topicData.title} (preview) | EU Act Radar`,
+    title: `AI Act — ${topicData.title} | EU Act Radar`,
     description: topicData.description,
     robots: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
     },
   };
 }
@@ -30,7 +29,7 @@ export async function generateMetadata({ params }: TopicPageProps): Promise<Meta
 function getTopicData(slug: string) {
   const topics = {
     'logging': {
-      title: 'Logging & Traceability (preview)',
+      title: 'Logging & Traceability',
       description: 'Track AI Act updates on logging and traceability requirements for high-risk systems.',
       content: `This page watches AI Act updates that touch logging and traceability. In plain terms: keeping a reliable trail of what your system did and when. Why it matters: logs help you explain decisions, investigate incidents, and prove you followed the rules. They're also the first thing people ask for when something goes wrong.
 
@@ -44,7 +43,7 @@ Tip: start a simple checklist—what we log, how long we keep it, who can see it
       topic: 'logging'
     },
     'dataset-governance': {
-      title: 'Dataset Governance (preview)',
+      title: 'Dataset Governance',
       description: 'Track AI Act updates on dataset governance, provenance, and quality requirements.',
       content: `This page tracks dataset governance under the AI Act: where data comes from, how it's documented, cleaned, tested, and updated. Why it matters: strong dataset practices reduce bias, improve reliability, and make compliance reviews smoother.
 
@@ -58,7 +57,7 @@ Practical start: keep a one-page "data passport" for each important dataset—wh
       topic: 'dataset-governance'
     },
     'post-market-monitoring': {
-      title: 'Post-Market Monitoring (preview)',
+      title: 'Post-Market Monitoring',
       description: 'Track AI Act updates on post-market monitoring and incident reporting requirements.',
       content: `This page follows updates on post-market monitoring—what you do after a system ships: track incidents, learn from them, and improve safely. It's where theory meets real-world operations.
 
@@ -72,7 +71,7 @@ Practical start: write down what counts as an "incident" for you (clear examples
       topic: 'post-market-monitoring'
     },
     'transparency': {
-      title: 'Transparency & User Information (preview)',
+      title: 'Transparency & User Information',
       description: 'Track AI Act updates on transparency requirements and user information duties.',
       content: `This page watches transparency and user information duties—what you tell people about the system, and when. It includes notices, labels, explanations, and opt-outs where relevant.
 
@@ -86,7 +85,7 @@ Practical start: keep a simple "transparency pack"—one page that lists what yo
       topic: 'transparency'
     },
     'risk-management': {
-      title: 'Risk Management Framework (preview)',
+      title: 'Risk Management Framework',
       description: 'Track AI Act updates on risk management frameworks and mitigation strategies.',
       content: `This page tracks risk management for AI systems: spotting risks early, reducing them, and checking they stay under control.
 
@@ -105,11 +104,6 @@ Practical start: create a lightweight risk register—list your top risks, your 
 }
 
 export default async function TopicPage({ params }: TopicPageProps) {
-  // Check if Act Radar feature is enabled
-  if (!getFlag('actradar')) {
-    notFound();
-  }
-
   const { slug } = await params;
   const topicData = getTopicData(slug);
   

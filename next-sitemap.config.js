@@ -10,6 +10,7 @@ module.exports = {
     '/pricing',
     '/api-keys',
     '/alerts',
+    '/ai-act/what-changed',
   ],
   additionalPaths: async (config) => {
     const { PrismaClient } = require('@prisma/client');
@@ -148,6 +149,26 @@ module.exports = {
         });
       }
       
+      // Add AI Act Radar pages
+      const aiActPages = [
+        '/ai-act',
+        '/ai-act/pricing',
+        '/ai-act/topics/logging',
+        '/ai-act/topics/dataset-governance',
+        '/ai-act/topics/post-market-monitoring',
+        '/ai-act/topics/transparency',
+        '/ai-act/topics/risk-management',
+      ];
+      
+      for (const page of aiActPages) {
+        paths.push({
+          loc: page,
+          lastmod: new Date().toISOString(),
+          changefreq: 'weekly',
+          priority: 0.7,
+        });
+      }
+      
     } catch (error) {
       console.error('Error generating additional sitemap paths:', error);
     } finally {
@@ -168,6 +189,7 @@ module.exports = {
           '/pricing',
           '/api-keys',
           '/alerts',
+          '/ai-act/what-changed',
         ],
       },
     ],
@@ -237,6 +259,15 @@ module.exports = {
         lastmod: new Date().toISOString(),
         changefreq: 'weekly',
         priority: 0.6,
+      };
+    }
+    
+    if (path.startsWith('/ai-act/')) {
+      return {
+        loc: path,
+        lastmod: new Date().toISOString(),
+        changefreq: 'weekly',
+        priority: 0.7,
       };
     }
     

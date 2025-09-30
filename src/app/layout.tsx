@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { PreviewBanner } from "@/components/PreviewBanner";
 import { MagicLinkHandler } from "@/components/MagicLinkHandler";
-import Providers from "./providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -51,9 +50,7 @@ export default function RootLayout({
       >
         <MagicLinkHandler />
         <PreviewBanner />
-        <Providers>
-          {children}
-        </Providers>
+        {children}
         <Analytics />
       </body>
     </html>

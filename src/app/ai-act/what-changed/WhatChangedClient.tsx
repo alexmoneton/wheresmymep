@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/shadcn/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
+import { Badge } from '@/components/shadcn/ui/badge';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
 import { ArrowLeft, Bell, FileText, Gavel, Shield, AlertCircle } from 'lucide-react';
 
@@ -149,7 +149,7 @@ export function WhatChangedClient() {
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            What changed this week (preview)
+            What changed this week
           </h1>
             <p className="text-lg text-gray-600">
               Here&apos;s a short list of AI Act updates from the last week. It covers new guidance, delegated acts, and notable clarifications that could affect your obligations. Prefer one bundle? Turn on the weekly digest alert and get this every Monday.

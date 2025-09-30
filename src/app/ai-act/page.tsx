@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getFlag } from '@/lib/flags';
 import { AIActIndexClient } from './AIActIndexClient';
 
 export const metadata: Metadata = {
@@ -13,10 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function AIActIndexPage() {
-  // Check if Act Radar feature is enabled
-  if (!getFlag('actradar')) {
-    notFound();
-  }
-
   return <AIActIndexClient />;
 }

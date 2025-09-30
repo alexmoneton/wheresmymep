@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/shadcn/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
+import { Badge } from '@/components/shadcn/ui/badge';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
 import { ArrowLeft, Bell, FileText } from 'lucide-react';
 
