@@ -2,15 +2,15 @@ import { NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
 
-export const runtime = 'nodejs'          // make sure we're NOT on Edge
-export const dynamic = 'force-dynamic'   // don't cache the route
+export const runtime = 'nodejs'          // ensure fs works (not Edge)
+export const dynamic = 'force-dynamic'   // no caching of route
 
 const FALLBACK = {
   week: 'fallback',
   items: [
-    { type: 'guidance',       title: 'New guideline on high-risk systems logging',     date: '2025-09-24', link: '#', topic: 'logging' },
-    { type: 'delegated_act',  title: 'Draft DA on post-market monitoring',            date: '2025-09-23', link: '#', topic: 'post-market-monitoring' },
-    { type: 'obligation',     title: 'Clarified duty for providers (Article 16)',     date: '2025-09-22', link: '#', topic: 'transparency' }
+    { type: 'guidance',      title: 'New guideline on high-risk systems logging', date: '2025-09-24', link: '#', topic: 'logging' },
+    { type: 'delegated_act', title: 'Draft delegated act on post-market monitoring', date: '2025-09-23', link: '#', topic: 'post-market-monitoring' },
+    { type: 'obligation',    title: 'Clarified duty for providers (Article 16)', date: '2025-09-22', link: '#', topic: 'transparency' },
   ],
 }
 
@@ -25,7 +25,7 @@ export async function GET() {
       })
     }
   } catch (_) {
-    // ignore and fall back
+    // ignore and return fallback
   }
   return new NextResponse(JSON.stringify(FALLBACK), {
     headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
