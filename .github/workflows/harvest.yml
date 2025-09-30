@@ -1,0 +1,29 @@
+name: nightly-harvest
+on:
+  schedule:
+    - cron: "0 4 * * 1-5"   # 04:00 UTC Mon–Fri
+  workflow_dispatch:       # allow manual run
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+      - run: npm ci
+      - name: Harvest AI Act
+        run: npm run harvest:ai-act
+        env:
+          PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          AI_ACT_SOURCES: ${{ secrets.AI_ACT_SOURCES }}  # optional comma list
+      - name: Harvest MEP stats
+        run: npm run harvest:meps
+        env:
+          PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          MEP_VOTES_SOURCE: ${{ secrets.MEP_VOTES_SOURCE }} # optional

@@ -13,7 +13,9 @@
     "seed": "tsx scripts/seed.ts",
     "ingest": "tsx ingestion/index.ts",
     "sitemap": "next-sitemap",
-    "test": "vitest run"
+    "test": "vitest run",
+    "harvest:ai-act": "node scripts/harvest_ai_act.js",
+    "harvest:meps": "node scripts/harvest_meps.js"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
