@@ -6,6 +6,7 @@ import { Button } from '@/components/shadcn/ui/button';
 import { Input } from '@/components/shadcn/ui/input';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/shadcn/ui/dialog';
 import { Bell, CheckCircle } from 'lucide-react';
+import { UpgradeModal } from './UpgradeModal';
 
 interface CreateAlertModalProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export function CreateAlertModal({ children, prefilledTopic }: CreateAlertModalP
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   
   const pathname = usePathname();
 
@@ -34,6 +36,16 @@ export function CreateAlertModal({ children, prefilledTopic }: CreateAlertModalP
     setError(null);
 
     try {
+      // Check usage limit first
+      const usageResponse = await fetch('/api/usage/alert');
+      const usageData = await usageResponse.json();
+      
+      if (usageData.remaining === 0) {
+        setShowUpgradeModal(true);
+        setIsSubmitting(false);
+        return;
+      }
+
       const response = await fetch('/api/alerts/interest', {
         method: 'POST',
         headers: {
@@ -49,6 +61,9 @@ export function CreateAlertModal({ children, prefilledTopic }: CreateAlertModalP
       const data = await response.json();
 
       if (data.ok) {
+        // Increment usage after successful submission
+        await fetch('/api/usage/alert', { method: 'POST' });
+        
         setIsSubmitted(true);
         // Announce success to screen readers
         const announcement = document.createElement('div');
@@ -89,14 +104,15 @@ export function CreateAlertModal({ children, prefilledTopic }: CreateAlertModalP
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
-      <DialogContent 
-        className="sm:max-w-md"
-        onKeyDown={handleKeyDown}
-      >
+    <>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          {children}
+        </DialogTrigger>
+        <DialogContent 
+          className="sm:max-w-md"
+          onKeyDown={handleKeyDown}
+        >
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <Bell className="h-5 w-5 text-blue-600" />
@@ -182,5 +198,12 @@ export function CreateAlertModal({ children, prefilledTopic }: CreateAlertModalP
         )}
       </DialogContent>
     </Dialog>
+    
+    <UpgradeModal
+      open={showUpgradeModal}
+      onClose={() => setShowUpgradeModal(false)}
+      reason="alerts"
+    />
+    </>
   );
 }
