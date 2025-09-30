@@ -1,12 +1,14 @@
-name: nightly-harvest
+name: automated-data-harvest
 on:
   schedule:
-    - cron: "0 4 * * 1-5"   # 04:00 UTC Mon–Fri
-  workflow_dispatch:       # allow manual run
+    - cron: "0 6 * * *"     # 06:00 UTC daily (after EP sessions)
+    - cron: "0 18 * * *"    # 18:00 UTC daily (evening update)
+  workflow_dispatch:        # allow manual run
 permissions:
   contents: read
 jobs:
-  run:
+  harvest-mep-data:
+    name: Harvest MEP Data
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,15 +17,14 @@ jobs:
           node-version: 18
           cache: npm
       - run: npm ci
+      - name: Harvest MEP Data
+        run: node scripts/harvest_mep_data.js
+        env:
+          PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
       - name: Harvest AI Act
         run: npm run harvest:ai-act
         env:
           PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
           ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
           AI_ACT_SOURCES: ${{ secrets.AI_ACT_SOURCES }}  # optional comma list
-      - name: Harvest MEP stats
-        run: npm run harvest:meps
-        env:
-          PUBLISH_BASE: ${{ secrets.PUBLISH_BASE }}
-          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
-          MEP_VOTES_SOURCE: ${{ secrets.MEP_VOTES_SOURCE }} # optional
