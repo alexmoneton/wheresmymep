@@ -3,28 +3,40 @@
 import { useState } from 'react';
 import { Button } from '@/components/shadcn/ui/button';
 import { Download } from 'lucide-react';
-import { exportTableAsCSV, findExportableTable } from '@/lib/csv-export';
+import { exportTableAsCSV, exportVotesAsCSV, findExportableTable, findExportableElement } from '@/lib/csv-export';
 
 interface ExportCSVButtonProps {
   filename: string;
+  selector?: string;
   className?: string;
 }
 
-export function ExportCSVButton({ filename, className }: ExportCSVButtonProps) {
+export function ExportCSVButton({ filename, selector, className }: ExportCSVButtonProps) {
   const [isExporting, setIsExporting] = useState(false);
 
   const handleExport = async () => {
     setIsExporting(true);
     
     try {
-      const table = findExportableTable();
+      let element: HTMLElement | null = null;
       
-      if (!table) {
-        console.warn('No exportable table found on the page');
+      if (selector) {
+        element = findExportableElement(selector);
+      } else {
+        element = findExportableTable();
+      }
+      
+      if (!element) {
+        console.warn('No exportable element found on the page');
         return;
       }
       
-      exportTableAsCSV(table, filename);
+      // Check if it's a table or votes container
+      if (element.tagName === 'TABLE') {
+        exportTableAsCSV(element as HTMLTableElement, filename);
+      } else {
+        exportVotesAsCSV(element, filename);
+      }
     } catch (error) {
       console.error('Failed to export CSV:', error);
     } finally {

@@ -319,7 +319,7 @@ export default function MEPProfilePage() {
             
             {/* Sprout: Export CSV Button */}
             {csvEnabled && notableVotes.length > 0 && (
-              <ExportCSVButton filename={`mep-${mep.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} />
+              <ExportCSVButton selector="#votes-table" filename={`mep-${mep.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} />
             )}
           </div>
           
@@ -342,7 +342,7 @@ export default function MEPProfilePage() {
               <p className="text-gray-500">No notable votes found for this MEP.</p>
             </div>
           ) : (
-            <div className="space-y-4" data-exportable="true">
+            <div className="space-y-4" id="votes-table" data-exportable="true">
               {notableVotes.map((vote) => (
                 <div key={vote.vote_id} className="border border-gray-200 rounded-lg p-6">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">

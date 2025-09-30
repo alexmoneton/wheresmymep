@@ -26,15 +26,26 @@ export function WhatChangedClient() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load the sample data
-    fetch('/data/ai-act/changes.sample.json')
-      .then(response => response.json())
+    // Load the sample data from public path
+    fetch('/data/ai-act/changes.sample.json', { cache: 'no-store' })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
       .then(data => {
-        setChangesData(data);
+        if (data && data.items && Array.isArray(data.items)) {
+          setChangesData(data);
+        } else {
+          console.warn('Invalid data structure received');
+          setChangesData(null);
+        }
         setLoading(false);
       })
       .catch(error => {
         console.error('Failed to load changes data:', error);
+        setChangesData(null);
         setLoading(false);
       });
   }, []);
@@ -114,10 +125,44 @@ export function WhatChangedClient() {
 
   if (!changesData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600">Failed to load changes data.</p>
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="bg-white border-b">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex items-center justify-between">
+              <Link href="/ai-act" className="text-purple-600 hover:text-purple-800 flex items-center space-x-2">
+                <ArrowLeft className="h-4 w-4" />
+                <span>Back to Act Radar</span>
+              </Link>
+              
+              <CreateAlertModal prefilledTopic="AI Act weekly changes">
+                <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Bell className="h-4 w-4" />
+                  <span>Set an alert</span>
+                </Button>
+              </CreateAlertModal>
+            </div>
+          </div>
         </div>
+
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              What changed this week
+            </h1>
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
+              <p className="text-yellow-800 mb-4">
+                We&apos;re currently updating this week&apos;s changes. Check back soon for the latest AI Act updates.
+              </p>
+              <CreateAlertModal prefilledTopic="AI Act weekly changes">
+                <Button className="flex items-center space-x-2">
+                  <Bell className="h-4 w-4" />
+                  <span>Get notified when ready</span>
+                </Button>
+              </CreateAlertModal>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }

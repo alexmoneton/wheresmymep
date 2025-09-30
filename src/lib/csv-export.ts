@@ -41,6 +41,60 @@ export function tableToCSV(table: HTMLTableElement): string {
 }
 
 /**
+ * Convert a div with vote cards to CSV data
+ * @param container - The HTML div element containing vote cards
+ * @returns CSV string
+ */
+export function votesToCSV(container: HTMLElement): string {
+  const rows: string[] = [];
+  
+  // Add header row
+  rows.push('Title,Date,Position,Result,Source');
+  
+  // Get all vote cards
+  const voteCards = container.querySelectorAll('[data-exportable="true"] > div');
+  
+  voteCards.forEach((card) => {
+    const cells: string[] = [];
+    
+    // Extract title
+    const titleEl = card.querySelector('h3');
+    const title = titleEl ? titleEl.textContent || '' : '';
+    
+    // Extract date
+    const dateEl = card.querySelector('span');
+    const date = dateEl ? dateEl.textContent || '' : '';
+    
+    // Extract position
+    const positionEl = card.querySelector('.px-2.py-1.rounded');
+    const position = positionEl ? positionEl.textContent || '' : '';
+    
+    // Extract result
+    const resultEl = card.querySelector('.text-sm.text-gray-600');
+    const result = resultEl ? resultEl.textContent || '' : '';
+    
+    // Extract source (link)
+    const linkEl = card.querySelector('a[href]');
+    const source = linkEl ? linkEl.getAttribute('href') || '' : '';
+    
+    // Clean and escape each cell
+    [title, date, position, result, source].forEach(text => {
+      let cleanText = text.replace(/\s+/g, ' ').trim();
+      if (cleanText.includes(',') || cleanText.includes('"') || cleanText.includes('\n')) {
+        cleanText = `"${cleanText.replace(/"/g, '""')}"`;
+      }
+      cells.push(cleanText);
+    });
+    
+    if (cells.some(cell => cell.trim() !== '')) {
+      rows.push(cells.join(','));
+    }
+  });
+  
+  return rows.join('\n');
+}
+
+/**
  * Download CSV data as a file
  * @param csvData - The CSV string to download
  * @param filename - The filename for the download
@@ -78,10 +132,31 @@ export function exportTableAsCSV(table: HTMLTableElement, filename: string): voi
 }
 
 /**
+ * Export votes as CSV and download it
+ * @param container - The HTML element containing vote cards
+ * @param filename - The filename for the download (without .csv extension)
+ */
+export function exportVotesAsCSV(container: HTMLElement, filename: string): void {
+  const csvData = votesToCSV(container);
+  const fullFilename = filename.endsWith('.csv') ? filename : `${filename}.csv`;
+  downloadCSV(csvData, fullFilename);
+}
+
+/**
  * Find the first exportable table on the page
  * @returns The first table with data-exportable="true" or null
  */
 export function findExportableTable(): HTMLTableElement | null {
   const table = document.querySelector('table[data-exportable="true"]') as HTMLTableElement;
   return table;
+}
+
+/**
+ * Find an exportable element by selector
+ * @param selector - CSS selector for the element
+ * @returns The element or null
+ */
+export function findExportableElement(selector: string): HTMLElement | null {
+  const element = document.querySelector(selector) as HTMLElement;
+  return element;
 }

@@ -1,0 +1,15 @@
+{
+  "week": "2025-W39",
+  "items": [
+    {"type": "guidance", "title": "Guidance on logging for high-risk systems", "date": "2025-09-24", "topic": "logging", "link": "#"},
+    {"type": "delegated_act", "title": "Draft DA on post-market monitoring templates", "date": "2025-09-23", "topic": "post-market-monitoring", "link": "#"},
+    {"type": "obligation", "title": "Clarified provider duty under Article 16 (dataset governance)", "date": "2025-09-22", "topic": "dataset-governance", "link": "#"},
+    {"type": "guidance", "title": "Plain-language transparency notices: examples pack", "date": "2025-09-21", "topic": "transparency", "link": "#"},
+    {"type": "note", "title": "Risk management: how to document mitigations", "date": "2025-09-20", "topic": "risk-management", "link": "#"},
+    {"type": "guidance", "title": "Event logs: retention and access checklist", "date": "2025-09-19", "topic": "logging", "link": "#"},
+    {"type": "delegated_act", "title": "DA consultation opens: incident reporting thresholds", "date": "2025-09-18", "topic": "post-market-monitoring", "link": "#"},
+    {"type": "obligation", "title": "Transparency triggers for users and deployers (recap)", "date": "2025-09-17", "topic": "transparency", "link": "#"},
+    {"type": "guidance", "title": "Risk register: starter structure and examples", "date": "2025-09-16", "topic": "risk-management", "link": "#"},
+    {"type": "note", "title": "Datasets: documenting provenance and changes", "date": "2025-09-15", "topic": "dataset-governance", "link": "#"}
+  ]
+}
