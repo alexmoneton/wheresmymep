@@ -10,7 +10,7 @@ module.exports = {
     '/pricing',
     '/api-keys',
     '/alerts',
-    '/ai-act/what-changed',
+    '/ai-act/*', // Exclude all AI Act Radar pages (decommissioned)
   ],
   additionalPaths: async (config) => {
     const paths = [];
@@ -20,33 +20,6 @@ module.exports = {
       const pseoEnabled = process.env.NEXT_PUBLIC_PSEO_ENABLE === 'true';
       
       if (pseoEnabled) {
-        // Add AI Act Radar topic pages
-        const aiActTopics = [
-          'logging',
-          'dataset-governance', 
-          'post-market-monitoring',
-          'transparency',
-          'risk-management'
-        ];
-        
-        for (const topic of aiActTopics) {
-          paths.push({
-            loc: `/ai-act/topics/${topic}`,
-            lastmod: new Date().toISOString(),
-            changefreq: 'weekly',
-            priority: 0.7,
-          });
-        }
-        
-        // Add weekly pages (current week only for now)
-        const currentWeek = `W${Math.ceil((new Date().getTime() - new Date(new Date().getFullYear(), 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000))}`;
-        paths.push({
-          loc: `/ai-act/updates/week/${currentWeek}`,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.6,
-        });
-        
         // Add country pages (common EU countries)
         const countries = [
           'germany', 'france', 'italy', 'spain', 'poland', 'romania', 'netherlands',
@@ -82,21 +55,6 @@ module.exports = {
         }
       }
       
-      // Always add static AI Act pages
-      const staticAiActPages = [
-        '/ai-act',
-        '/ai-act/pricing'
-      ];
-      
-      for (const page of staticAiActPages) {
-        paths.push({
-          loc: page,
-          lastmod: new Date().toISOString(),
-          changefreq: 'weekly',
-          priority: 0.7,
-        });
-      }
-      
     } catch (error) {
       console.error('Error generating additional sitemap paths:', error);
     }
@@ -115,7 +73,7 @@ module.exports = {
           '/pricing',
           '/api-keys',
           '/alerts',
-          '/ai-act/what-changed',
+          '/ai-act/', // Disallow all AI Act Radar pages (decommissioned)
         ],
       },
     ],
@@ -170,32 +128,6 @@ module.exports = {
       };
     }
     
-    if (path.startsWith('/ai-act/topics/')) {
-      return {
-        loc: path,
-        lastmod: new Date().toISOString(),
-        changefreq: 'weekly',
-        priority: 0.7,
-      };
-    }
-    
-    if (path.startsWith('/ai-act/updates/week/')) {
-      return {
-        loc: path,
-        lastmod: new Date().toISOString(),
-        changefreq: 'weekly',
-        priority: 0.6,
-      };
-    }
-    
-    if (path.startsWith('/ai-act/')) {
-      return {
-        loc: path,
-        lastmod: new Date().toISOString(),
-        changefreq: 'weekly',
-        priority: 0.7,
-      };
-    }
     
     return {
       loc: path,

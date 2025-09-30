@@ -149,6 +149,11 @@ Practical start: create a lightweight risk register—list your top risks, your 
 }
 
 export default async function TopicPage({ params }: TopicPageProps) {
+  // Hard kill switch for EU Act Radar
+  if (process.env.KILL_ACTRADAR === 'true') {
+    notFound();
+  }
+
   const { slug } = await params;
   const topicData = getTopicData(slug);
   

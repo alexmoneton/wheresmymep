@@ -9,7 +9,7 @@ import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 import { useFlag } from '@/lib/useFlag';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
 import { ExportCSVButton } from '@/components/ExportCSVButton';
-import { Bell, Download } from 'lucide-react';
+import { Bell, Download, ExternalLink, AlertTriangle } from 'lucide-react';
 
 interface MEP {
   mep_id: string | null;
@@ -40,12 +40,38 @@ interface NotableVote {
   source_url: string;
 }
 
+interface WhoFundsData {
+  meta: {
+    generatedAt: string;
+    sources: string[];
+  };
+  byMepId: Record<string, {
+    lastUpdated: string;
+    outsideActivities: Array<{
+      role: string;
+      paid: boolean;
+      incomeBand?: string;
+    }>;
+    support: Array<{
+      type: string;
+      provider: string;
+      note: string;
+    }>;
+    holdings: Array<{
+      entity: string;
+      note: string;
+    }>;
+    notes: string;
+  }>;
+}
+
 export default function MEPProfilePage() {
   const params = useParams();
   const mepId = params.id as string;
   
   const [mep, setMep] = useState<MEP | null>(null);
   const [notableVotes, setNotableVotes] = useState<NotableVote[]>([]);
+  const [whoFundsData, setWhoFundsData] = useState<WhoFundsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -58,9 +84,10 @@ export default function MEPProfilePage() {
       setLoading(true);
       setError(null);
 
-      const [mepResponse, votesResponse] = await Promise.all([
+      const [mepResponse, votesResponse, whoFundsResponse] = await Promise.all([
         fetch(`/api/meps/${mepId}`),
-        fetch(`/api/meps/${mepId}/notable`)
+        fetch(`/api/meps/${mepId}/notable`),
+        fetch('/data/whofunds.sample.json')
       ]);
 
       if (!mepResponse.ok) {
@@ -69,9 +96,11 @@ export default function MEPProfilePage() {
 
       const mepData = await mepResponse.json();
       const votesData = await votesResponse.json();
+      const whoFundsData = await whoFundsResponse.json();
 
       setMep(mepData);
       setNotableVotes(votesData);
+      setWhoFundsData(whoFundsData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load MEP data');
     } finally {
@@ -280,6 +309,109 @@ export default function MEPProfilePage() {
             </div>
           )}
         </div>
+
+        {/* Funding & Interests (preview) */}
+        {whoFundsData && whoFundsData.byMepId[mepId] && (
+          <div className="bg-white rounded-lg shadow-sm border p-8 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Funding & Interests (preview)</h2>
+            
+            <div className="space-y-6">
+              {/* Outside Activities */}
+              {whoFundsData.byMepId[mepId].outsideActivities.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Outside Activities</h3>
+                  <div className="space-y-2">
+                    {whoFundsData.byMepId[mepId].outsideActivities.map((activity, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                          <span className="font-medium text-gray-900">{activity.role}</span>
+                          {activity.paid && activity.incomeBand && (
+                            <span className="text-blue-600 ml-2">({activity.incomeBand})</span>
+                          )}
+                        </div>
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          activity.paid ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {activity.paid ? 'Paid' : 'Unpaid'}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Support Received */}
+              {whoFundsData.byMepId[mepId].support.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Support Received</h3>
+                  <div className="space-y-2">
+                    {whoFundsData.byMepId[mepId].support.map((support, index) => (
+                      <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                        <div className="font-medium text-gray-900">{support.type}</div>
+                        <div className="text-sm text-gray-600">from {support.provider}</div>
+                        {support.note && (
+                          <div className="text-sm text-gray-500 mt-1">{support.note}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Holdings */}
+              {whoFundsData.byMepId[mepId].holdings.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Holdings</h3>
+                  <div className="space-y-2">
+                    {whoFundsData.byMepId[mepId].holdings.map((holding, index) => (
+                      <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                        <div className="font-medium text-gray-900">{holding.entity}</div>
+                        <div className="text-sm text-gray-600">{holding.note}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Last Updated & Disclaimer */}
+              <div className="pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-gray-500">
+                    Last updated: {new Date(whoFundsData.byMepId[mepId].lastUpdated).toLocaleDateString()}
+                  </span>
+                  <a
+                    href="https://www.europarl.europa.eu/meps"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" />
+                    View declaration (europarl.europa.eu)
+                  </a>
+                </div>
+                
+                <div className="flex items-start space-x-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                  <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-orange-800">
+                    <strong>Preview notice:</strong> {whoFundsData.byMepId[mepId].notes}
+                  </p>
+                </div>
+              </div>
+
+              {/* Set Alert Button */}
+              {alertsEnabled && (
+                <div className="pt-4 border-t border-gray-200">
+                  <CreateAlertModal prefilledTopic="Funding & Interests">
+                    <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm">
+                      <Bell className="h-4 w-4" />
+                      <span>Set an alert for this MEP</span>
+                    </button>
+                  </CreateAlertModal>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Links */}
         {(mep.profile_url || mep.photo_url) && (

@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/shadcn/ui/button'
 import { Input } from '@/components/shadcn/ui/input'
 import { Label } from '@/components/shadcn/ui/label'
-import { Crown, Mail, ExternalLink, MessageCircle, Loader2 } from 'lucide-react'
+import { Crown, Mail, ExternalLink, MessageCircle } from 'lucide-react'
 
 interface UpgradeModalProps {
   open: boolean
@@ -18,7 +18,6 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isStripeLoading, setIsStripeLoading] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -52,12 +51,8 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
     }
   }
 
-  const getPricingHref = () => {
-    return pathname.startsWith('/ai-act') ? '/ai-act/pricing' : '/pricing'
-  }
-
   const handleSeePricing = () => {
-    router.push(getPricingHref())
+    router.push('/pricing')
     onClose()
   }
 
@@ -65,35 +60,6 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
     window.open('mailto:alex@moneton.no', '_blank')
   }
 
-  const handleStripeCheckout = async () => {
-    setIsStripeLoading(true)
-    try {
-      const response = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          product: 'actradar-business',
-          email: email || undefined
-        }),
-      })
-
-      const data = await response.json()
-      
-      if (data.url) {
-        window.location.href = data.url
-      } else {
-        console.error('No checkout URL received')
-        setIsStripeLoading(false)
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      setIsStripeLoading(false)
-    }
-  }
-
-  const isEARPage = pathname.startsWith('/ai-act')
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -124,59 +90,20 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
             </div>
 
             <div className="flex flex-col gap-2">
-              {isEARPage ? (
-                <>
-                  <Button
-                    type="button"
-                    onClick={handleStripeCheckout}
-                    disabled={isStripeLoading}
-                    className="w-full bg-purple-600 hover:bg-purple-700"
-                  >
-                    {isStripeLoading ? (
-                      <>
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        <Crown className="h-4 w-4 mr-2" />
-                        Start Pro Trial
-                      </>
-                    )}
-                  </Button>
-
-                  <Button
-                    type="submit"
-                    disabled={!email || isSubmitting}
-                    variant="outline"
-                    className="w-full"
-                  >
-                    {isSubmitting ? (
-                      'Sending...'
-                    ) : (
-                      <>
-                        <Mail className="h-4 w-4 mr-2" />
-                        Notify me when ready
-                      </>
-                    )}
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  type="submit"
-                  disabled={!email || isSubmitting}
-                  className="w-full"
-                >
-                  {isSubmitting ? (
-                    'Sending...'
-                  ) : (
-                    <>
-                      <Mail className="h-4 w-4 mr-2" />
-                      Notify me when Pro is ready
-                    </>
-                  )}
-                </Button>
-              )}
+              <Button
+                type="submit"
+                disabled={!email || isSubmitting}
+                className="w-full"
+              >
+                {isSubmitting ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <Mail className="h-4 w-4 mr-2" />
+                    Notify me when Pro is ready
+                  </>
+                )}
+              </Button>
 
               <Button
                 type="button"

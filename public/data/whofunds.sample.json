@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "generatedAt": "2025-01-30T00:00:00Z",
+    "sources": [
+      "https://www.europarl.europa.eu/meps",
+      "https://transparency-register.europa.eu"
+    ]
+  },
+  "byMepId": {
+    "12345": {
+      "lastUpdated": "2025-01-20",
+      "outsideActivities": [
+        {
+          "role": "Board member, Non-profit X",
+          "paid": false
+        },
+        {
+          "role": "Columnist, Newspaper Y",
+          "paid": true,
+          "incomeBand": "€1,001–€5,000/mo"
+        }
+      ],
+      "support": [
+        {
+          "type": "Staff/Material",
+          "provider": "Foundation Z",
+          "note": "campaign support 2024"
+        }
+      ],
+      "holdings": [
+        {
+          "entity": "SmallCo Ltd",
+          "note": "<5% shareholding"
+        }
+      ],
+      "notes": "Preview demo. See Declaration of (Private/Financial) Interests for authoritative info."
+    },
+    "67890": {
+      "lastUpdated": "2025-01-15",
+      "outsideActivities": [
+        {
+          "role": "Advisory Board, Tech Startup",
+          "paid": true,
+          "incomeBand": "€5,001–€10,000/mo"
+        }
+      ],
+      "support": [],
+      "holdings": [
+        {
+          "entity": "Green Energy Corp",
+          "note": "2% shareholding"
+        }
+      ],
+      "notes": "Preview demo. See Declaration of (Private/Financial) Interests for authoritative info."
+    },
+    "11111": {
+      "lastUpdated": "2025-01-10",
+      "outsideActivities": [
+        {
+          "role": "University Professor (part-time)",
+          "paid": true,
+          "incomeBand": "€1,001–€5,000/mo"
+        }
+      ],
+      "support": [
+        {
+          "type": "Financial",
+          "provider": "Research Institute",
+          "note": "research funding 2024"
+        }
+      ],
+      "holdings": [],
+      "notes": "Preview demo. See Declaration of (Private/Financial) Interests for authoritative info."
+    }
+  }
+}
