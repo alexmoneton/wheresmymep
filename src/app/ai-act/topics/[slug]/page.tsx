@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { TopicPageClient } from './TopicPageClient';
+import { getEARBundle, canIndex, getPSEOLimits, isPSEOEnabled, makeMeta, logPSEOGate } from '@/lib/pseo';
+import { copyForTopic, getTopicDisplayName, ensureMinWords } from '@/lib/pseo-copy';
+import { breadcrumbLd, collectionLd } from '@/lib/structured';
 
 interface TopicPageProps {
   params: Promise<{ slug: string }>;
@@ -16,14 +19,56 @@ export async function generateMetadata({ params }: TopicPageProps): Promise<Meta
     };
   }
 
-  return {
-    title: `AI Act — ${topicData.title} | EU Act Radar`,
-    description: topicData.description,
-    robots: {
-      index: true,
-      follow: true,
-    },
-  };
+  // Get pSEO data
+  const bundle = await getEARBundle();
+  const limits = getPSEOLimits();
+  const pseoEnabled = isPSEOEnabled();
+  
+  let shouldIndex = pseoEnabled;
+  let description = topicData.description;
+  
+  if (bundle) {
+    // Filter items by topic
+    const topicItems = bundle.items.filter(item => item.topic === slug);
+    const itemsCount = topicItems.length;
+    
+    // Generate copy and check word count
+    const generatedCopy = copyForTopic(slug, topicItems);
+    const { text: finalCopy, isThin } = ensureMinWords(generatedCopy, limits.minWords);
+    const wordsCount = finalCopy.trim().split(/\s+/).length;
+    
+    // Apply quality gates
+    shouldIndex = pseoEnabled && canIndex({
+      minItems: limits.minItems,
+      minWords: limits.minWords,
+      wordsCount,
+      itemsCount
+    });
+    
+    if (!shouldIndex) {
+      logPSEOGate(`topic-${slug}`, 'Quality gate failed', {
+        itemsCount,
+        wordsCount,
+        minItems: limits.minItems,
+        minWords: limits.minWords,
+        pseoEnabled
+      });
+    }
+    
+    // Use generated copy if we have enough content
+    if (itemsCount >= limits.minItems && wordsCount >= limits.minWords) {
+      description = finalCopy.substring(0, 160) + (finalCopy.length > 160 ? '...' : '');
+    }
+  }
+
+  const title = `AI Act — ${topicData.title} | EU Act Radar`;
+  const canonical = `/ai-act/topics/${slug}`;
+  
+  return makeMeta({
+    title,
+    desc: description,
+    canonical
+  });
 }
 
 function getTopicData(slug: string) {
@@ -111,5 +156,77 @@ export default async function TopicPage({ params }: TopicPageProps) {
     notFound();
   }
 
-  return <TopicPageClient topicData={topicData} />;
+  // Get pSEO data for the page
+  const bundle = await getEARBundle();
+  const limits = getPSEOLimits();
+  const pseoEnabled = isPSEOEnabled();
+  
+  let topicItems: any[] = [];
+  let shouldIndex = pseoEnabled;
+  let generatedCopy = '';
+  let jsonLd = null;
+  
+  if (bundle) {
+    topicItems = bundle.items.filter(item => item.topic === slug);
+    const itemsCount = topicItems.length;
+    
+    // Generate copy and check quality gates
+    generatedCopy = copyForTopic(slug, topicItems);
+    const { text: finalCopy, isThin } = ensureMinWords(generatedCopy, limits.minWords);
+    const wordsCount = finalCopy.trim().split(/\s+/).length;
+    
+    shouldIndex = pseoEnabled && canIndex({
+      minItems: limits.minItems,
+      minWords: limits.minWords,
+      wordsCount,
+      itemsCount
+    });
+    
+    // Generate JSON-LD if we pass quality gates
+    if (shouldIndex) {
+      const baseUrl = process.env.APP_URL || 'https://wheresmymep.eu';
+      const topicDisplayName = getTopicDisplayName(slug);
+      
+      // Breadcrumb JSON-LD
+      const breadcrumb = breadcrumbLd([
+        { name: 'EU Act Radar', url: `${baseUrl}/ai-act` },
+        { name: 'Topics', url: `${baseUrl}/ai-act/topics` },
+        { name: topicDisplayName, url: `${baseUrl}/ai-act/topics/${slug}` }
+      ]);
+      
+      // Collection JSON-LD
+      const itemUrls = topicItems.map(item => item.link).filter(link => link && link !== '#');
+      const collection = collectionLd(
+        `${topicDisplayName} Updates`,
+        `${baseUrl}/ai-act/topics/${slug}`,
+        itemUrls
+      );
+      
+      jsonLd = { breadcrumb, collection };
+    }
+  }
+
+  return (
+    <>
+      {jsonLd && (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd.breadcrumb) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd.collection) }}
+          />
+        </>
+      )}
+      <TopicPageClient 
+        topicData={topicData} 
+        topicItems={topicItems}
+        generatedCopy={generatedCopy}
+        shouldIndex={shouldIndex}
+        bundle={bundle}
+      />
+    </>
+  );
 }
