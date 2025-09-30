@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 // Remove server-side data imports for client component
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
@@ -22,6 +22,7 @@ export default function HomePage() {
   const [searchResults, setSearchResults] = useState<MEP[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   
   const [topMEPs, setTopMEPs] = useState<MEP[]>([]);
   const [bottomMEPs, setBottomMEPs] = useState<MEP[]>([]);
@@ -35,6 +36,10 @@ export default function HomePage() {
 
   // Get unique countries for dropdown
   const [countries, setCountries] = useState<string[]>([]);
+  
+  const getPricingHref = () => {
+    return pathname.startsWith('/ai-act') ? '/ai-act/pricing' : '/pricing';
+  };
   
   useEffect(() => {
     const fetchCountries = async () => {
@@ -158,12 +163,18 @@ export default function HomePage() {
             <p className="text-lg text-gray-600 mb-4">
               Attendance in roll-call votes, last 180 days
             </p>
-            <nav className="flex justify-center">
+            <nav className="flex justify-center items-center gap-4">
               <Link 
                 href="/ai-act" 
                 className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
               >
                 EU Act Radar
+              </Link>
+              <Link 
+                href={getPricingHref()}
+                className="inline-flex items-center px-3 py-1 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-full hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              >
+                Free
               </Link>
             </nav>
           </div>

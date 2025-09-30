@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/shadcn/ui/dialog'
 import { Button } from '@/components/shadcn/ui/button'
 import { Input } from '@/components/shadcn/ui/input'
 import { Label } from '@/components/shadcn/ui/label'
-import { Crown, Mail, ExternalLink } from 'lucide-react'
+import { Crown, Mail, ExternalLink, MessageCircle } from 'lucide-react'
 
 interface UpgradeModalProps {
   open: boolean
@@ -19,6 +19,7 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,23 +51,17 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
     }
   }
 
+  const getPricingHref = () => {
+    return pathname.startsWith('/ai-act') ? '/ai-act/pricing' : '/pricing'
+  }
+
   const handleSeePricing = () => {
-    router.push('/ai-act/pricing')
+    router.push(getPricingHref())
     onClose()
   }
 
-  const getReasonText = () => {
-    if (reason === 'alerts') {
-      return 'You\'ve reached your free plan limit of 3 alerts per month.'
-    }
-    return 'You\'ve reached your free plan limit of 3 CSV exports per month.'
-  }
-
-  const getFeatureText = () => {
-    if (reason === 'alerts') {
-      return 'Get Pro for unlimited alerts and advanced monitoring.'
-    }
-    return 'Get Pro for unlimited CSV exports and advanced data access.'
+  const handleTalkToUs = () => {
+    window.open('mailto:alex@moneton.no', '_blank')
   }
 
   return (
@@ -78,7 +73,7 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
             Free Plan Limit Reached
           </DialogTitle>
           <DialogDescription>
-            {getReasonText()} {getFeatureText()}
+            Free plan includes 3 alerts and 3 CSV exports per month. Go Pro for unlimited + weekly digests.
           </DialogDescription>
         </DialogHeader>
 
@@ -121,6 +116,16 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
               >
                 <ExternalLink className="h-4 w-4 mr-2" />
                 See pricing plans
+              </Button>
+
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={handleTalkToUs}
+                className="w-full"
+              >
+                <MessageCircle className="h-4 w-4 mr-2" />
+                Talk to us
               </Button>
             </div>
           </form>
