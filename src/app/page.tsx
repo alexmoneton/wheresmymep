@@ -37,9 +37,6 @@ export default function HomePage() {
   // Get unique countries for dropdown
   const [countries, setCountries] = useState<string[]>([]);
   
-  const getPricingHref = () => {
-    return pathname.startsWith('/ai-act') ? '/ai-act/pricing' : '/pricing';
-  };
   
   useEffect(() => {
     const fetchCountries = async () => {
@@ -165,13 +162,13 @@ export default function HomePage() {
             </p>
             <nav className="flex justify-center items-center gap-4">
               <Link 
-                href="/ai-act" 
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                href="/who-funds"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
-                EU Act Radar
+                WhoFundsMyMEP
               </Link>
               <Link 
-                href={getPricingHref()}
+                href="/pricing"
                 className="inline-flex items-center px-3 py-1 text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-full hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
               >
                 Free

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { WhatChangedClient } from './WhatChangedClient';
 
 export const metadata: Metadata = {
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function WhatChangedPage() {
+  // Hard kill switch for EU Act Radar
+  if (process.env.KILL_ACTRADAR === 'true') {
+    notFound();
+  }
+
   return <WhatChangedClient />;
 }
