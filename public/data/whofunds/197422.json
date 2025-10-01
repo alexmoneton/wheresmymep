@@ -1,0 +1,100 @@
+{
+  "mep_id": "197422",
+  "name": "Antonio López-Istúriz White",
+  "country": "Spain",
+  "party": "European People's Party",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197422/ANTONIO_L_PEZ_IST_RIZ_WHITE/declarations"
+  },
+  "last_updated_utc": "2025-10-01T14:17:18.608Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen Parlamentsöffentliche",
+      "notes": "öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied im Kreistag Südliche Weinstraße90 EURmonatlich",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Mitglied im Kreistag Südliche Weinstraße90 EURmonatlich",
+      "role": "Mitglied im Kreistag Südliche Weinstraße90 EURmonatlich"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied im Förderverein Christine hilft e.V",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Mitglied im Förderverein Christine hilft e.VX",
+      "notes": "Unpaid",
+      "role": "Mitglied im Förderverein Christine hilft e.V"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Bezirksvorsitzende CDU-Bezirk",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Bezirksvorsitzende CDU-Bezirk",
+      "role": "Bezirksvorsitzende CDU-Bezirk"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "der Kreisverwaltung",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Mitglied im Jagdbeirat der Kreisverwaltung",
+      "role": "Mitglied im Jagdbeirat der Kreisverwaltung"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Stellvertretende Bundesvorsitzende der",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Stellvertretende Bundesvorsitzende der",
+      "role": "Stellvertretende Bundesvorsitzende der"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied im Förderverein Christine hilft e.V.",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied im Förderverein Christine hilft e.V.X",
+      "notes": "Unpaid",
+      "role": "Mitglied im Förderverein Christine hilft e.V."
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Bezirksvorsitzende CDU-Bezirk",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Bezirksvorsitzende CDU-Bezirk",
+      "role": "Bezirksvorsitzende CDU-Bezirk"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "der Kreisverwaltung",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Mitglied im Jagdbeirat der Kreisverwaltung",
+      "role": "Mitglied im Jagdbeirat der Kreisverwaltung"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied im Kreistag Südliche Weinstraße90 EURmonatlich",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Mitglied im Kreistag Südliche Weinstraße90 EURmonatlich",
+      "role": "Mitglied im Kreistag Südliche Weinstraße90 EURmonatlich"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Stellvertretende Bundesvorsitzende der",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Stellvertretende Bundesvorsitzende der",
+      "role": "Stellvertretende Bundesvorsitzende der"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

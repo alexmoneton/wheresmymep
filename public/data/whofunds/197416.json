@@ -1,0 +1,26 @@
+{
+  "mep_id": "197416",
+  "name": "Anna Cavazzini",
+  "country": "Germany",
+  "party": "Greens/European Free Alliance",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197416/ANNA_CAVAZZINI/declarations"
+  },
+  "last_updated_utc": "2025-10-01T14:16:49.548Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Μέλος του Ευρωπαϊκού ΚοινοβουλίουΔημόσια",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Μέλος του Ευρωπαϊκού ΚοινοβουλίουΔημόσια"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

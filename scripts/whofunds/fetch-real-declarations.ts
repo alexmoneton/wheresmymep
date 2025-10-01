@@ -21,8 +21,8 @@ if (process.env.ALLOW_WHOFUNDS_FETCH !== 'true') {
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public/data/whofunds');
 const SEED_FILE = path.join(__dirname, 'seed-list.csv');
-const CONCURRENT = 2; // Be gentle
-const DELAY_MS = 3000;
+const CONCURRENT = 3; // Slightly more aggressive for expansion
+const DELAY_MS = 2500;
 
 interface Result {
   mepId: string;
@@ -158,8 +158,8 @@ async function main() {
   const { data } = Papa.parse<any>(csvContent, { header: true, skipEmptyLines: true });
 
   // Limit to first 10 for initial run
-  const meps = data.slice(0, 10);
-  console.log(`📋 Processing ${meps.length} MEPs (limited for safety)\n`);
+  const meps = data.slice(0, 25);
+  console.log(`📋 Processing ${meps.length} MEPs (expanding dataset)\n`);
 
   const limit = pLimit(CONCURRENT);
   const results: Result[] = [];

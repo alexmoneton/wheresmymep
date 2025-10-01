@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated_at": "2025-10-01T11:57:25.391Z",
-    "total_meps": 9,
-    "last_full_refresh": "2025-10-01T11:57:25.392Z"
+    "generated_at": "2025-10-01T14:17:23.613Z",
+    "total_meps": 17,
+    "last_full_refresh": "2025-10-01T14:17:23.613Z"
   },
   "meps": [
     {
@@ -10,7 +10,7 @@
       "name": "Abir Al-Sahlani",
       "country": "Sweden",
       "party": "Renew Europe Group",
-      "last_updated_utc": "2025-10-01T11:56:47.917Z",
+      "last_updated_utc": "2025-10-01T14:14:02.377Z",
       "total_income_entries": 2,
       "total_gifts_entries": 0
     },
@@ -19,7 +19,7 @@
       "name": "Adam Bielan",
       "country": "Poland",
       "party": "European Conservatives and Reformists Group",
-      "last_updated_utc": "2025-10-01T11:56:51.799Z",
+      "last_updated_utc": "2025-10-01T14:14:16.155Z",
       "total_income_entries": 1,
       "total_gifts_entries": 0
     },
@@ -28,7 +28,7 @@
       "name": "Adrián Vázquez Lázara",
       "country": "Spain",
       "party": "Renew Europe Group",
-      "last_updated_utc": "2025-10-01T11:56:55.742Z",
+      "last_updated_utc": "2025-10-01T14:14:29.730Z",
       "total_income_entries": 9,
       "total_gifts_entries": 0
     },
@@ -37,7 +37,7 @@
       "name": "Agnes Jongerius",
       "country": "Netherlands",
       "party": "Progressive Alliance of Socialists and Democrats",
-      "last_updated_utc": "2025-10-01T11:56:59.701Z",
+      "last_updated_utc": "2025-10-01T14:14:43.168Z",
       "total_income_entries": 1,
       "total_gifts_entries": 0
     },
@@ -46,7 +46,7 @@
       "name": "Ahmed Aboutaleb",
       "country": "Netherlands",
       "party": "Progressive Alliance of Socialists and Democrats",
-      "last_updated_utc": "2025-10-01T11:57:03.598Z",
+      "last_updated_utc": "2025-10-01T14:14:57.218Z",
       "total_income_entries": 2,
       "total_gifts_entries": 0
     },
@@ -55,7 +55,7 @@
       "name": "Aida Džananović",
       "country": "Bosnia and Herzegovina",
       "party": "Progressive Alliance of Socialists and Democrats",
-      "last_updated_utc": "2025-10-01T11:57:07.529Z",
+      "last_updated_utc": "2025-10-01T14:15:01.078Z",
       "total_income_entries": 1,
       "total_gifts_entries": 0
     },
@@ -64,7 +64,7 @@
       "name": "Aileen McLeod",
       "country": "United Kingdom",
       "party": "Greens/European Free Alliance",
-      "last_updated_utc": "2025-10-01T11:57:11.412Z",
+      "last_updated_utc": "2025-10-01T14:15:12.392Z",
       "total_income_entries": 7,
       "total_gifts_entries": 0
     },
@@ -73,7 +73,7 @@
       "name": "Ajda Kravanja",
       "country": "Slovenia",
       "party": "European People's Party",
-      "last_updated_utc": "2025-10-01T11:57:15.442Z",
+      "last_updated_utc": "2025-10-01T14:15:25.887Z",
       "total_income_entries": 3,
       "total_gifts_entries": 0
     },
@@ -82,8 +82,80 @@
       "name": "Aleksandra Gajewska",
       "country": "Poland",
       "party": "European People's Party",
-      "last_updated_utc": "2025-10-01T11:57:22.389Z",
+      "last_updated_utc": "2025-10-01T14:15:31.960Z",
       "total_income_entries": 14,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197410",
+      "name": "Alice Kuhnke",
+      "country": "Sweden",
+      "party": "Greens/European Free Alliance",
+      "last_updated_utc": "2025-10-01T14:15:48.601Z",
+      "total_income_entries": 5,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197412",
+      "name": "Andreas Schwab",
+      "country": "Germany",
+      "party": "European People's Party",
+      "last_updated_utc": "2025-10-01T14:16:05.251Z",
+      "total_income_entries": 4,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197413",
+      "name": "Andrey Kovatchev",
+      "country": "Bulgaria",
+      "party": "European People's Party",
+      "last_updated_utc": "2025-10-01T14:16:19.433Z",
+      "total_income_entries": 7,
+      "total_gifts_entries": 1
+    },
+    {
+      "mep_id": "197414",
+      "name": "Andrey Novakov",
+      "country": "Bulgaria",
+      "party": "European People's Party",
+      "last_updated_utc": "2025-10-01T14:16:32.933Z",
+      "total_income_entries": 1,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197416",
+      "name": "Anna Cavazzini",
+      "country": "Germany",
+      "party": "Greens/European Free Alliance",
+      "last_updated_utc": "2025-10-01T14:16:49.548Z",
+      "total_income_entries": 1,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197417",
+      "name": "Anna Fotyga",
+      "country": "Poland",
+      "party": "European Conservatives and Reformists Group",
+      "last_updated_utc": "2025-10-01T14:17:03.412Z",
+      "total_income_entries": 12,
+      "total_gifts_entries": 1
+    },
+    {
+      "mep_id": "197421",
+      "name": "Antoni Comín i Oliveres",
+      "country": "Spain",
+      "party": "Non-attached Members",
+      "last_updated_utc": "2025-10-01T14:17:14.441Z",
+      "total_income_entries": 5,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197422",
+      "name": "Antonio López-Istúriz White",
+      "country": "Spain",
+      "party": "European People's Party",
+      "last_updated_utc": "2025-10-01T14:17:18.608Z",
+      "total_income_entries": 11,
       "total_gifts_entries": 0
     }
   ]

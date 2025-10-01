@@ -1,19 +1,19 @@
 {
-  "mep_id": "197402",
-  "name": "Agnes Jongerius",
-  "country": "Netherlands",
-  "party": "Progressive Alliance of Socialists and Democrats",
+  "mep_id": "197414",
+  "name": "Andrey Novakov",
+  "country": "Bulgaria",
+  "party": "European People's Party",
   "sources": {
-    "declaration_url": "https://www.europarl.europa.eu/meps/en/197402/AGNES_JONGERIUS/declarations"
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197414/ANDREY_NOVAKOV/declarations"
   },
-  "last_updated_utc": "2025-10-01T14:14:43.168Z",
+  "last_updated_utc": "2025-10-01T14:16:32.933Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
       "entity_name": "European Parliament",
       "entity_type": "unknown",
-      "source_excerpt": "1. Member of the European ParliamentPublic InformationMonthly",
-      "notes": "Public Information",
+      "source_excerpt": "1. Member of the European Parliamentpublic informationMonthly",
+      "notes": "public information",
       "role": "Member of the European Parliament",
       "period": "monthly"
     }

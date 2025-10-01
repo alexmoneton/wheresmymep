@@ -1,0 +1,100 @@
+{
+  "mep_id": "197417",
+  "name": "Anna Fotyga",
+  "country": "Poland",
+  "party": "European Conservatives and Reformists Group",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197417/ANNA_FOTYGA/declarations"
+  },
+  "last_updated_utc": "2025-10-01T14:17:03.412Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Zastupnik u Europskom parlamentuJavno dostupna",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Zastupnik u Europskom parlamentuJavno dostupna"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "ZNANSTVENO-NASTAVNA",
+      "entity_type": "media",
+      "source_excerpt": "2. ZNANSTVENO-NASTAVNA"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "THE EUROPEAN ASSOCIATION OF",
+      "entity_type": "ngo",
+      "source_excerpt": "3. THE EUROPEAN ASSOCIATION OF"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "THE EUROPEAN INSTITUTE OF SOCIAL",
+      "entity_type": "unknown",
+      "source_excerpt": "4. THE EUROPEAN INSTITUTE OF SOCIAL"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "HRVATSKA DEMOKRATSKA",
+      "entity_type": "unknown",
+      "source_excerpt": "5. HRVATSKA DEMOKRATSKA"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "stavkom 2. točkom (b) Kodeksa ponašanja",
+      "entity_type": "unknown",
+      "source_excerpt": "4. stavkom 2. točkom (b) Kodeksa ponašanja, prijavljujem svaku plaćenu aktivnost koju obavljam usporedo s",
+      "notes": "Paid activity >5,000 EUR/year"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "ZNANSTVENO-NASTAVNA DJELATNOST",
+      "entity_type": "media",
+      "source_excerpt": "1. ZNANSTVENO-NASTAVNA DJELATNOST, polje pravo -",
+      "notes": "Paid activity >5,000 EUR/year"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "stavkom 2. točkom (c) Kodeksa ponašanja",
+      "entity_type": "media",
+      "source_excerpt": "4. stavkom 2. točkom (c) Kodeksa ponašanja, prijavljujem članstvo u odborima ili vijećima poduzeća,"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "THE EUROPEAN ASSOCIATION OF",
+      "entity_type": "ngo",
+      "source_excerpt": "1. THE EUROPEAN ASSOCIATION OF"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "THE EUROPEAN INSTITUTE OF SOCIAL",
+      "entity_type": "unknown",
+      "source_excerpt": "2. THE EUROPEAN INSTITUTE OF SOCIAL"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "HRVATSKA DEMOKRATSKA",
+      "entity_type": "unknown",
+      "source_excerpt": "3. HRVATSKA DEMOKRATSKA"
+    },
+    {
+      "category": "ownership",
+      "entity_name": "stavkom 2. točkom (d) Kodeksa ponašanja",
+      "entity_type": "media",
+      "source_excerpt": "4. stavkom 2. točkom (d) Kodeksa ponašanja, prijavljujem udio u poduzeću ili partnerstvu ako to ima moguće"
+    }
+  ],
+  "gifts_travel": [
+    {
+      "sponsor": "Poslovnika:",
+      "item": "Poslovnika:",
+      "source_excerpt": "4. Poslovnika:"
+    }
+  ],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

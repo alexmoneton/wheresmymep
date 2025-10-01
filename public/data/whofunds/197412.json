@@ -1,0 +1,49 @@
+{
+  "mep_id": "197412",
+  "name": "Andreas Schwab",
+  "country": "Germany",
+  "party": "European People's Party",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197412/ANDREAS_SCHWAB/declarations"
+  },
+  "last_updated_utc": "2025-10-01T14:16:05.251Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Landesvorsitzender Europa",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Stellvertretender Landesvorsitzender Europa",
+      "role": "Stellvertretender Landesvorsitzender Europa"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied Landesvorstand CDU Schleswig",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Mitglied Landesvorstand CDU Schleswig-",
+      "role": "Mitglied Landesvorstand CDU Schleswig-"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "European Parliament",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Member of European ParliamentPublic Informationmonatlich",
+      "notes": "Public Information",
+      "role": "Member of European Parliament"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Landesvorsitzender Europa",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Stellvertretender Landesvorsitzender Europa",
+      "role": "Stellvertretender Landesvorsitzender Europa"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}
