@@ -3,7 +3,7 @@
  * Checks localStorage first, then falls back to environment variables
  */
 
-export type FlagName = 'alerts' | 'csv' | 'changes' | 'actradar';
+export type FlagName = 'alerts' | 'csv' | 'changes' | 'actradar' | 'whofunds';
 
 export function parseBoolEnv(v?: string | undefined): boolean {
   const s = (v ?? '').trim().toLowerCase()
@@ -18,7 +18,7 @@ export function ensureFlagVersion(): void {
     const key = 'ff_version'
     const cur = Number(localStorage.getItem(key) ?? '0')
     if (cur !== FLAG_VERSION) {
-      ;['ff_alerts','ff_csv','ff_actradar','ff_changes'].forEach(k => localStorage.removeItem(k))
+      ;['ff_alerts','ff_csv','ff_actradar','ff_changes','ff_whofunds'].forEach(k => localStorage.removeItem(k))
       localStorage.setItem(key, String(FLAG_VERSION))
     }
   } catch {}
@@ -30,6 +30,7 @@ export const ENV_DEFAULTS = {
   csv:      parseBoolEnv(process.env.NEXT_PUBLIC_FEATURE_CSV),
   actradar: parseBoolEnv(process.env.NEXT_PUBLIC_FEATURE_ACTRADAR),
   changes:  parseBoolEnv(process.env.NEXT_PUBLIC_FEATURE_CHANGES),
+  whofunds: parseBoolEnv(process.env.NEXT_PUBLIC_FEATURE_WHOFUNDS),
 }
 
 /**
@@ -77,7 +78,7 @@ export function setFlag(name: FlagName, value: boolean): void {
  */
 export function resetFlagsToDefaults(): void {
   if (typeof window !== 'undefined') {
-    const flags: FlagName[] = ['alerts', 'csv', 'changes', 'actradar'];
+    const flags: FlagName[] = ['alerts', 'csv', 'changes', 'actradar', 'whofunds'];
     flags.forEach(flag => {
       const defaultValue = ENV_DEFAULTS[flag];
       
@@ -99,5 +100,5 @@ export function resetFlagsToDefaults(): void {
  * @returns true if at least one flag is enabled
  */
 export function hasAnyFlagEnabled(): boolean {
-  return getFlag('alerts') || getFlag('csv') || getFlag('changes') || getFlag('actradar');
+  return getFlag('alerts') || getFlag('csv') || getFlag('changes') || getFlag('actradar') || getFlag('whofunds');
 }

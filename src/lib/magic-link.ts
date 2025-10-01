@@ -18,18 +18,18 @@ export function processMagicLinks(): void {
   const currentUrl = new URL(window.location.href);
   let changed = false;
 
-  // Handle bulk toggle
-  if (urlParams.has('all')) {
-    const on = ['on','true','1','yes'].includes(urlParams.get('all')!.toLowerCase());
-    const flagsToSet = ['alerts','csv','changes'];
-    // Only include actradar if KILL_ACTRADAR is not set
-    if (process.env.KILL_ACTRADAR !== 'true') {
-      flagsToSet.push('actradar');
-    }
-    flagsToSet.forEach(n => setFlag(n as any, on));
-    urlParams.delete('all');
-    changed = true;
-  }
+        // Handle bulk toggle
+        if (urlParams.has('all')) {
+          const on = ['on','true','1','yes'].includes(urlParams.get('all')!.toLowerCase());
+          const flagsToSet = ['alerts','csv','changes','whofunds'];
+          // Only include actradar if KILL_ACTRADAR is not set
+          if (process.env.KILL_ACTRADAR !== 'true') {
+            flagsToSet.push('actradar');
+          }
+          flagsToSet.forEach(n => setFlag(n as any, on));
+          urlParams.delete('all');
+          changed = true;
+        }
 
   // Handle individual parameters
   const actradarParam = urlParams.get('actradar');
@@ -72,16 +72,27 @@ export function processMagicLinks(): void {
     changed = true;
   }
 
-  const changesParam = urlParams.get('changes');
-  if (changesParam === 'on') {
-    setFlag('changes', true);
-    urlParams.delete('changes');
-    changed = true;
-  } else if (changesParam === 'off') {
-    setFlag('changes', false);
-    urlParams.delete('changes');
-    changed = true;
-  }
+        const changesParam = urlParams.get('changes');
+        if (changesParam === 'on') {
+          setFlag('changes', true);
+          urlParams.delete('changes');
+          changed = true;
+        } else if (changesParam === 'off') {
+          setFlag('changes', false);
+          urlParams.delete('changes');
+          changed = true;
+        }
+
+        const whofundsParam = urlParams.get('whofunds');
+        if (whofundsParam === 'on') {
+          setFlag('whofunds', true);
+          urlParams.delete('whofunds');
+          changed = true;
+        } else if (whofundsParam === 'off') {
+          setFlag('whofunds', false);
+          urlParams.delete('whofunds');
+          changed = true;
+        }
 
   // Update URL if any parameters were processed
   if (changed) {

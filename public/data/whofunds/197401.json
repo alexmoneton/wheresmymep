@@ -1,0 +1,77 @@
+{
+  "mep_id": "197401",
+  "name": "Adrián Vázquez Lázara",
+  "country": "Spain",
+  "party": "Renew Europe Group",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197401/ADRI_N_V_ZQUEZ_L_ZARA/declarations"
+  },
+  "last_updated_utc": "2025-10-01T11:56:55.742Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Karin Karlsbro AB Se också övriga",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Karin Karlsbro AB Se också övriga"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "SILC Swedish International Liberal Centre",
+      "entity_type": "unknown",
+      "source_excerpt": "2. SILC Swedish International Liberal Centre,"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Nätverket Gröna Liberaler",
+      "entity_type": "media",
+      "source_excerpt": "3. Nätverket Gröna LiberalerX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "ledamot av Europaparlamentetoffentlig",
+      "entity_type": "unknown",
+      "source_excerpt": "4. ledamot av Europaparlamentetoffentlig"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Liberalerans partistyrelse och riksdagsgrupp",
+      "entity_type": "political_party",
+      "source_excerpt": "5. Liberalerans partistyrelse och riksdagsgrupp,"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Frisinnade landsföreningen tom dec 2023",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Frisinnade landsföreningen tom dec 2023X",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Liberalerans partistyrelse och riksdagsgrupp",
+      "entity_type": "political_party",
+      "source_excerpt": "1. Liberalerans partistyrelse och riksdagsgrupp,"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Nätverket Gröna Liberaler",
+      "entity_type": "media",
+      "source_excerpt": "2. Nätverket Gröna LiberalerX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Karin Karlsbro AB Se övriga upplysningar.",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Karin Karlsbro AB Se övriga upplysningar."
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

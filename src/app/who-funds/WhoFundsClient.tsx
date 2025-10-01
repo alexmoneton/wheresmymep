@@ -7,7 +7,8 @@ import { Button } from '@/components/shadcn/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
 import { Input } from '@/components/shadcn/ui/input';
 import { Badge } from '@/components/shadcn/ui/badge';
-import { Search, FileText, ExternalLink, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Search, FileText, ExternalLink, AlertTriangle, ArrowLeft, TrendingUp } from 'lucide-react';
+import { WhoFundsData, WhoFundsIndex } from '@/lib/zod/whofunds';
 
 interface MEP {
   id: string;
@@ -16,50 +17,25 @@ interface MEP {
   party: string;
 }
 
-interface WhoFundsData {
-  meta: {
-    generatedAt: string;
-    sources: string[];
-  };
-  byMepId: Record<string, {
-    lastUpdated: string;
-    outsideActivities: Array<{
-      role: string;
-      paid: boolean;
-      incomeBand?: string;
-    }>;
-    support: Array<{
-      type: string;
-      provider: string;
-      note: string;
-    }>;
-    holdings: Array<{
-      entity: string;
-      note: string;
-    }>;
-    notes: string;
-  }>;
-}
-
 export function WhoFundsClient() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<MEP[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [whoFundsData, setWhoFundsData] = useState<WhoFundsData | null>(null);
+  const [whoFundsIndex, setWhoFundsIndex] = useState<WhoFundsIndex | null>(null);
   const router = useRouter();
 
-  // Load WhoFunds data
+  // Load WhoFunds index data
   useEffect(() => {
-    const loadWhoFundsData = async () => {
+    const loadWhoFundsIndex = async () => {
       try {
-        const response = await fetch('/data/whofunds.sample.json');
+        const response = await fetch('/data/whofunds/index.json');
         const data = await response.json();
-        setWhoFundsData(data);
+        setWhoFundsIndex(data);
       } catch (error) {
-        console.error('Error loading WhoFunds data:', error);
+        console.error('Error loading WhoFunds index:', error);
       }
     };
-    loadWhoFundsData();
+    loadWhoFundsIndex();
   }, []);
 
   // Search functionality
@@ -101,9 +77,12 @@ export function WhoFundsClient() {
     return () => clearTimeout(timeoutId);
   };
 
-  const getSampleMEPs = () => {
-    if (!whoFundsData) return [];
-    return Object.keys(whoFundsData.byMepId).slice(0, 3);
+  const getTopMEPs = () => {
+    if (!whoFundsIndex) return [];
+    return whoFundsIndex.meps
+      .filter(mep => mep.total_estimated_value_eur && mep.total_estimated_value_eur > 0)
+      .sort((a, b) => (b.total_estimated_value_eur || 0) - (a.total_estimated_value_eur || 0))
+      .slice(0, 20);
   };
 
   return (
@@ -220,75 +199,87 @@ export function WhoFundsClient() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Sample MEPs with Funding Data */}
+        {/* Top 20 by Declared Outside Income */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Sample MEPs with Funding Data
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {getSampleMEPs().map((mepId) => {
-              const mepData = whoFundsData?.byMepId[mepId];
-              if (!mepData) return null;
-              
-              return (
-                <Card key={mepId} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="text-lg">MEP {mepId}</CardTitle>
-                    <CardDescription>
-                      Sample funding data (preview)
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {mepData.outsideActivities.length > 0 && (
-                        <div>
-                          <h4 className="font-medium text-gray-900 mb-1">Outside Activities</h4>
-                          {mepData.outsideActivities.map((activity, index) => (
-                            <div key={index} className="text-sm text-gray-600">
-                              • {activity.role}
-                              {activity.paid && activity.incomeBand && (
-                                <span className="text-blue-600 ml-1">({activity.incomeBand})</span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      
-                      {mepData.support.length > 0 && (
-                        <div>
-                          <h4 className="font-medium text-gray-900 mb-1">Support Received</h4>
-                          {mepData.support.map((support, index) => (
-                            <div key={index} className="text-sm text-gray-600">
-                              • {support.type} from {support.provider}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      
-                      {mepData.holdings.length > 0 && (
-                        <div>
-                          <h4 className="font-medium text-gray-900 mb-1">Holdings</h4>
-                          {mepData.holdings.map((holding, index) => (
-                            <div key={index} className="text-sm text-gray-600">
-                              • {holding.entity} ({holding.note})
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <div className="pt-2 border-t">
-                        <Link href={`/mep/${mepId}`}>
-                          <Button variant="outline" size="sm" className="w-full">
-                            View Full Profile
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          <div className="flex items-center space-x-3 mb-6">
+            <TrendingUp className="h-6 w-6 text-blue-600" />
+            <h2 className="text-2xl font-bold text-gray-900">
+              Top 20 by Declared Outside Income (Last 12 Months)
+            </h2>
           </div>
+          
+          {whoFundsIndex ? (
+            <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Rank
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        MEP
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Country
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Party
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Estimated Value
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Entries
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {getTopMEPs().map((mep, index) => (
+                      <tr key={mep.mep_id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          #{index + 1}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <Link 
+                            href={`/mep/${mep.mep_id}`}
+                            className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                          >
+                            {mep.name}
+                          </Link>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {mep.country}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <Badge variant="outline" className="text-xs">
+                            {mep.party}
+                          </Badge>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                          €{mep.total_estimated_value_eur?.toLocaleString() || '0'}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {mep.total_income_entries + mep.total_gifts_entries} total
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              
+              {getTopMEPs().length === 0 && (
+                <div className="text-center py-8 text-gray-500">
+                  No MEPs with declared outside income found.
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading leaderboard...</p>
+            </div>
+          )}
         </div>
 
         {/* Info Cards */}
@@ -297,17 +288,22 @@ export function WhoFundsClient() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <FileText className="h-5 w-5 text-blue-600" />
-                <span>Methodology</span>
+                <span>Last Updated</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600 mb-4">
-                We parse official Declarations of Members' Financial/Private Interests 
-                and extract structured data about outside activities, support received, and holdings.
+              <p className="text-sm text-gray-600">
+                {whoFundsIndex?.meta.generated_at ? 
+                  new Date(whoFundsIndex.meta.generated_at).toLocaleDateString() : 
+                  'Loading...'
+                }
               </p>
-              <Link href="/who-funds/methodology">
-                <Button variant="outline" className="w-full">
-                  Learn More
+              <p className="text-xs text-gray-500 mt-1">
+                {whoFundsIndex?.meta.total_meps || 0} MEPs tracked
+              </p>
+              <Link href="/who-funds/methodology" className="mt-3 block">
+                <Button variant="outline" size="sm" className="w-full">
+                  View Methodology
                 </Button>
               </Link>
             </CardContent>
@@ -338,15 +334,11 @@ export function WhoFundsClient() {
         </div>
 
         {/* Last Updated */}
-        {whoFundsData && (
+        {whoFundsIndex && (
           <div className="mt-8 text-center text-sm text-gray-500">
             <p>
-              Last updated: {new Date(whoFundsData.meta.generatedAt).toLocaleDateString()} • 
-              Sources: {whoFundsData.meta.sources.map(source => (
-                <a key={source} href={source} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 ml-1">
-                  {source.split('//')[1]}
-                </a>
-              )).join(', ')}
+              Last updated: {new Date(whoFundsIndex.meta.generated_at).toLocaleDateString()} • 
+              {whoFundsIndex.meta.total_meps} MEPs tracked
             </p>
           </div>
         )}

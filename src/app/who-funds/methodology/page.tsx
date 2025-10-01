@@ -1,11 +1,19 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, FileText, ExternalLink, AlertTriangle } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
+import { ArrowLeft, FileText, ExternalLink, AlertTriangle, Calendar, Database } from 'lucide-react';
+import { ENV_DEFAULTS } from '@/lib/flags';
 
 export const metadata: Metadata = {
-  title: 'Methodology — WhoFundsMyMEP | Where\'s My MEP?',
-  description: 'How we parse and structure Declarations of Members\' Financial/Private Interests from official sources.',
+  title: 'WhoFundsMyMEP Methodology — How We Track MEP Financial Interests | Where\'s My MEP?',
+  description: 'Learn how we parse and track MEP declarations of financial interests, our data sources, parsing methods, limitations, and update cadence.',
+  keywords: ['MEP methodology', 'financial interests', 'data sources', 'parsing', 'transparency', 'European Parliament'],
+  openGraph: {
+    title: 'WhoFundsMyMEP Methodology — How We Track MEP Financial Interests',
+    description: 'Learn how we parse and track MEP declarations of financial interests, our data sources, parsing methods, limitations, and update cadence.',
+    type: 'article',
+    url: 'https://wheresmymep.eu/who-funds/methodology',
+  },
   robots: {
     index: true,
     follow: true,
@@ -13,184 +21,243 @@ export const metadata: Metadata = {
 };
 
 export default function MethodologyPage() {
+  // Feature flag guard
+  if (!ENV_DEFAULTS.whofunds) {
+    notFound();
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b">
+      <header className="bg-white shadow-sm border-b">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Link href="/who-funds" className="text-blue-600 hover:text-blue-800 flex items-center space-x-2">
-            <ArrowLeft className="h-4 w-4" />
-            <span>Back to WhoFundsMyMEP</span>
-          </Link>
-        </div>
-      </div>
-
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <div className="flex items-center space-x-4">
+            <Link 
+              href="/who-funds"
+              className="flex items-center text-blue-600 hover:text-blue-800"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to WhoFundsMyMEP
+            </Link>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mt-4">
             Methodology
           </h1>
-          <p className="text-lg text-gray-600">
-            How we parse and structure Declarations of Members' Financial/Private Interests
+          <p className="text-lg text-gray-600 mt-2">
+            How we track and parse MEP declarations of financial interests
           </p>
         </div>
+      </header>
 
-        {/* Content */}
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-8">
+          
           {/* Data Sources */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <FileText className="h-5 w-5 text-blue-600" />
-                <span>Data Sources</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Primary Sources</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>
-                      • <strong>European Parliament MEPs Directory:</strong>{' '}
-                      <a href="https://www.europarl.europa.eu/meps" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-                        europarl.europa.eu/meps
-                      </a>
-                    </li>
-                    <li>
-                      • <strong>Transparency Register:</strong>{' '}
-                      <a href="https://transparency-register.europa.eu" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-                        transparency-register.europa.eu
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Declaration Types</h3>
-                  <ul className="space-y-1 text-gray-600">
-                    <li>• Declarations of Financial Interests</li>
-                    <li>• Declarations of Private Interests</li>
-                    <li>• Outside Activities and Remunerations</li>
-                    <li>• Support and Sponsorship</li>
-                    <li>• Shareholdings and Investments</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Data Processing */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Data Processing</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Extraction Process</h3>
-                  <ol className="space-y-2 text-gray-600 list-decimal list-inside">
-                    <li>Download official PDF declarations from European Parliament sources</li>
-                    <li>Parse structured data using automated text extraction</li>
-                    <li>Categorize information into standardized fields:
-                      <ul className="ml-4 mt-1 space-y-1 list-disc list-inside">
-                        <li>Outside activities (paid/unpaid)</li>
-                        <li>Income bands and remuneration</li>
-                        <li>Support received (financial, staff, material)</li>
-                        <li>Shareholdings and investments</li>
-                        <li>Advisory roles and board positions</li>
-                      </ul>
-                    </li>
-                    <li>Link to original PDF sources for verification</li>
-                  </ol>
-                </div>
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Data Structure</h3>
-                  <p className="text-gray-600">
-                    Each MEP's data includes last updated date, categorized activities, 
-                    support received, holdings, and notes about data limitations.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Limitations & Disclaimers */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <AlertTriangle className="h-5 w-5 text-orange-600" />
-                <span>Limitations & Disclaimers</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Important Notes</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• <strong>Preview Data:</strong> Current implementation uses sample data for demonstration</li>
-                    <li>• <strong>Official Source:</strong> Always refer to original PDF declarations for authoritative information</li>
-                    <li>• <strong>Update Frequency:</strong> Data may not reflect the most recent declarations</li>
-                    <li>• <strong>Parsing Limitations:</strong> Automated extraction may miss nuances or context</li>
-                    <li>• <strong>Completeness:</strong> Not all MEPs may have complete or up-to-date declarations</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Data Quality</h3>
-                  <p className="text-gray-600">
-                    We strive for accuracy but cannot guarantee completeness or error-free parsing. 
-                    Users should verify important information against official sources.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Future Plans */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Future Development</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Planned Features</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• Real-time data updates from official sources</li>
-                    <li>• Enhanced parsing accuracy with manual verification</li>
-                    <li>• Historical tracking of declaration changes</li>
-                    <li>• Advanced search and filtering capabilities</li>
-                    <li>• API access for researchers and journalists</li>
-                    <li>• Integration with other transparency tools</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium text-gray-900 mb-2">Feedback</h3>
-                  <p className="text-gray-600">
-                    We welcome feedback on data accuracy, missing information, or suggestions for improvement. 
-                    Contact us at{' '}
-                    <a href="mailto:hello@wheresmymep.eu" className="text-blue-600 hover:text-blue-800">
-                      hello@wheresmymep.eu
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="text-center">
-            <p className="text-sm text-gray-500">
-              This methodology is subject to change as we improve our data processing capabilities.
-            </p>
-            <div className="mt-4">
-              <Link href="/who-funds">
-                <button className="text-blue-600 hover:text-blue-800 font-medium">
-                  ← Back to WhoFundsMyMEP
-                </button>
-              </Link>
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <Database className="h-6 w-6 mr-2" />
+              Data Sources
+            </h2>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <p className="text-gray-700 mb-4">
+                We source all data from official European Parliament declarations of financial interests:
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>
+                    <strong>Official MEP Profiles:</strong> Individual MEP profile pages on europarl.europa.eu
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>
+                    <strong>Declaration PDFs:</strong> Official "Declaration of Members' Financial/Private Interests" documents
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>
+                    <strong>Transparency Register:</strong> EU Transparency Register entries (when available)
+                  </span>
+                </li>
+              </ul>
             </div>
+          </section>
+
+          {/* Parsing Methods */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <FileText className="h-6 w-6 mr-2" />
+              Parsing Methods
+            </h2>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">HTML Table Parsing</h3>
+                  <p className="text-gray-700">
+                    For structured HTML declarations, we parse tables and extract:
+                  </p>
+                  <ul className="mt-2 space-y-1 text-gray-600">
+                    <li>• Entity names and types</li>
+                    <li>• Income amounts and periods</li>
+                    <li>• Roles and positions</li>
+                    <li>• Dates and timeframes</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">PDF Text Extraction</h3>
+                  <p className="text-gray-700">
+                    For PDF declarations, we use text extraction and pattern recognition to identify:
+                  </p>
+                  <ul className="mt-2 space-y-1 text-gray-600">
+                    <li>• Structured data blocks</li>
+                    <li>• Financial amounts and currencies</li>
+                    <li>• Organization names and relationships</li>
+                    <li>• Time periods and dates</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Data Quality Assessment</h3>
+                  <p className="text-gray-700">
+                    Each parsed entry receives a confidence score:
+                  </p>
+                  <ul className="mt-2 space-y-1 text-gray-600">
+                    <li>• <strong>High:</strong> Clear structured data, complete information</li>
+                    <li>• <strong>Medium:</strong> Some ambiguity or missing details</li>
+                    <li>• <strong>Low:</strong> Significant parsing issues or incomplete data</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Update Cadence */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <Calendar className="h-6 w-6 mr-2" />
+              Update Cadence
+            </h2>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Automated Refresh</h3>
+                  <p className="text-gray-700">
+                    Our system automatically checks for updates:
+                  </p>
+                  <ul className="mt-2 space-y-1 text-gray-600">
+                    <li>• <strong>Daily:</strong> Check for new or updated declarations</li>
+                    <li>• <strong>Monthly:</strong> Full refresh of all MEP data</li>
+                    <li>• <strong>On-demand:</strong> Manual refresh when issues are reported</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Change Detection</h3>
+                  <p className="text-gray-700">
+                    We track and notify users of:
+                  </p>
+                  <ul className="mt-2 space-y-1 text-gray-600">
+                    <li>• New income sources or positions</li>
+                    <li>• Changes in existing declarations</li>
+                    <li>• Updated amounts or timeframes</li>
+                    <li>• New gifts or travel sponsorships</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Limitations */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+              <AlertTriangle className="h-6 w-6 mr-2" />
+              Limitations & Disclaimers
+            </h2>
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-orange-900 mb-2">Data Accuracy</h3>
+                  <p className="text-orange-800">
+                    While we strive for accuracy, our automated parsing may miss or misinterpret some information. 
+                    Always refer to the official declarations for authoritative data.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-orange-900 mb-2">Coverage</h3>
+                  <p className="text-orange-800">
+                    Not all MEPs may have complete or up-to-date declarations available. 
+                    Some declarations may be in formats we cannot parse effectively.
+                  </p>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-orange-900 mb-2">Interpretation</h3>
+                  <p className="text-orange-800">
+                    We present the data as found in official declarations. 
+                    We do not make judgments about the appropriateness or legality of any financial interests.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Correction Path */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Reporting Issues</h2>
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <p className="text-gray-700 mb-4">
+                If you find errors or have concerns about our data:
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <ExternalLink className="h-5 w-5 text-blue-600 mt-0.5" />
+                  <div>
+                    <p className="text-gray-700">
+                      <strong>GitHub Issues:</strong> Report parsing errors or data issues on our GitHub repository
+                    </p>
+                    <a 
+                      href="https://github.com/alexmoneton/wheresmymep/issues"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 text-sm"
+                    >
+                      Open an issue →
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <ExternalLink className="h-5 w-5 text-blue-600 mt-0.5" />
+                  <div>
+                    <p className="text-gray-700">
+                      <strong>Email:</strong> Contact us directly for urgent corrections
+                    </p>
+                    <a 
+                      href="mailto:alex@moneton.no"
+                      className="text-blue-600 hover:text-blue-800 text-sm"
+                    >
+                      alex@moneton.no →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Back to WhoFunds */}
+          <div className="text-center pt-8">
+            <Link 
+              href="/who-funds"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to WhoFundsMyMEP
+            </Link>
           </div>
         </div>
       </main>

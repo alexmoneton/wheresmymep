@@ -9,7 +9,9 @@ import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 import { useFlag } from '@/lib/useFlag';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
 import { ExportCSVButton } from '@/components/ExportCSVButton';
-import { Bell, Download, ExternalLink, AlertTriangle } from 'lucide-react';
+import { WatchMEPButton } from '@/components/WatchMEPButton';
+import { Bell, Download, ExternalLink, AlertTriangle, DollarSign, Calendar, Building, Gift } from 'lucide-react';
+import { WhoFundsData } from '@/lib/zod/whofunds';
 
 interface MEP {
   mep_id: string | null;
@@ -40,30 +42,6 @@ interface NotableVote {
   source_url: string;
 }
 
-interface WhoFundsData {
-  meta: {
-    generatedAt: string;
-    sources: string[];
-  };
-  byMepId: Record<string, {
-    lastUpdated: string;
-    outsideActivities: Array<{
-      role: string;
-      paid: boolean;
-      incomeBand?: string;
-    }>;
-    support: Array<{
-      type: string;
-      provider: string;
-      note: string;
-    }>;
-    holdings: Array<{
-      entity: string;
-      note: string;
-    }>;
-    notes: string;
-  }>;
-}
 
 export default function MEPProfilePage() {
   const params = useParams();
@@ -87,7 +65,7 @@ export default function MEPProfilePage() {
       const [mepResponse, votesResponse, whoFundsResponse] = await Promise.all([
         fetch(`/api/meps/${mepId}`),
         fetch(`/api/meps/${mepId}/notable`),
-        fetch('/data/whofunds.sample.json')
+        fetch(`/api/whofunds/${mepId}`)
       ]);
 
       if (!mepResponse.ok) {
@@ -96,11 +74,15 @@ export default function MEPProfilePage() {
 
       const mepData = await mepResponse.json();
       const votesData = await votesResponse.json();
-      const whoFundsData = await whoFundsResponse.json();
-
+      
       setMep(mepData);
       setNotableVotes(votesData);
-      setWhoFundsData(whoFundsData);
+      
+      // Only set WhoFunds data if the response is successful
+      if (whoFundsResponse.ok) {
+        const whoFundsData = await whoFundsResponse.json();
+        setWhoFundsData(whoFundsData);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load MEP data');
     } finally {
@@ -310,105 +292,175 @@ export default function MEPProfilePage() {
           )}
         </div>
 
-        {/* Funding & Interests (preview) */}
-        {whoFundsData && whoFundsData.byMepId[mepId] && (
+        {/* Funding & Interests */}
+        {whoFundsData && (
           <div className="bg-white rounded-lg shadow-sm border p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Funding & Interests (preview)</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Funding & Interests</h2>
+              <div className="flex items-center space-x-2">
+                <span className={`px-2 py-1 rounded text-xs ${
+                  whoFundsData.data_quality.confidence === 'high' ? 'bg-green-100 text-green-800' :
+                  whoFundsData.data_quality.confidence === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {whoFundsData.data_quality.confidence} confidence
+                </span>
+              </div>
+            </div>
             
             <div className="space-y-6">
-              {/* Outside Activities */}
-              {whoFundsData.byMepId[mepId].outsideActivities.length > 0 && (
+              {/* Income and Interests */}
+              {whoFundsData.income_and_interests.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Outside Activities</h3>
-                  <div className="space-y-2">
-                    {whoFundsData.byMepId[mepId].outsideActivities.map((activity, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                        <div>
-                          <span className="font-medium text-gray-900">{activity.role}</span>
-                          {activity.paid && activity.incomeBand && (
-                            <span className="text-blue-600 ml-2">({activity.incomeBand})</span>
-                          )}
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    <DollarSign className="h-5 w-5 mr-2" />
+                    Income & Interests
+                  </h3>
+                  <div className="space-y-3">
+                    {whoFundsData.income_and_interests.slice(0, 3).map((income, index) => (
+                      <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-1">
+                              <span className="font-medium text-gray-900">{income.entity_name}</span>
+                              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                                {income.category.replace('_', ' ')}
+                              </span>
+                            </div>
+                            {income.role && (
+                              <div className="text-sm text-gray-600 mb-1">{income.role}</div>
+                            )}
+                            {(income.amount_eur_min || income.amount_eur_max) && (
+                              <div className="text-sm font-medium text-green-600">
+                                €{income.amount_eur_min?.toLocaleString() || '0'}
+                                {income.amount_eur_max && income.amount_eur_max !== income.amount_eur_min && 
+                                  ` - €${income.amount_eur_max.toLocaleString()}`
+                                }
+                                {income.period && ` ${income.period}`}
+                              </div>
+                            )}
+                            {income.notes && (
+                              <div className="text-sm text-gray-500 mt-1">{income.notes}</div>
+                            )}
+                          </div>
                         </div>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          activity.paid ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {activity.paid ? 'Paid' : 'Unpaid'}
-                        </span>
                       </div>
                     ))}
+                    {whoFundsData.income_and_interests.length > 3 && (
+                      <div className="text-center">
+                        <button className="text-blue-600 hover:text-blue-800 text-sm">
+                          View all {whoFundsData.income_and_interests.length} entries
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
-              {/* Support Received */}
-              {whoFundsData.byMepId[mepId].support.length > 0 && (
+              {/* Gifts and Travel */}
+              {whoFundsData.gifts_travel.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Support Received</h3>
-                  <div className="space-y-2">
-                    {whoFundsData.byMepId[mepId].support.map((support, index) => (
-                      <div key={index} className="p-3 bg-gray-50 rounded-lg">
-                        <div className="font-medium text-gray-900">{support.type}</div>
-                        <div className="text-sm text-gray-600">from {support.provider}</div>
-                        {support.note && (
-                          <div className="text-sm text-gray-500 mt-1">{support.note}</div>
-                        )}
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    <Gift className="h-5 w-5 mr-2" />
+                    Gifts & Travel
+                  </h3>
+                  <div className="space-y-3">
+                    {whoFundsData.gifts_travel.slice(0, 3).map((gift, index) => (
+                      <div key={index} className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="font-medium text-gray-900 mb-1">{gift.item}</div>
+                            <div className="text-sm text-gray-600 mb-1">from {gift.sponsor}</div>
+                            {gift.value_eur && (
+                              <div className="text-sm font-medium text-green-600">
+                                €{gift.value_eur.toLocaleString()}
+                              </div>
+                            )}
+                            {gift.date && (
+                              <div className="text-sm text-gray-500 mt-1">
+                                <Calendar className="h-3 w-3 inline mr-1" />
+                                {new Date(gift.date).toLocaleDateString()}
+                              </div>
+                            )}
+                            {gift.notes && (
+                              <div className="text-sm text-gray-500 mt-1">{gift.notes}</div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     ))}
+                    {whoFundsData.gifts_travel.length > 3 && (
+                      <div className="text-center">
+                        <button className="text-blue-600 hover:text-blue-800 text-sm">
+                          View all {whoFundsData.gifts_travel.length} entries
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
-              {/* Holdings */}
-              {whoFundsData.byMepId[mepId].holdings.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Holdings</h3>
-                  <div className="space-y-2">
-                    {whoFundsData.byMepId[mepId].holdings.map((holding, index) => (
-                      <div key={index} className="p-3 bg-gray-50 rounded-lg">
-                        <div className="font-medium text-gray-900">{holding.entity}</div>
-                        <div className="text-sm text-gray-600">{holding.note}</div>
-                      </div>
-                    ))}
-                  </div>
+              {/* No data message */}
+              {whoFundsData.income_and_interests.length === 0 && whoFundsData.gifts_travel.length === 0 && (
+                <div className="text-center py-8 text-gray-500">
+                  <Building className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                  <p>No outside income or interests declared</p>
                 </div>
               )}
 
-              {/* Last Updated & Disclaimer */}
+              {/* Last Updated & Sources */}
               <div className="pt-4 border-t border-gray-200">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm text-gray-500">
-                    Last updated: {new Date(whoFundsData.byMepId[mepId].lastUpdated).toLocaleDateString()}
+                    Last updated: {new Date(whoFundsData.last_updated_utc).toLocaleDateString()}
                   </span>
                   <a
-                    href="https://www.europarl.europa.eu/meps"
+                    href={whoFundsData.sources.declaration_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-blue-600 hover:text-blue-800 flex items-center"
                   >
                     <ExternalLink className="h-3 w-3 mr-1" />
-                    View declaration (europarl.europa.eu)
+                    View declaration
                   </a>
                 </div>
                 
-                <div className="flex items-start space-x-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                  <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-orange-800">
-                    <strong>Preview notice:</strong> {whoFundsData.byMepId[mepId].notes}
-                  </p>
-                </div>
+                {whoFundsData.data_quality.issues && whoFundsData.data_quality.issues.length > 0 && (
+                  <div className="flex items-start space-x-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                    <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-orange-800">
+                      <strong>Data quality issues:</strong>
+                      <ul className="mt-1 list-disc list-inside">
+                        {whoFundsData.data_quality.issues.map((issue, index) => (
+                          <li key={index}>{issue}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Set Alert Button */}
-              {alertsEnabled && (
-                <div className="pt-4 border-t border-gray-200">
-                  <CreateAlertModal prefilledTopic="Funding & Interests">
-                    <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm">
-                      <Bell className="h-4 w-4" />
-                      <span>Set an alert for this MEP</span>
-                    </button>
-                  </CreateAlertModal>
+              {/* Alert Buttons */}
+              <div className="pt-4 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  {/* Existing WMM Alert Button */}
+                  {alertsEnabled && (
+                    <CreateAlertModal prefilledTopic="Funding & Interests">
+                      <button className="flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm flex-1">
+                        <Bell className="h-4 w-4" />
+                        <span>Set WMM Alert</span>
+                      </button>
+                    </CreateAlertModal>
+                  )}
+                  
+                  {/* New WhoFunds Watch Button */}
+                  <WatchMEPButton 
+                    mepId={mepId} 
+                    mepName={mep?.name || 'Unknown MEP'}
+                    className="flex-1"
+                  />
                 </div>
-              )}
+              </div>
             </div>
           </div>
         )}

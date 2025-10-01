@@ -1,0 +1,36 @@
+{
+  "mep_id": "197400",
+  "name": "Abir Al-Sahlani",
+  "country": "Sweden",
+  "party": "Renew Europe Group",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197400/ABIR_AL_SAHLANI/declarations"
+  },
+  "last_updated_utc": "2025-10-01T11:56:47.917Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "European Parliament",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Member of the European ParliamentPublic InformationMånadsvis",
+      "notes": "Public Information",
+      "role": "Member of the European Parliament"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "National Centre Party",
+      "entity_type": "political_party",
+      "source_excerpt": "2. Member of board National Centre PartyX",
+      "notes": "Unpaid",
+      "role": "Board member"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

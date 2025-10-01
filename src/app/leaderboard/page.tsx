@@ -30,8 +30,9 @@ interface LeaderboardPageProps {
 }
 
 export default async function LeaderboardPage({ searchParams }: LeaderboardPageProps) {
-  const page = parseInt(searchParams.page || '1', 10);
-  const query = searchParams.q || '';
+  const resolvedSearchParams = await searchParams;
+  const page = parseInt(resolvedSearchParams.page || '1', 10);
+  const query = resolvedSearchParams.q || '';
   const pageSize = 50;
 
   const { rows, total, totalPages } = await fetchLeaderboard({

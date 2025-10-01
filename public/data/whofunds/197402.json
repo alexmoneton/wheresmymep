@@ -1,0 +1,29 @@
+{
+  "mep_id": "197402",
+  "name": "Agnes Jongerius",
+  "country": "Netherlands",
+  "party": "Progressive Alliance of Socialists and Democrats",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197402/AGNES_JONGERIUS/declarations"
+  },
+  "last_updated_utc": "2025-10-01T11:56:59.701Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "European Parliament",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Member of the European ParliamentPublic InformationMonthly",
+      "notes": "Public Information",
+      "role": "Member of the European Parliament",
+      "period": "monthly"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

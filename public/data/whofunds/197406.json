@@ -1,0 +1,40 @@
+{
+  "mep_id": "197406",
+  "name": "Ajda Kravanja",
+  "country": "Slovenia",
+  "party": "European People's Party",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197406/AJDA_KRAVANJA/declarations"
+  },
+  "last_updated_utc": "2025-10-01T11:57:15.442Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Ledamot av EuropaparlamentetOffentlig",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Ledamot av EuropaparlamentetOffentlig"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Ledamot",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Ledamot, Moderaterna i utlandetX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Ledamot",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Ledamot, Moderaterna i utlandetX",
+      "notes": "Unpaid"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

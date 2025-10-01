@@ -128,6 +128,14 @@ module.exports = {
       };
     }
     
+    if (path.startsWith('/who-funds')) {
+      return {
+        loc: path,
+        lastmod: new Date().toISOString(),
+        changefreq: 'weekly',
+        priority: 0.7,
+      };
+    }
     
     return {
       loc: path,

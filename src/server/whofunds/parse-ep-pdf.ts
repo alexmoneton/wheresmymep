@@ -1,0 +1,371 @@
+/**
+ * Specialized parser for European Parliament financial declaration PDFs
+ * Handles the official EP declaration format (sections A-I)
+ */
+
+import pdf from 'pdf-parse';
+import {
+  normalizeCurrencyToEUR,
+  parseDateLoose,
+  mapCategory,
+  mapEntityType,
+  detectPeriod,
+  normalizeEntityName,
+  extractExcerpt
+} from './normalize';
+
+interface ParsedEntry {
+  category: string;
+  entity_name: string;
+  entity_type?: string;
+  role?: string;
+  amount_eur_min?: number;
+  amount_eur_max?: number;
+  period?: string;
+  start_date?: string;
+  end_date?: string;
+  notes?: string;
+  source_excerpt?: string;
+}
+
+interface ParseResult {
+  income_and_interests: ParsedEntry[];
+  gifts_travel: Array<{
+    sponsor: string;
+    item?: string;
+    value_eur?: number;
+    date?: string;
+    notes?: string;
+    source_excerpt?: string;
+  }>;
+  confidence: 'high' | 'medium' | 'low';
+  issues: string[];
+}
+
+/**
+ * Extract section content from EP PDF
+ * EP uses format: (A) description... (B) description... etc.
+ */
+function extractEPSections(text: string): Map<string, string> {
+  const sections = new Map<string, string>();
+  
+  // Find all section markers
+  const sectionMarkers: Array<{ letter: string; index: number }> = [];
+  const markerRegex = /\n\(([A-I])\)\s+/g;
+  let match;
+  
+  while ((match = markerRegex.exec(text)) !== null) {
+    sectionMarkers.push({
+      letter: match[1],
+      index: match.index + match[0].length
+    });
+  }
+  
+  // Extract content between markers
+  for (let i = 0; i < sectionMarkers.length; i++) {
+    const current = sectionMarkers[i];
+    const next = sectionMarkers[i + 1];
+    
+    const endIndex = next ? next.index : text.length;
+    const content = text.substring(current.index, endIndex).trim();
+    
+    if (content.length > 20) {
+      sections.set(current.letter, content);
+    }
+  }
+  
+  return sections;
+}
+
+/**
+ * Parse a numbered row from EP declaration
+ * Format: "1. Activity name[TAB/SPACES]Income[TAB/SPACES]Period"
+ */
+function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null {
+  // Remove the number prefix
+  const withoutNumber = rowText.replace(/^\d+\.\s*/, '').trim();
+  
+  // Skip empty or "None" rows
+  if (withoutNumber.match(/^(Inga|None|Nil|N\/A|-|X)$/i) || withoutNumber.length < 5) {
+    return null;
+  }
+  
+  // Skip if it's a header row
+  if (withoutNumber.match(/^(Yrkesmässig|Verksamhet|Professional|Activity|Inkomst|Income)/i)) {
+    return null;
+  }
+  
+  // EP PDFs concatenate columns without clear separators
+  // Common patterns to split on:
+  // - "ActivityNamePublic Information" → split before "Public"
+  // - "ActivityNameX" → split before "X" (end marker)
+  // - "ActivityName[PERIOD]" → split before period keywords
+  
+  let activityText = withoutNumber;
+  let incomeText = '';
+  let periodText = '';
+  
+  // Try to split before common period words
+  const periodMatch = withoutNumber.match(/(.+?)(Månadsvis|Monthly|Annualy|Per year|årlig|mensuel|Yearly|One-off)(.*)$/i);
+  if (periodMatch) {
+    activityText = periodMatch[1].trim();
+    periodText = periodMatch[2].trim();
+  }
+  
+  // Try to split before "Public Information" (multilingual)
+  const publicInfoMatch = activityText.match(/(.+?)(Public Information|Offentlig information|Öffentliche|Information publique)(.*)$/i);
+  if (publicInfoMatch) {
+    activityText = publicInfoMatch[1].trim();
+    incomeText = publicInfoMatch[2].trim();
+  }
+  
+  // Try to split before trailing "X" (meaning unpaid/no income)
+  const xMatch = activityText.match(/(.+?)X\s*$/);
+  if (xMatch) {
+    activityText = xMatch[1].trim();
+    incomeText = 'Unpaid';
+  }
+  
+  if (activityText.length < 5) return null;
+  
+  // Determine category based on section and content
+  let category: ParsedEntry['category'] = 'other';
+  if (sectionLetter === 'A' || sectionLetter === 'B') {
+    category = 'outside_activity';
+  } else if (activityText.match(/(board|director|styrelse)/i)) {
+    category = 'board_membership';
+  } else if (activityText.match(/(consult|advisor|rådgiv)/i)) {
+    category = 'consultancy';
+  } else if (activityText.match(/(teach|professor|university)/i)) {
+    category = 'teaching';
+  }
+  
+  const entry: ParsedEntry = {
+    category,
+    entity_name: normalizeEntityName(activityText.split(/[,;]/)[0]),
+    entity_type: mapEntityType(activityText),
+    source_excerpt: extractExcerpt(rowText),
+    notes: incomeText || undefined
+  };
+  
+  // Extract role and entity from activity text (multilingual)
+  if (activityText.match(/(member|mitglied|board|director|consultant|advisor|vorsitzende)/i)) {
+    // Pattern 1: "Member of board / Mitglied der ..." (MOST SPECIFIC - check first)
+    let roleEntityMatch = activityText.match(/^(member\s+of\s+board|mitglied\s+(?:der|des)?\s*vorstand)\s+(.+)$/i);
+    
+    if (roleEntityMatch) {
+      const entityName = roleEntityMatch[2].trim();
+      entry.role = `Board member`;
+      entry.entity_name = normalizeEntityName(entityName);
+      entry.category = 'board_membership';
+    } else {
+      // Pattern 2: "Member of / Mitglied des/der ..." (GENERAL)
+      roleEntityMatch = activityText.match(/^(member\s+of\s+(?:the\s+)?|mitglied\s+(?:des|der)\s+)(.*?)$/i);
+      
+      if (roleEntityMatch) {
+        const entityName = roleEntityMatch[2].trim();
+        entry.role = activityText.replace(/\s+/g, ' ').trim();
+        entry.entity_name = normalizeEntityName(entityName);
+      } else {
+        // Pattern 3: "Vorsitzende/r ..." (German: chairman/chairwoman)
+        roleEntityMatch = activityText.match(/^(stellvertretende\s+)?vorsitzende[r]?\s+(.+)$/i);
+        
+        if (roleEntityMatch) {
+          const isDeputy = roleEntityMatch[1];
+          const entityName = roleEntityMatch[2].trim();
+          entry.role = isDeputy ? 'Deputy Chair' : 'Chair';
+          entry.entity_name = normalizeEntityName(entityName);
+          entry.category = 'board_membership';
+        } else {
+          // Pattern 4: Generic fallback
+          const roleMatch = activityText.match(/^(.*?)(member|mitglied|board|director|vorsitz)(.*?)$/i);
+          if (roleMatch) {
+            entry.role = activityText.replace(/\s+/g, ' ').trim();
+            // Extract entity (usually comes after "of" / "der" / "des")
+            const ofMatch = activityText.match(/(?:of|at|for|der|des)\s+(?:the\s+)?(.+?)$/i);
+            if (ofMatch) {
+              entry.entity_name = normalizeEntityName(ofMatch[1].split(/[,;]/)[0]);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Handle period
+  if (periodText) {
+    const period = detectPeriod(periodText);
+    if (period !== 'unknown') {
+      entry.period = period;
+    }
+  }
+  
+  // Check income text for amounts
+  if (incomeText && incomeText !== 'Unpaid' && !incomeText.match(/public\s+information/i)) {
+    const currency = normalizeCurrencyToEUR(incomeText);
+    if (currency.min !== undefined && currency.min >= 100) {
+      entry.amount_eur_min = currency.min;
+      entry.amount_eur_max = currency.max;
+    }
+  }
+  
+  return entry;
+}
+
+/**
+ * Main EP PDF parser
+ */
+export async function parseEPDeclarationPDF(buffer: Buffer): Promise<ParseResult> {
+  const result: ParseResult = {
+    income_and_interests: [],
+    gifts_travel: [],
+    confidence: 'medium',
+    issues: []
+  };
+
+  try {
+    const data = await pdf(buffer);
+    const text = data.text;
+
+    // Extract sections
+    const sections = extractEPSections(text);
+
+    // Section (A): Professional activities (last 3 years)
+    const sectionA = sections.get('A');
+    if (sectionA) {
+      // Match numbered rows more liberally
+      const rows = sectionA.match(/^\d+\.\s+.+$/gm) || [];
+      console.log(`  [DEBUG] Section A found ${rows.length} rows`);
+      for (const row of rows) {
+        const entry = parseEPRow(row, 'A');
+        if (entry && entry.entity_name.length > 3) {
+          result.income_and_interests.push(entry);
+        }
+      }
+    } else {
+      result.issues.push('Section A not found in PDF');
+    }
+
+    // Section (B): Parallel paid activities > 5,000 EUR
+    const sectionB = sections.get('B');
+    if (sectionB) {
+      const rows = sectionB.match(/\d+\.\s+[^\n]+/g) || [];
+      for (const row of rows) {
+        const entry = parseEPRow(row, 'B');
+        if (entry && entry.entity_name.length > 3) {
+          // Section B is specifically for paid activities
+          entry.category = 'outside_activity';
+          entry.notes = 'Paid activity >5,000 EUR/year';
+          result.income_and_interests.push(entry);
+        }
+      }
+    }
+
+    // Section (C): Board memberships
+    const sectionC = sections.get('C');
+    if (sectionC) {
+      const rows = sectionC.match(/\d+\.\s+[^\n]+/g) || [];
+      for (const row of rows) {
+        const entry = parseEPRow(row, 'C');
+        if (entry && entry.entity_name.length > 3) {
+          entry.category = 'board_membership';
+          result.income_and_interests.push(entry);
+        }
+      }
+    }
+
+    // Section (D): Shareholdings/ownership
+    const sectionD = sections.get('D');
+    if (sectionD) {
+      const rows = sectionD.match(/\d+\.\s+[^\n]+/g) || [];
+      for (const row of rows) {
+        const entry = parseEPRow(row, 'D');
+        if (entry && entry.entity_name.length > 3) {
+          entry.category = 'ownership';
+          result.income_and_interests.push(entry);
+        }
+      }
+    }
+
+    // Section (E): Gifts and hospitality
+    const sectionE = sections.get('E');
+    if (sectionE) {
+      const rows = sectionE.match(/\d+\.\s+[^\n]+/g) || [];
+      for (const row of rows) {
+        const gift = parseGiftRow(row);
+        if (gift) {
+          result.gifts_travel.push(gift);
+        }
+      }
+    }
+
+    // Assess quality
+    const totalEntries = result.income_and_interests.length + result.gifts_travel.length;
+    
+    if (totalEntries === 0) {
+      result.confidence = 'low';
+      result.issues.push('No financial data extracted from PDF');
+    } else if (totalEntries > 0 && totalEntries < 3) {
+      result.confidence = 'medium';
+    } else {
+      result.confidence = 'medium'; // Keep medium for PDF (never high without manual review)
+    }
+
+    // Deduplicate entries (same entity+role may appear in multiple sections)
+    const seen = new Set<string>();
+    result.income_and_interests = result.income_and_interests.filter(entry => {
+      const key = `${entry.entity_name}|${entry.role}|${entry.category}`;
+      if (seen.has(key)) {
+        return false; // Skip duplicate
+      }
+      seen.add(key);
+      return true;
+    });
+
+    // Add note about which sections were found
+    const sectionsFound = Array.from(sections.keys()).join(', ');
+    if (sectionsFound) {
+      result.issues.push(`Sections found: ${sectionsFound}`);
+    }
+
+  } catch (error) {
+    result.confidence = 'low';
+    result.issues.push(`PDF parse error: ${error instanceof Error ? error.message : 'Unknown'}`);
+  }
+
+  return result;
+}
+
+function parseGiftRow(rowText: string): any | null {
+  const withoutNumber = rowText.replace(/^\d+\.\s*/, '').trim();
+  
+  if (withoutNumber.match(/^(Inga|None|Nil|N\/A|-|X)$/i) || withoutNumber.length < 5) {
+    return null;
+  }
+  
+  const parts = withoutNumber.split(/\s{3,}|\t+/).filter(p => p.trim().length > 0);
+  
+  const gift: any = {
+    sponsor: normalizeEntityName(parts[0]),
+    item: parts.length > 1 ? parts[1] : withoutNumber,
+    source_excerpt: extractExcerpt(rowText)
+  };
+  
+  // Look for currency
+  for (const part of parts) {
+    const currency = normalizeCurrencyToEUR(part);
+    if (currency.min !== undefined) {
+      gift.value_eur = currency.min;
+    }
+    
+    const date = parseDateLoose(part);
+    if (date) {
+      gift.date = date;
+    }
+  }
+  
+  return gift;
+}
+
+export default parseEPDeclarationPDF;
+

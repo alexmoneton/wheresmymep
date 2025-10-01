@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WhoFunds MEP Data Schema",
+  "description": "Schema for MEP financial interests and outside income data",
+  "type": "object",
+  "required": ["mep_id", "name", "country", "party", "sources", "last_updated_utc", "income_and_interests", "gifts_travel", "data_quality"],
+  "properties": {
+    "mep_id": {
+      "type": "string",
+      "description": "Unique MEP identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the MEP"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country the MEP represents"
+    },
+    "party": {
+      "type": "string",
+      "description": "European Parliament political group"
+    },
+    "sources": {
+      "type": "object",
+      "required": ["declaration_url"],
+      "properties": {
+        "declaration_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the official declaration of financial interests"
+        },
+        "transparency_register_urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": "URLs to transparency register entries"
+        }
+      }
+    },
+    "last_updated_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last data update"
+    },
+    "income_and_interests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "entity_name", "entity_type"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["board_membership", "consulting", "speaking", "writing", "teaching", "investment", "other"],
+            "description": "Category of income or interest"
+          },
+          "entity_name": {
+            "type": "string",
+            "description": "Name of the entity providing income"
+          },
+          "entity_type": {
+            "type": "string",
+            "enum": ["company", "ngo", "university", "government", "media", "other"],
+            "description": "Type of entity"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role or position held"
+          },
+          "amount_eur_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum amount in EUR (if range)"
+          },
+          "amount_eur_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum amount in EUR (if range)"
+          },
+          "period": {
+            "type": "string",
+            "description": "Period of income (e.g., 'monthly', 'annual', '2024')"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Start date of the interest"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date",
+            "description": "End date of the interest (if applicable)"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or context"
+          },
+          "source_excerpt": {
+            "type": "string",
+            "description": "Excerpt from the original declaration"
+          }
+        }
+      }
+    },
+    "gifts_travel": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sponsor", "item"],
+        "properties": {
+          "sponsor": {
+            "type": "string",
+            "description": "Entity that provided the gift or travel"
+          },
+          "item": {
+            "type": "string",
+            "description": "Description of the gift or travel"
+          },
+          "value_eur": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Estimated value in EUR"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the gift or travel"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes"
+          }
+        }
+      }
+    },
+    "data_quality": {
+      "type": "object",
+      "required": ["confidence", "parsing_method"],
+      "properties": {
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Confidence level in the parsed data"
+        },
+        "parsing_method": {
+          "type": "string",
+          "enum": ["html_table", "pdf_text", "manual", "api"],
+          "description": "Method used to extract the data"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of known issues or limitations"
+        }
+      }
+    }
+  }
+}

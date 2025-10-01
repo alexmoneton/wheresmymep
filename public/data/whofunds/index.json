@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "generated_at": "2025-10-01T11:57:25.391Z",
+    "total_meps": 9,
+    "last_full_refresh": "2025-10-01T11:57:25.392Z"
+  },
+  "meps": [
+    {
+      "mep_id": "197400",
+      "name": "Abir Al-Sahlani",
+      "country": "Sweden",
+      "party": "Renew Europe Group",
+      "last_updated_utc": "2025-10-01T11:56:47.917Z",
+      "total_income_entries": 2,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "23788",
+      "name": "Adam Bielan",
+      "country": "Poland",
+      "party": "European Conservatives and Reformists Group",
+      "last_updated_utc": "2025-10-01T11:56:51.799Z",
+      "total_income_entries": 1,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197401",
+      "name": "Adrián Vázquez Lázara",
+      "country": "Spain",
+      "party": "Renew Europe Group",
+      "last_updated_utc": "2025-10-01T11:56:55.742Z",
+      "total_income_entries": 9,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197402",
+      "name": "Agnes Jongerius",
+      "country": "Netherlands",
+      "party": "Progressive Alliance of Socialists and Democrats",
+      "last_updated_utc": "2025-10-01T11:56:59.701Z",
+      "total_income_entries": 1,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197403",
+      "name": "Ahmed Aboutaleb",
+      "country": "Netherlands",
+      "party": "Progressive Alliance of Socialists and Democrats",
+      "last_updated_utc": "2025-10-01T11:57:03.598Z",
+      "total_income_entries": 2,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197404",
+      "name": "Aida Džananović",
+      "country": "Bosnia and Herzegovina",
+      "party": "Progressive Alliance of Socialists and Democrats",
+      "last_updated_utc": "2025-10-01T11:57:07.529Z",
+      "total_income_entries": 1,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197405",
+      "name": "Aileen McLeod",
+      "country": "United Kingdom",
+      "party": "Greens/European Free Alliance",
+      "last_updated_utc": "2025-10-01T11:57:11.412Z",
+      "total_income_entries": 7,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197406",
+      "name": "Ajda Kravanja",
+      "country": "Slovenia",
+      "party": "European People's Party",
+      "last_updated_utc": "2025-10-01T11:57:15.442Z",
+      "total_income_entries": 3,
+      "total_gifts_entries": 0
+    },
+    {
+      "mep_id": "197408",
+      "name": "Aleksandra Gajewska",
+      "country": "Poland",
+      "party": "European People's Party",
+      "last_updated_utc": "2025-10-01T11:57:22.389Z",
+      "total_income_entries": 14,
+      "total_gifts_entries": 0
+    }
+  ]
+}

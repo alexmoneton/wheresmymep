@@ -1,0 +1,32 @@
+{
+  "mep_id": "197403",
+  "name": "Ahmed Aboutaleb",
+  "country": "Netherlands",
+  "party": "Progressive Alliance of Socialists and Democrats",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197403/AHMED_ABOUTALEB/declarations"
+  },
+  "last_updated_utc": "2025-10-01T11:57:03.598Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Membru tal-Parlament EwropewInformazzjoni",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Membru tal-Parlament EwropewInformazzjoni"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Ezekuttiv Nazzjonali u Grupp Parlamentari",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Ezekuttiv Nazzjonali u Grupp Parlamentari"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

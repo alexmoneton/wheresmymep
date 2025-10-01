@@ -1,0 +1,71 @@
+{
+  "mep_id": "197405",
+  "name": "Aileen McLeod",
+  "country": "United Kingdom",
+  "party": "Greens/European Free Alliance",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197405/AILEEN_MCLEOD/declarations"
+  },
+  "last_updated_utc": "2025-10-01T11:57:11.412Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "EuropaparlamentarikerAllmän information",
+      "entity_type": "unknown",
+      "source_excerpt": "1. EuropaparlamentarikerAllmän informationMonthly",
+      "period": "monthly"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Vice-president of SME Europe",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vice-president of SME EuropeX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Moderata Företagarrådet",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Member of Moderata FöretagarrådetX",
+      "notes": "Unpaid",
+      "role": "Member of Moderata Företagarrådet"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "President of SME Global",
+      "entity_type": "unknown",
+      "source_excerpt": "4. President of SME GlobalX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Vice-president of SME Europe",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Vice-president of SME EuropeX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Moderata Företagarrådet",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Member of Moderata FöretagarrådetX",
+      "notes": "Unpaid",
+      "role": "Member of Moderata Företagarrådet"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "President of SME Global",
+      "entity_type": "unknown",
+      "source_excerpt": "3. President of SME GlobalX",
+      "notes": "Unpaid"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}
