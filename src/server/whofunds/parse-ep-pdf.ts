@@ -14,6 +14,70 @@ import {
   extractExcerpt
 } from './normalize';
 
+/**
+ * Clean German entity names to extract proper organization names
+ */
+function cleanGermanEntityName(entityName: string): string {
+  let cleaned = entityName.trim();
+  
+  // Remove common German prepositions and articles
+  cleaned = cleaned.replace(/^(des|der|die|das|dem|den|ein|eine|eines|einer|einem)\s+/i, '').trim();
+  
+  // Handle specific German organization patterns
+  const patterns = [
+    // Foundation patterns
+    { pattern: /^(stiftungsrates?\s+der\s+stiftung)/i, replacement: 'Foundation Board' },
+    { pattern: /^(stiftungsrat)/i, replacement: 'Foundation Board' },
+    
+    // Worker organizations
+    { pattern: /^(arbeiter-samariter-bund)/i, replacement: 'Arbeiter-Samariter-Bund' },
+    { pattern: /^(arbeiter-samariter)/i, replacement: 'Arbeiter-Samariter-Bund' },
+    
+    // Ring organizations
+    { pattern: /^(weissen\s+ring)/i, replacement: 'Weisser Ring' },
+    { pattern: /^(weisser\s+ring)/i, replacement: 'Weisser Ring' },
+    
+    // Regional organizations
+    { pattern: /^(thüringer\s+gesellschaft)/i, replacement: 'Thüringer Gesellschaft' },
+    { pattern: /^(landesarbeitskreis)/i, replacement: 'Landesarbeitskreis' },
+    { pattern: /^(landesverband)/i, replacement: 'Landesverband' },
+    
+    // Board patterns
+    { pattern: /^(aufsichtsrates?\s+der)/i, replacement: '' },
+    { pattern: /^(vorstand)/i, replacement: 'Board' },
+    
+    // European Parliament
+    { pattern: /^(europäischen\s+parlaments)/i, replacement: 'European Parliament' },
+    { pattern: /^(europäisches\s+parlament)/i, replacement: 'European Parliament' },
+    
+    // Europa-Union
+    { pattern: /^(europa-union)/i, replacement: 'Europa-Union' },
+    
+    // International organizations
+    { pattern: /^(international\s+fire\s+and\s+rescue)/i, replacement: 'International Fire and Rescue' },
+    
+    // Bürger organizations
+    { pattern: /^(bürger\s+europas)/i, replacement: 'Bürger Europas' },
+  ];
+  
+  for (const { pattern, replacement } of patterns) {
+    if (cleaned.match(pattern)) {
+      cleaned = cleaned.replace(pattern, replacement).trim();
+      break;
+    }
+  }
+  
+  // Clean up any remaining German articles
+  cleaned = cleaned.replace(/\s+(der|die|das|des|dem|den)\s+/gi, ' ').trim();
+  
+  // Capitalize properly
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  }
+  
+  return cleaned || entityName; // Fallback to original if cleaning failed
+}
+
 interface ParsedEntry {
   category: string;
   entity_name: string;
@@ -144,9 +208,17 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
     category = 'media';
   }
   
+  // Clean the base entity name
+  let baseEntityName = activityText.split(/[,;]/)[0];
+  
+  // Apply German cleaning if it looks like German text
+  if (baseEntityName.match(/[äöüß]/i) || baseEntityName.match(/\b(des|der|die|das|mitglied|vorsitzende)\b/i)) {
+    baseEntityName = cleanGermanEntityName(baseEntityName);
+  }
+  
   const entry: ParsedEntry = {
     category,
-    entity_name: normalizeEntityName(activityText.split(/[,;]/)[0]),
+    entity_name: normalizeEntityName(baseEntityName),
     entity_type: mapEntityType(activityText),
     source_excerpt: extractExcerpt(rowText),
     notes: incomeText || undefined
@@ -182,25 +254,8 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
           const isDeputy = roleEntityMatch[1];
           let entityName = roleEntityMatch[2].trim();
           
-          // Clean up German entity names - remove "des/der" and extract the actual organization
-          if (entityName.match(/^(des|der)\s+/i)) {
-            entityName = entityName.replace(/^(des|der)\s+/i, '').trim();
-          }
-          
-          // Handle specific German patterns
-          if (entityName.match(/^(stiftungsrates?\s+der\s+stiftung)/i)) {
-            entityName = 'Foundation Board';
-          } else if (entityName.match(/^(arbeiter-samariter-bund)/i)) {
-            entityName = 'Arbeiter-Samariter-Bund';
-          } else if (entityName.match(/^(weissen\s+ring)/i)) {
-            entityName = 'Weisser Ring';
-          } else if (entityName.match(/^(thüringer\s+gesellschaft)/i)) {
-            entityName = 'Thüringer Gesellschaft';
-          } else if (entityName.match(/^(landesarbeitskreis)/i)) {
-            entityName = 'Landesarbeitskreis';
-          } else if (entityName.match(/^(aufsichtsrates?\s+der)/i)) {
-            entityName = entityName.replace(/^(aufsichtsrates?\s+der)/i, '').trim();
-          }
+          // Comprehensive German entity name cleaning
+          entityName = cleanGermanEntityName(entityName);
           
           entry.role = isDeputy ? 'Deputy Chair' : 'Chair';
           entry.entity_name = normalizeEntityName(entityName);
@@ -350,20 +405,29 @@ export async function parseEPDeclarationPDF(buffer: Buffer): Promise<ParseResult
       result.confidence = 'medium'; // Keep medium for PDF (never high without manual review)
     }
 
-    // Deduplicate entries (same entity+role may appear in multiple sections)
+    // Aggressive deduplication to clean up messy entries
     const seen = new Set<string>();
     result.income_and_interests = result.income_and_interests.filter(entry => {
-      // Create a more flexible key for deduplication
+      // Create a flexible key for deduplication
       const entityKey = entry.entity_name.toLowerCase().replace(/[^a-z0-9]/g, '');
       const roleKey = entry.role?.toLowerCase().replace(/[^a-z0-9]/g, '') || '';
       const key = `${entityKey}|${roleKey}|${entry.category}`;
       
-      if (seen.has(key)) {
-        return false; // Skip duplicate
+      // Also check for partial matches (e.g., "arbeiter-samariter" vs "arbeiter-samariter-bund")
+      const partialMatches = Array.from(seen).some(existingKey => {
+        const [existingEntity] = existingKey.split('|');
+        return entityKey.includes(existingEntity) || existingEntity.includes(entityKey);
+      });
+      
+      if (seen.has(key) || partialMatches) {
+        return false; // Skip duplicate or partial match
       }
       seen.add(key);
       return true;
     });
+    
+    // Sort entries by entity name for better presentation
+    result.income_and_interests.sort((a, b) => a.entity_name.localeCompare(b.entity_name));
 
     // Add note about which sections were found
     const sectionsFound = Array.from(sections.keys()).join(', ');

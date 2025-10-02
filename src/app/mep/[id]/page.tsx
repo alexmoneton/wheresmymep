@@ -313,7 +313,7 @@ export default function MEPProfilePage() {
                     Income & Interests
                   </h3>
                   <div className="space-y-3">
-                    {whoFundsData.income_and_interests.slice(0, 3).map((income, index) => (
+                    {whoFundsData.income_and_interests.slice(0, 5).map((income, index) => (
                       <div key={index} className="p-4 bg-gray-50 rounded-lg">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -342,7 +342,7 @@ export default function MEPProfilePage() {
                         </div>
                       </div>
                     ))}
-                    {whoFundsData.income_and_interests.length > 3 && (
+                    {whoFundsData.income_and_interests.length > 5 && (
                       <div className="text-center">
                         <button className="text-blue-600 hover:text-blue-800 text-sm">
                           View all {whoFundsData.income_and_interests.length} entries
