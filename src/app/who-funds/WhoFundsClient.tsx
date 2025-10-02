@@ -80,8 +80,8 @@ export function WhoFundsClient() {
   const getTopMEPs = () => {
     if (!whoFundsIndex) return [];
     return whoFundsIndex.meps
-      .filter(mep => mep.total_estimated_value_eur && mep.total_estimated_value_eur > 0)
-      .sort((a, b) => (b.total_estimated_value_eur || 0) - (a.total_estimated_value_eur || 0))
+      .filter(mep => (mep.total_income_entries + mep.total_gifts_entries) > 0)
+      .sort((a, b) => (b.total_income_entries + b.total_gifts_entries) - (a.total_income_entries + a.total_gifts_entries))
       .slice(0, 20);
   };
 
@@ -204,7 +204,7 @@ export function WhoFundsClient() {
           <div className="flex items-center space-x-3 mb-6">
             <TrendingUp className="h-6 w-6 text-blue-600" />
             <h2 className="text-2xl font-bold text-gray-900">
-              Top 20 by Declared Outside Income (Last 12 Months)
+              Top 20 by Financial Declaration Entries
             </h2>
           </div>
           
@@ -227,7 +227,7 @@ export function WhoFundsClient() {
                         Party
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Estimated Value
+                        Total Entries
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Entries
@@ -256,11 +256,11 @@ export function WhoFundsClient() {
                             {mep.party}
                           </Badge>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
-                          €{mep.total_estimated_value_eur?.toLocaleString() || '0'}
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                          {mep.total_income_entries + mep.total_gifts_entries}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {mep.total_income_entries + mep.total_gifts_entries} total
+                          {mep.total_income_entries} income, {mep.total_gifts_entries} gifts
                         </td>
                       </tr>
                     ))}
@@ -270,7 +270,7 @@ export function WhoFundsClient() {
               
               {getTopMEPs().length === 0 && (
                 <div className="text-center py-8 text-gray-500">
-                  No MEPs with declared outside income found.
+                  No MEPs with financial declaration entries found.
                 </div>
               )}
             </div>
