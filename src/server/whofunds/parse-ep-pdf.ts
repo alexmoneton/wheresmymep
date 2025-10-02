@@ -175,11 +175,33 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
         roleEntityMatch = activityText.match(/^(stellvertretende\s+)?vorsitzende[r]?\s+(.+)$/i) ||
                          activityText.match(/^(vice\s+)?président[e]?\s+(.+)$/i) ||
                          activityText.match(/^(vice\s+)?presidente\s+(.+)$/i) ||
-                         activityText.match(/^(vice\s+)?presidente\s+(.+)$/i);
+                         activityText.match(/^(vice\s+)?presidente\s+(.+)$/i) ||
+                         activityText.match(/^(landesvorsitzende|regionalvorsitzende)\s+(.+)$/i);
         
         if (roleEntityMatch) {
           const isDeputy = roleEntityMatch[1];
-          const entityName = roleEntityMatch[2].trim();
+          let entityName = roleEntityMatch[2].trim();
+          
+          // Clean up German entity names - remove "des/der" and extract the actual organization
+          if (entityName.match(/^(des|der)\s+/i)) {
+            entityName = entityName.replace(/^(des|der)\s+/i, '').trim();
+          }
+          
+          // Handle specific German patterns
+          if (entityName.match(/^(stiftungsrates?\s+der\s+stiftung)/i)) {
+            entityName = 'Foundation Board';
+          } else if (entityName.match(/^(arbeiter-samariter-bund)/i)) {
+            entityName = 'Arbeiter-Samariter-Bund';
+          } else if (entityName.match(/^(weissen\s+ring)/i)) {
+            entityName = 'Weisser Ring';
+          } else if (entityName.match(/^(thüringer\s+gesellschaft)/i)) {
+            entityName = 'Thüringer Gesellschaft';
+          } else if (entityName.match(/^(landesarbeitskreis)/i)) {
+            entityName = 'Landesarbeitskreis';
+          } else if (entityName.match(/^(aufsichtsrates?\s+der)/i)) {
+            entityName = entityName.replace(/^(aufsichtsrates?\s+der)/i, '').trim();
+          }
+          
           entry.role = isDeputy ? 'Deputy Chair' : 'Chair';
           entry.entity_name = normalizeEntityName(entityName);
           entry.category = 'board_membership';
@@ -331,7 +353,11 @@ export async function parseEPDeclarationPDF(buffer: Buffer): Promise<ParseResult
     // Deduplicate entries (same entity+role may appear in multiple sections)
     const seen = new Set<string>();
     result.income_and_interests = result.income_and_interests.filter(entry => {
-      const key = `${entry.entity_name}|${entry.role}|${entry.category}`;
+      // Create a more flexible key for deduplication
+      const entityKey = entry.entity_name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const roleKey = entry.role?.toLowerCase().replace(/[^a-z0-9]/g, '') || '';
+      const key = `${entityKey}|${roleKey}|${entry.category}`;
+      
       if (seen.has(key)) {
         return false; // Skip duplicate
       }

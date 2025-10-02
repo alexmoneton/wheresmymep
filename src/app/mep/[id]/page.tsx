@@ -298,12 +298,8 @@ export default function MEPProfilePage() {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-900">Funding & Interests</h2>
               <div className="flex items-center space-x-2">
-                <span className={`px-2 py-1 rounded text-xs ${
-                  whoFundsData.data_quality.confidence === 'high' ? 'bg-green-100 text-green-800' :
-                  whoFundsData.data_quality.confidence === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'
-                }`}>
-                  {whoFundsData.data_quality.confidence} confidence
+                <span className="px-2 py-1 rounded text-xs bg-blue-100 text-blue-800">
+                  {whoFundsData.income_and_interests.length + whoFundsData.gifts_travel.length} entries
                 </span>
               </div>
             </div>
@@ -426,10 +422,10 @@ export default function MEPProfilePage() {
                 </div>
                 
                 {whoFundsData.data_quality.issues && whoFundsData.data_quality.issues.length > 0 && (
-                  <div className="flex items-start space-x-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                    <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm text-orange-800">
-                      <strong>Data quality issues:</strong>
+                  <div className="flex items-start space-x-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <FileText className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-blue-800">
+                      <strong>Source information:</strong>
                       <ul className="mt-1 list-disc list-inside">
                         {whoFundsData.data_quality.issues.map((issue, index) => (
                           <li key={index}>{issue}</li>
