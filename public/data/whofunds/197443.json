@@ -1,0 +1,40 @@
+{
+  "mep_id": "197443",
+  "name": "Andreas Glück",
+  "country": "Croatia",
+  "party": "Progressive Alliance of Socialists and Democrats",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197443/BILJANA_BORZAN/declarations"
+  },
+  "last_updated_utc": "2025-10-02T05:30:45.818Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europaabgeordneter",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Europaabgeordneteröffentliche",
+      "notes": "öffentliche"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Facharzt für Chirurgie (einkommen variiert",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Facharzt für Chirurgie (einkommen variiert"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Facharzt für Chirurgie (einkommen variiert leicht je nach",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Facharzt für Chirurgie (einkommen variiert leicht je nach",
+      "notes": "Paid activity >5,000 EUR/year"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

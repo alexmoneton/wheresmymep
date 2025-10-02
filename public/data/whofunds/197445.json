@@ -1,0 +1,50 @@
+{
+  "mep_id": "197445",
+  "name": "Moritz Körner",
+  "country": "Germany",
+  "party": "Progressive Alliance of Socialists and Democrats",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197445/BIRGIT_SIPPEL/declarations"
+  },
+  "last_updated_utc": "2025-10-02T07:21:23.341Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen Parlamentsöffentliche",
+      "notes": "öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Generalsekretär der FDP NRW",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Generalsekretär der FDP NRWX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Präsidiums der FDP",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Mitglied des Präsidiums der FDPX",
+      "notes": "Unpaid",
+      "role": "Mitglied des Präsidiums der FDP"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Generalsekretär der FDP NRW",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Generalsekretär der FDP NRWX",
+      "notes": "Unpaid"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

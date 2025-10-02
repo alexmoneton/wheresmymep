@@ -1,12 +1,12 @@
 {
   "mep_id": "197405",
-  "name": "Aileen McLeod",
+  "name": "Jörgen Warborn",
   "country": "United Kingdom",
   "party": "Greens/European Free Alliance",
   "sources": {
     "declaration_url": "https://www.europarl.europa.eu/meps/en/197405/AILEEN_MCLEOD/declarations"
   },
-  "last_updated_utc": "2025-10-01T14:15:12.392Z",
+  "last_updated_utc": "2025-10-02T07:18:56.650Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
@@ -17,10 +17,11 @@
     },
     {
       "category": "outside_activity",
-      "entity_name": "Vice-president of SME Europe",
+      "entity_name": "SME Europe",
       "entity_type": "unknown",
       "source_excerpt": "2. Vice-president of SME EuropeX",
-      "notes": "Unpaid"
+      "notes": "Unpaid",
+      "role": "Vice-president of SME Europe"
     },
     {
       "category": "outside_activity",
@@ -32,17 +33,19 @@
     },
     {
       "category": "outside_activity",
-      "entity_name": "President of SME Global",
+      "entity_name": "SME Global",
       "entity_type": "unknown",
       "source_excerpt": "4. President of SME GlobalX",
-      "notes": "Unpaid"
+      "notes": "Unpaid",
+      "role": "President of SME Global"
     },
     {
       "category": "board_membership",
-      "entity_name": "Vice-president of SME Europe",
+      "entity_name": "SME Europe",
       "entity_type": "unknown",
       "source_excerpt": "1. Vice-president of SME EuropeX",
-      "notes": "Unpaid"
+      "notes": "Unpaid",
+      "role": "Vice-president of SME Europe"
     },
     {
       "category": "board_membership",
@@ -54,10 +57,11 @@
     },
     {
       "category": "board_membership",
-      "entity_name": "President of SME Global",
+      "entity_name": "SME Global",
       "entity_type": "unknown",
       "source_excerpt": "3. President of SME GlobalX",
-      "notes": "Unpaid"
+      "notes": "Unpaid",
+      "role": "President of SME Global"
     }
   ],
   "gifts_travel": [],

@@ -20,9 +20,9 @@ if (process.env.ALLOW_WHOFUNDS_FETCH !== 'true') {
 }
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public/data/whofunds');
-const SEED_FILE = path.join(__dirname, 'seed-list.csv');
-const CONCURRENT = 3; // Slightly more aggressive for expansion
-const DELAY_MS = 2500;
+const SEED_FILE = path.join(__dirname, 'high-value-meps-seed-list.csv');
+const CONCURRENT = 8; // Optimized for 364 high-value MEPs
+const DELAY_MS = 1000;
 
 interface Result {
   mepId: string;
@@ -158,8 +158,8 @@ async function main() {
   const { data } = Papa.parse<any>(csvContent, { header: true, skipEmptyLines: true });
 
   // Limit to first 10 for initial run
-  const meps = data.slice(0, 25);
-  console.log(`📋 Processing ${meps.length} MEPs (expanding dataset)\n`);
+  const meps = data; // Process ALL MEPs
+  console.log(`📋 Processing ALL ${meps.length} MEPs (complete dataset)\n`);
 
   const limit = pLimit(CONCURRENT);
   const results: Result[] = [];

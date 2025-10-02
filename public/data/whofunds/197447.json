@@ -1,18 +1,18 @@
 {
-  "mep_id": "23788",
-  "name": "Adam Bielan",
+  "mep_id": "197447",
+  "name": "Irena Joveva",
   "country": "Poland",
   "party": "European Conservatives and Reformists Group",
   "sources": {
-    "declaration_url": "https://www.europarl.europa.eu/meps/en/23788/ADAM_BIELAN/declarations"
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197447/BOGDAN_RZO_CA/declarations"
   },
-  "last_updated_utc": "2025-10-02T07:15:13.836Z",
+  "last_updated_utc": "2025-10-02T07:18:33.011Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
-      "entity_name": "Poseł do Parlamentu Europejskiegoinformacja",
+      "entity_name": "Evropska poslankaJavne informacijemesečno",
       "entity_type": "unknown",
-      "source_excerpt": "1. Poseł do Parlamentu Europejskiegoinformacja"
+      "source_excerpt": "1. Evropska poslankaJavne informacijemesečno"
     }
   ],
   "gifts_travel": [],

@@ -1,0 +1,155 @@
+{
+  "mep_id": "197429",
+  "name": "Marion Walsmann",
+  "country": "France",
+  "party": "Identity and Democracy",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197429/AURELIA_BEIGNEUX/declarations"
+  },
+  "last_updated_utc": "2025-10-02T07:22:44.559Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen ParlamentsÖffentliche",
+      "notes": "Öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Stiftungsrates der Stiftung",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vorsitzende des Stiftungsrates der Stiftung",
+      "role": "Chair"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Arbeiter-Samariter-Bundes",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Vorsitzende des Arbeiter-Samariter-Bundes",
+      "role": "Chair"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "des Weissen Ring",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Landesvorsitzende des Weissen Ring",
+      "role": "Landesvorsitzende des Weissen Ring"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Vorstand Bürger Europas e.V.",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Vorstand Bürger Europas e.V.X",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "der Thüringer Gesellschaft für",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Vorsitzende der Thüringer Gesellschaft für",
+      "role": "Chair"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Landesarbeitskreises",
+      "entity_type": "unknown",
+      "source_excerpt": "7. Vorsitzende des Landesarbeitskreises",
+      "role": "Chair"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied International Fire and Rescue",
+      "entity_type": "unknown",
+      "source_excerpt": "8. Mitglied International Fire and Rescue",
+      "role": "Mitglied International Fire and Rescue"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Europa-Union Thüringen",
+      "entity_type": "unknown",
+      "source_excerpt": "9. Mitglied der Europa-Union ThüringenX",
+      "notes": "Unpaid",
+      "role": "Mitglied der Europa-Union Thüringen"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Ortsverbandes Geratal",
+      "entity_type": "unknown",
+      "source_excerpt": "10. Vorsitzende des Ortsverbandes Geratal",
+      "role": "Chair"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Aufsichtsrates der",
+      "entity_type": "unknown",
+      "source_excerpt": "11. Vorsitzende des Aufsichtsrates der",
+      "role": "Chair"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "des Arbeiter-Samariter",
+      "entity_type": "unknown",
+      "source_excerpt": "12. Regionalvorsitzende des Arbeiter-Samariter-",
+      "role": "Regionalvorsitzende des Arbeiter-Samariter-"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Weissen Rings",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Landesvorsitzende des Weissen Rings",
+      "role": "Landesvorsitzende des Weissen Rings"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Arbeiter-Samariter-Bund",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vorsitzende des Arbeiter-Samariter-Bund",
+      "role": "Chair"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Europa-Union Thüringen",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Europa-Union ThüringenX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Vorstand Bürger Europas e.V.",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Vorstand Bürger Europas e.V.X",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "International Fire and Rescue Confederation",
+      "entity_type": "unknown",
+      "source_excerpt": "7. International Fire and Rescue ConfederationX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Arbeiter-Samariter",
+      "entity_type": "unknown",
+      "source_excerpt": "9. Landesvorsitzende des Arbeiter-Samariter-",
+      "role": "Landesvorsitzende des Arbeiter-Samariter-"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Arbeiter-Samariter",
+      "entity_type": "unknown",
+      "source_excerpt": "10. Regionalvorsitzende des Arbeiter-Samariter-",
+      "role": "Regionalvorsitzende des Arbeiter-Samariter-"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

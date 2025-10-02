@@ -1,0 +1,176 @@
+{
+  "mep_id": "197440",
+  "name": "Delara Burkhardt",
+  "country": "Belgium",
+  "party": "European People's Party",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197440/BENO_T_LUTGEN/declarations"
+  },
+  "last_updated_utc": "2025-10-02T05:34:05.479Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen Parlamentsöffentliche",
+      "notes": "öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Vorstand des Willy-BrandtCenter Jerusalem",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vorstand des Willy-BrandtCenter Jerusalem"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "SPD Landesvorstand Schleswig-Holstein",
+      "entity_type": "unknown",
+      "source_excerpt": "3. SPD Landesvorstand Schleswig-HolsteinX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Vorstandsmitglied Europäische Bewegung",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Vorstandsmitglied Europäische Bewegung",
+      "role": "Vorstandsmitglied Europäische Bewegung"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Advisory Board Earth Percent",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Advisory Board Earth PercentX",
+      "notes": "Unpaid",
+      "role": "Advisory Board Earth Percent"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied Obama Foundation Alumnis",
+      "entity_type": "foundation",
+      "source_excerpt": "6. Mitglied Obama Foundation AlumnisX",
+      "notes": "Unpaid",
+      "role": "Mitglied Obama Foundation Alumnis"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied Gewerkschaft Nahrung-Genuss",
+      "entity_type": "unknown",
+      "source_excerpt": "7. Mitglied Gewerkschaft Nahrung-Genuss-",
+      "role": "Mitglied Gewerkschaft Nahrung-Genuss-"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied Vereinte",
+      "entity_type": "unknown",
+      "source_excerpt": "8. Mitglied Vereinte",
+      "role": "Mitglied Vereinte"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied NABU (Naturschutzbund",
+      "entity_type": "unknown",
+      "source_excerpt": "9. Mitglied NABU (Naturschutzbund",
+      "role": "Mitglied NABU (Naturschutzbund"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied Arbeiterwohlfahrt (e.V.)",
+      "entity_type": "unknown",
+      "source_excerpt": "10. Mitglied Arbeiterwohlfahrt (e.V.)X",
+      "notes": "Unpaid",
+      "role": "Mitglied Arbeiterwohlfahrt (e.V.)"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied Naturfreunde Deutschlands",
+      "entity_type": "unknown",
+      "source_excerpt": "11. Mitglied Naturfreunde DeutschlandsX",
+      "notes": "Unpaid",
+      "role": "Mitglied Naturfreunde Deutschlands"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "SPD Landesvorstand Schleswig-Holstein",
+      "entity_type": "unknown",
+      "source_excerpt": "1. SPD Landesvorstand Schleswig-HolsteinX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Vorstandsmitglied Europäische Bewegung",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vorstandsmitglied Europäische Bewegung",
+      "role": "Vorstandsmitglied Europäische Bewegung"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Advisory Board Earth Percent",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Advisory Board Earth PercentX",
+      "notes": "Unpaid",
+      "role": "Advisory Board Earth Percent"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied Obama Foundation Alumnis",
+      "entity_type": "foundation",
+      "source_excerpt": "4. Mitglied Obama Foundation AlumnisX",
+      "notes": "Unpaid",
+      "role": "Mitglied Obama Foundation Alumnis"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied Gewerkschaft Nahrung-Genuss",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Mitglied Gewerkschaft Nahrung-Genuss-",
+      "role": "Mitglied Gewerkschaft Nahrung-Genuss-"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied Vereinte",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Mitglied Vereinte",
+      "role": "Mitglied Vereinte"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied NABU (Naturschutzbund",
+      "entity_type": "unknown",
+      "source_excerpt": "7. Mitglied NABU (Naturschutzbund",
+      "role": "Mitglied NABU (Naturschutzbund"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied Arbeiterwohlfahrt (e.V.)",
+      "entity_type": "unknown",
+      "source_excerpt": "8. Mitglied Arbeiterwohlfahrt (e.V.)X",
+      "notes": "Unpaid",
+      "role": "Mitglied Arbeiterwohlfahrt (e.V.)"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied Naturfreunde Deutschlands",
+      "entity_type": "unknown",
+      "source_excerpt": "9. Mitglied Naturfreunde DeutschlandsX",
+      "notes": "Unpaid",
+      "role": "Mitglied Naturfreunde Deutschlands"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied Willy-Brandt-Center Jerusalem e.V",
+      "entity_type": "unknown",
+      "source_excerpt": "10. Mitglied Willy-Brandt-Center Jerusalem e.VX",
+      "notes": "Unpaid",
+      "role": "Mitglied Willy-Brandt-Center Jerusalem e.V"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

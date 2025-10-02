@@ -1,0 +1,94 @@
+{
+  "mep_id": "197425",
+  "name": "Ralf Seekatz",
+  "country": "Denmark",
+  "party": "Renew Europe Group",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197425/ASGER_CHRISTENSEN/declarations"
+  },
+  "last_updated_utc": "2025-10-02T05:44:02.009Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen ParlamentsÖffentliche",
+      "notes": "Öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Aufsichtsrates der DRK",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vorsitzender des Aufsichtsrates der DRK",
+      "role": "Chair"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "des DRK Kreisverbandes",
+      "entity_type": "unknown",
+      "source_excerpt": "3. stellv. Vorsitzender des DRK Kreisverbandes",
+      "role": "stellv. Vorsitzender des DRK Kreisverbandes"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Gesellschaftsvertreter beim DRK",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Gesellschaftsvertreter beim DRK"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Gesellschaftsvertreter DRK Westerwald",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Gesellschaftsvertreter DRK Westerwald"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Mitglied im Kreistag Westerwald1920",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Mitglied im Kreistag Westerwald1920,00 EUR p.a.",
+      "role": "Mitglied im Kreistag Westerwald1920,00 EUR p.a."
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des Aufsichtrates der DRK",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Vorsitzender des Aufsichtrates der DRK",
+      "role": "Chair"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "des DRK Kreisverbandes",
+      "entity_type": "unknown",
+      "source_excerpt": "2. stellv. Vorsitzender des DRK Kreisverbandes",
+      "role": "stellv. Vorsitzender des DRK Kreisverbandes"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Gesellschaftervertreter beim DRK",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Gesellschaftervertreter beim DRK"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Gesellschaftervertreter DRK Westerwald",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Gesellschaftervertreter DRK Westerwald"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Mitglied im Kreistag Westerwald1920",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Mitglied im Kreistag Westerwald1920,00 EUR p.a.",
+      "role": "Mitglied im Kreistag Westerwald1920,00 EUR p.a."
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

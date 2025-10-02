@@ -1,0 +1,70 @@
+{
+  "mep_id": "197448",
+  "name": "Rasmus Andresen",
+  "country": "Poland",
+  "party": "Progressive Alliance of Socialists and Democrats",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197448/BOGUS_AW_LIBERADZKI/declarations"
+  },
+  "last_updated_utc": "2025-10-02T07:17:10.197Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen Parlamentsöffentliche",
+      "notes": "öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Hochschulrat FH Westküste",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Hochschulrat FH WestküsteX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Vorstand Grüne Wirtschaftsvereinigung",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Vorstand Grüne WirtschaftsvereinigungX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Stv. Mitglied im Aufsichtsrat",
+      "entity_type": "media",
+      "source_excerpt": "4. Stv. Mitglied im Aufsichtsrat",
+      "role": "Stv. Mitglied im Aufsichtsrat"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Hochschulrat FH Westküste",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Hochschulrat FH WestküsteX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Vorstand Grüne Wirtschaftsvereinigung",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Vorstand Grüne WirtschaftsvereinigungX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Stv. Mitglied im Aufsichtsrat",
+      "entity_type": "media",
+      "source_excerpt": "3. Stv. Mitglied im Aufsichtsrat",
+      "role": "Stv. Mitglied im Aufsichtsrat"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

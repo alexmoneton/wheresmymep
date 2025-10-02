@@ -1,0 +1,155 @@
+{
+  "mep_id": "197433",
+  "name": "Katarina Barley",
+  "country": "Hungary",
+  "party": "European People's Party",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197433/BAL_ZS_HIDV_GHI/declarations"
+  },
+  "last_updated_utc": "2025-10-02T05:38:57.055Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen ParlamentsÖffentliche",
+      "notes": "Öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "SPD Parteivorstand",
+      "entity_type": "unknown",
+      "source_excerpt": "2. SPD ParteivorstandX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Kuratoriums des Instituts für",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Mitglied des Kuratoriums des Instituts für",
+      "role": "Mitglied des Kuratoriums des Instituts für"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Kuratoriums Europäisches",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Mitglied des Kuratoriums Europäisches",
+      "role": "Mitglied des Kuratoriums Europäisches"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Kuratoriums Cologne Aliance",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Mitglied des Kuratoriums Cologne Aliance",
+      "role": "Mitglied des Kuratoriums Cologne Aliance"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Kuratoriums Max-Planck",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Mitglied des Kuratoriums Max-Planck-",
+      "role": "Mitglied des Kuratoriums Max-Planck-"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Kuratoriums Carlo Schmid",
+      "entity_type": "unknown",
+      "source_excerpt": "7. Mitglied des Kuratoriums Carlo Schmid",
+      "role": "Mitglied des Kuratoriums Carlo Schmid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Kuratoriums Stiftung Lesen",
+      "entity_type": "unknown",
+      "source_excerpt": "8. Mitglied des Kuratoriums Stiftung LesenX",
+      "notes": "Unpaid",
+      "role": "Mitglied des Kuratoriums Stiftung Lesen"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Jacques Delors Instituts",
+      "entity_type": "unknown",
+      "source_excerpt": "9. Beiratsmitglied des Jacques Delors Instituts –",
+      "role": "Beiratsmitglied des Jacques Delors Instituts –"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Führungskräftecoaching / Mediation godipa",
+      "entity_type": "media",
+      "source_excerpt": "10. Führungskräftecoaching / Mediation godipa"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Führungskräftecoaching / Mediation - godipa (Gesellschaft",
+      "entity_type": "media",
+      "source_excerpt": "1. Führungskräftecoaching / Mediation - godipa (Gesellschaft",
+      "notes": "Paid activity >5,000 EUR/year"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Kuratoriums des Instituts für",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Kuratoriums des Instituts für",
+      "role": "Mitglied des Kuratoriums des Instituts für"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Kuratoriums Europäisches",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Mitglied des Kuratoriums Europäisches",
+      "role": "Mitglied des Kuratoriums Europäisches"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Kuratoriums Cologne Aliance",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Mitglied des Kuratoriums Cologne Aliance",
+      "role": "Mitglied des Kuratoriums Cologne Aliance"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Kuratoriums Max-Planck",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Mitglied des Kuratoriums Max-Planck-",
+      "role": "Mitglied des Kuratoriums Max-Planck-"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Kuratoriums Carlo Schmid",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Mitglied des Kuratoriums Carlo Schmid",
+      "role": "Mitglied des Kuratoriums Carlo Schmid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Kuratoriums Stiftung Lesen",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Mitglied des Kuratoriums Stiftung LesenX",
+      "notes": "Unpaid",
+      "role": "Mitglied des Kuratoriums Stiftung Lesen"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Jacques Delors Instituts",
+      "entity_type": "unknown",
+      "source_excerpt": "7. Beiratsmitglied des Jacques Delors Instituts –",
+      "role": "Beiratsmitglied des Jacques Delors Instituts –"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Förderkreises der Hochschule",
+      "entity_type": "unknown",
+      "source_excerpt": "8. Mitglied des Förderkreises der Hochschule",
+      "role": "Mitglied des Förderkreises der Hochschule"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}

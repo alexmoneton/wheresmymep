@@ -105,15 +105,15 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
   let incomeText = '';
   let periodText = '';
   
-  // Try to split before common period words
-  const periodMatch = withoutNumber.match(/(.+?)(Månadsvis|Monthly|Annualy|Per year|årlig|mensuel|Yearly|One-off)(.*)$/i);
+  // Try to split before common period words (multilingual)
+  const periodMatch = withoutNumber.match(/(.+?)(Månadsvis|Monthly|Annualy|Per year|årlig|mensuel|mensile|anual|Yearly|One-off|Mensile|Annuel|Annuale|Anual|Mensual)(.*)$/i);
   if (periodMatch) {
     activityText = periodMatch[1].trim();
     periodText = periodMatch[2].trim();
   }
   
   // Try to split before "Public Information" (multilingual)
-  const publicInfoMatch = activityText.match(/(.+?)(Public Information|Offentlig information|Öffentliche|Information publique)(.*)$/i);
+  const publicInfoMatch = activityText.match(/(.+?)(Public Information|Offentlig information|Öffentliche|Information publique|Información pública|Informazione pubblica|Informação pública|Publica informacija)(.*)$/i);
   if (publicInfoMatch) {
     activityText = publicInfoMatch[1].trim();
     incomeText = publicInfoMatch[2].trim();
@@ -128,16 +128,20 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
   
   if (activityText.length < 5) return null;
   
-  // Determine category based on section and content
+  // Determine category based on section and content (multilingual)
   let category: ParsedEntry['category'] = 'other';
   if (sectionLetter === 'A' || sectionLetter === 'B') {
     category = 'outside_activity';
-  } else if (activityText.match(/(board|director|styrelse)/i)) {
+  } else if (activityText.match(/(board|director|styrelse|conseil|consejo|conselho|vorstand|president|presidente|chair|vorsitz)/i)) {
     category = 'board_membership';
-  } else if (activityText.match(/(consult|advisor|rådgiv)/i)) {
+  } else if (activityText.match(/(consult|advisor|rådgiv|conseil|asesor|consultor|berater)/i)) {
     category = 'consultancy';
-  } else if (activityText.match(/(teach|professor|university)/i)) {
+  } else if (activityText.match(/(teach|professor|university|universit|enseign|docente|profesor|lehrer)/i)) {
     category = 'teaching';
+  } else if (activityText.match(/(speak|conferenc|presentation|présentation|conferencia)/i)) {
+    category = 'speaking';
+  } else if (activityText.match(/(media|journal|press|média|prensa|stampa)/i)) {
+    category = 'media';
   }
   
   const entry: ParsedEntry = {
@@ -149,9 +153,9 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
   };
   
   // Extract role and entity from activity text (multilingual)
-  if (activityText.match(/(member|mitglied|board|director|consultant|advisor|vorsitzende)/i)) {
+  if (activityText.match(/(member|mitglied|membre|miembro|membro|board|director|consultant|advisor|vorsitzende|president|presidente|chair|presidente|coordinatore|coordinador)/i)) {
     // Pattern 1: "Member of board / Mitglied der ..." (MOST SPECIFIC - check first)
-    let roleEntityMatch = activityText.match(/^(member\s+of\s+board|mitglied\s+(?:der|des)?\s*vorstand)\s+(.+)$/i);
+    let roleEntityMatch = activityText.match(/^(member\s+of\s+board|mitglied\s+(?:der|des)?\s*vorstand|membre\s+du\s+conseil|miembro\s+del\s+consejo|membro\s+do\s+conselho)\s+(.+)$/i);
     
     if (roleEntityMatch) {
       const entityName = roleEntityMatch[2].trim();
@@ -160,15 +164,18 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
       entry.category = 'board_membership';
     } else {
       // Pattern 2: "Member of / Mitglied des/der ..." (GENERAL)
-      roleEntityMatch = activityText.match(/^(member\s+of\s+(?:the\s+)?|mitglied\s+(?:des|der)\s+)(.*?)$/i);
+      roleEntityMatch = activityText.match(/^(member\s+of\s+(?:the\s+)?|mitglied\s+(?:des|der)\s+|membre\s+de\s+|miembro\s+de\s+|membro\s+de\s+)(.*?)$/i);
       
       if (roleEntityMatch) {
         const entityName = roleEntityMatch[2].trim();
         entry.role = activityText.replace(/\s+/g, ' ').trim();
         entry.entity_name = normalizeEntityName(entityName);
       } else {
-        // Pattern 3: "Vorsitzende/r ..." (German: chairman/chairwoman)
-        roleEntityMatch = activityText.match(/^(stellvertretende\s+)?vorsitzende[r]?\s+(.+)$/i);
+        // Pattern 3: "Vorsitzende/r / Président/e / Presidente ..." (chairman/chairwoman)
+        roleEntityMatch = activityText.match(/^(stellvertretende\s+)?vorsitzende[r]?\s+(.+)$/i) ||
+                         activityText.match(/^(vice\s+)?président[e]?\s+(.+)$/i) ||
+                         activityText.match(/^(vice\s+)?presidente\s+(.+)$/i) ||
+                         activityText.match(/^(vice\s+)?presidente\s+(.+)$/i);
         
         if (roleEntityMatch) {
           const isDeputy = roleEntityMatch[1];
@@ -177,14 +184,24 @@ function parseEPRow(rowText: string, sectionLetter: string): ParsedEntry | null 
           entry.entity_name = normalizeEntityName(entityName);
           entry.category = 'board_membership';
         } else {
-          // Pattern 4: Generic fallback
-          const roleMatch = activityText.match(/^(.*?)(member|mitglied|board|director|vorsitz)(.*?)$/i);
-          if (roleMatch) {
-            entry.role = activityText.replace(/\s+/g, ' ').trim();
-            // Extract entity (usually comes after "of" / "der" / "des")
-            const ofMatch = activityText.match(/(?:of|at|for|der|des)\s+(?:the\s+)?(.+?)$/i);
-            if (ofMatch) {
-              entry.entity_name = normalizeEntityName(ofMatch[1].split(/[,;]/)[0]);
+          // Pattern 4: "Coordinator / Coordinatore / Coordinador"
+          roleEntityMatch = activityText.match(/^(coordinatore|coordinador|coordinateur)\s+(.+)$/i);
+          
+          if (roleEntityMatch) {
+            const entityName = roleEntityMatch[2].trim();
+            entry.role = 'Coordinator';
+            entry.entity_name = normalizeEntityName(entityName);
+            entry.category = 'outside_activity';
+          } else {
+            // Pattern 5: Generic fallback
+            const roleMatch = activityText.match(/^(.*?)(member|mitglied|membre|miembro|membro|board|director|vorsitz|president|presidente|chair)(.*?)$/i);
+            if (roleMatch) {
+              entry.role = activityText.replace(/\s+/g, ' ').trim();
+              // Extract entity (usually comes after "of" / "der" / "des" / "de")
+              const ofMatch = activityText.match(/(?:of|at|for|der|des|de|du|del|do)\s+(?:the\s+)?(.+?)$/i);
+              if (ofMatch) {
+                entry.entity_name = normalizeEntityName(ofMatch[1].split(/[,;]/)[0]);
+              }
             }
           }
         }

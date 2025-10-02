@@ -1,0 +1,144 @@
+{
+  "mep_id": "197435",
+  "name": "Gabriele Bischoff",
+  "country": "Netherlands",
+  "party": "Renew Europe Group",
+  "sources": {
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197435/BART_GROOTHUIS/declarations"
+  },
+  "last_updated_utc": "2025-10-02T07:18:16.421Z",
+  "income_and_interests": [
+    {
+      "category": "outside_activity",
+      "entity_name": "Europäischen Parlaments",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Mitglied des Europäischen ParlamentsÖffentliche",
+      "notes": "Öffentliche",
+      "role": "Mitglied des Europäischen Parlaments"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Europa-Union - Vizepräsidentin",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Europa-Union - VizepräsidentinX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Industriegewerkschaft IGM Mitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Industriegewerkschaft IGM MitgliedX",
+      "notes": "Unpaid",
+      "role": "Industriegewerkschaft IGM Mitglied"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "ADFC - Mitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "4. ADFC - MitgliedX",
+      "notes": "Unpaid",
+      "role": "ADFC - Mitglied"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Trägerverein der Europäischen Akademie",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Trägerverein der Europäischen Akademie"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Institut Europäische Politik - Kuratorin",
+      "entity_type": "unknown",
+      "source_excerpt": "6. Institut Europäische Politik - KuratorinX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Five Plus - Ehrenmitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "7. Gender Five Plus - EhrenmitgliedX",
+      "notes": "Unpaid",
+      "role": "Gender Five Plus - Ehrenmitglied"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "August-Bebel-Institut Berlin - Mitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "8. August-Bebel-Institut Berlin - MitgliedX",
+      "notes": "Unpaid",
+      "role": "August-Bebel-Institut Berlin - Mitglied"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Europa-Union - Vizepräsidentin",
+      "entity_type": "unknown",
+      "source_excerpt": "1. Europa-Union - VizepräsidentinX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Trägerverein der Europäischen Akademie",
+      "entity_type": "unknown",
+      "source_excerpt": "2. Trägerverein der Europäischen Akademie"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Industriegewerkschaft Metall - Mitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "3. Industriegewerkschaft Metall - MitgliedX",
+      "notes": "Unpaid",
+      "role": "Industriegewerkschaft Metall - Mitglied"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Institut Europäische Politik - Kuratorin",
+      "entity_type": "unknown",
+      "source_excerpt": "4. Institut Europäische Politik - KuratorinX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Five Plus - Ehrenmitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "5. Gender Five Plus - EhrenmitgliedX",
+      "notes": "Unpaid",
+      "role": "Gender Five Plus - Ehrenmitglied"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "ADFC - Allgemeine Deutsche Fahrrad-Club",
+      "entity_type": "unknown",
+      "source_excerpt": "6. ADFC - Allgemeine Deutsche Fahrrad-ClubX",
+      "notes": "Unpaid"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "August-Bebel-Institut Berlin - Mitglied",
+      "entity_type": "unknown",
+      "source_excerpt": "7. August-Bebel-Institut Berlin - MitgliedX",
+      "notes": "Unpaid",
+      "role": "August-Bebel-Institut Berlin - Mitglied"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Aufsichtsrätin Arcelor Mittal Eisenhüttenstadt833monatlich",
+      "entity_type": "unknown",
+      "source_excerpt": "8. Aufsichtsrätin Arcelor Mittal Eisenhüttenstadt833monatlich"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Landesvorstands der",
+      "entity_type": "unknown",
+      "source_excerpt": "9. Kooptiertes Mitglied des Landesvorstands der",
+      "role": "Kooptiertes Mitglied des Landesvorstands der"
+    }
+  ],
+  "gifts_travel": [],
+  "data_quality": {
+    "confidence": "medium",
+    "parsing_method": "pdf",
+    "issues": [
+      "Sections found: A, B, C, D, E, F, G"
+    ]
+  }
+}
