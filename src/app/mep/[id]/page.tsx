@@ -10,7 +10,7 @@ import { useFlag } from '@/lib/useFlag';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
 import { ExportCSVButton } from '@/components/ExportCSVButton';
 import { WatchMEPButton } from '@/components/WatchMEPButton';
-import { Bell, Download, ExternalLink, AlertTriangle, DollarSign, Calendar, Building, Gift } from 'lucide-react';
+import { Bell, Download, ExternalLink, AlertTriangle, DollarSign, Calendar, Building, Gift, FileText } from 'lucide-react';
 import { WhoFundsData } from '@/lib/zod/whofunds';
 
 interface MEP {
