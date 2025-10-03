@@ -1,144 +1,122 @@
 {
   "mep_id": "197435",
   "name": "Gabriele Bischoff",
-  "country": "Netherlands",
-  "party": "Renew Europe Group",
+  "country": "Germany",
+  "party": "S&D (SPD)",
   "sources": {
-    "declaration_url": "https://www.europarl.europa.eu/meps/en/197435/BART_GROOTHUIS/declarations"
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197435/GABRIELE_BISCHOFF/declarations#detailedcardmep"
   },
-  "last_updated_utc": "2025-10-02T07:18:16.421Z",
+  "last_updated_utc": "2025-10-03T04:35:00Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
-      "entity_name": "Europäischen Parlaments",
-      "entity_type": "unknown",
-      "source_excerpt": "1. Mitglied des Europäischen ParlamentsÖffentliche",
-      "notes": "Öffentliche",
-      "role": "Mitglied des Europäischen Parlaments"
+      "entity_name": "Member of the European Parliament",
+      "entity_type": "public_body",
+      "role": "MEP",
+      "period": "monthly",
+      "notes": "Listed under section (A) for the prior 3 years; income marked as public information.",
+      "source_excerpt": "Mitglied des Europäischen Parlaments – Öffentliche Information – monatlich"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Europa-Union Deutschland",
+      "entity_type": "ngo",
+      "role": "Vice-President",
+      "notes": "Unpaid; listed in sections (A) and (C).",
+      "source_excerpt": "Europa-Union – Vizepräsidentin (X)"
     },
     {
       "category": "outside_activity",
-      "entity_name": "Europa-Union - Vizepräsidentin",
-      "entity_type": "unknown",
-      "source_excerpt": "2. Europa-Union - VizepräsidentinX",
-      "notes": "Unpaid"
+      "entity_name": "Industriegewerkschaft Metall (IG Metall)",
+      "entity_type": "ngo",
+      "role": "Member",
+      "notes": "Unpaid membership.",
+      "source_excerpt": "Industriegewerkschaft IGM/Metall – Mitglied (X)"
     },
     {
       "category": "outside_activity",
-      "entity_name": "Industriegewerkschaft IGM Mitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "3. Industriegewerkschaft IGM MitgliedX",
-      "notes": "Unpaid",
-      "role": "Industriegewerkschaft IGM Mitglied"
+      "entity_name": "ADFC – Allgemeiner Deutscher Fahrrad-Club",
+      "entity_type": "ngo",
+      "role": "Member",
+      "notes": "Unpaid membership.",
+      "source_excerpt": "ADFC – Mitglied (X)"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Trägerverein der Europäischen Akademie Berlin",
+      "entity_type": "ngo",
+      "role": "Member",
+      "notes": "Unpaid; listed in (A) and (C).",
+      "source_excerpt": "Trägerverein der Europäischen Akademie Berlin – Mitglied (X)"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Institut für Europäische Politik",
+      "entity_type": "ngo",
+      "role": "Curator",
+      "notes": "Unpaid.",
+      "source_excerpt": "Institut Europäische Politik – Kuratorin (X)"
     },
     {
       "category": "outside_activity",
-      "entity_name": "ADFC - Mitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "4. ADFC - MitgliedX",
-      "notes": "Unpaid",
-      "role": "ADFC - Mitglied"
+      "entity_name": "Gender Five Plus",
+      "entity_type": "ngo",
+      "role": "Honorary member",
+      "notes": "Unpaid.",
+      "source_excerpt": "Gender Five Plus – Ehrenmitglied (X)"
     },
     {
       "category": "outside_activity",
-      "entity_name": "Trägerverein der Europäischen Akademie",
-      "entity_type": "unknown",
-      "source_excerpt": "5. Trägerverein der Europäischen Akademie"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "Institut Europäische Politik - Kuratorin",
-      "entity_type": "unknown",
-      "source_excerpt": "6. Institut Europäische Politik - KuratorinX",
-      "notes": "Unpaid"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "Five Plus - Ehrenmitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "7. Gender Five Plus - EhrenmitgliedX",
-      "notes": "Unpaid",
-      "role": "Gender Five Plus - Ehrenmitglied"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "August-Bebel-Institut Berlin - Mitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "8. August-Bebel-Institut Berlin - MitgliedX",
-      "notes": "Unpaid",
-      "role": "August-Bebel-Institut Berlin - Mitglied"
+      "entity_name": "August-Bebel-Institut Berlin",
+      "entity_type": "ngo",
+      "role": "Member",
+      "notes": "Unpaid.",
+      "source_excerpt": "August-Bebel-Institut Berlin – Mitglied (X)"
     },
     {
       "category": "board_membership",
-      "entity_name": "Europa-Union - Vizepräsidentin",
-      "entity_type": "unknown",
-      "source_excerpt": "1. Europa-Union - VizepräsidentinX",
-      "notes": "Unpaid"
+      "entity_name": "ArcelorMittal Eisenhüttenstadt",
+      "entity_type": "company",
+      "role": "Supervisory Board Member",
+      "amount_eur_min": 833,
+      "amount_eur_max": 833,
+      "period": "monthly",
+      "notes": "Paid outside activity disclosed in section (C).",
+      "source_excerpt": "Aufsichtsrätin Arcelor Mittal Eisenhüttenstadt – 833 monatlich"
     },
     {
       "category": "board_membership",
-      "entity_name": "Trägerverein der Europäischen Akademie",
-      "entity_type": "unknown",
-      "source_excerpt": "2. Trägerverein der Europäischen Akademie"
+      "entity_name": "SPD Berlin (Landesvorstand)",
+      "entity_type": "political_party",
+      "role": "Co-opted member of the state executive board",
+      "notes": "Unpaid.",
+      "source_excerpt": "Kooptiertes Mitglied des Landesvorstands der SPD Berlin (X)"
     },
     {
-      "category": "board_membership",
-      "entity_name": "Industriegewerkschaft Metall - Mitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "3. Industriegewerkschaft Metall - MitgliedX",
-      "notes": "Unpaid",
-      "role": "Industriegewerkschaft Metall - Mitglied"
+      "category": "other",
+      "entity_name": "Spinelli Group (European Parliament informal grouping)",
+      "entity_type": "other",
+      "role": "Chair",
+      "notes": "Listed under section (C) as 'Spinelli Gruppe EP, Vorsitzende' (unpaid).",
+      "source_excerpt": "Spinelli Gruppe EP, Vorsitzende (X)"
     },
     {
-      "category": "board_membership",
-      "entity_name": "Institut Europäische Politik - Kuratorin",
-      "entity_type": "unknown",
-      "source_excerpt": "4. Institut Europäische Politik - KuratorinX",
-      "notes": "Unpaid"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "Five Plus - Ehrenmitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "5. Gender Five Plus - EhrenmitgliedX",
-      "notes": "Unpaid",
-      "role": "Gender Five Plus - Ehrenmitglied"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "ADFC - Allgemeine Deutsche Fahrrad-Club",
-      "entity_type": "unknown",
-      "source_excerpt": "6. ADFC - Allgemeine Deutsche Fahrrad-ClubX",
-      "notes": "Unpaid"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "August-Bebel-Institut Berlin - Mitglied",
-      "entity_type": "unknown",
-      "source_excerpt": "7. August-Bebel-Institut Berlin - MitgliedX",
-      "notes": "Unpaid",
-      "role": "August-Bebel-Institut Berlin - Mitglied"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "Aufsichtsrätin Arcelor Mittal Eisenhüttenstadt833monatlich",
-      "entity_type": "unknown",
-      "source_excerpt": "8. Aufsichtsrätin Arcelor Mittal Eisenhüttenstadt833monatlich"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "Landesvorstands der",
-      "entity_type": "unknown",
-      "source_excerpt": "9. Kooptiertes Mitglied des Landesvorstands der",
-      "role": "Kooptiertes Mitglied des Landesvorstands der"
+      "category": "other",
+      "entity_name": "Union of European Federalists (UEF)",
+      "entity_type": "ngo",
+      "role": "Third-party support for Spinelli Group activities",
+      "notes": "Section (E): UEF pays for a website promoting Spinelli Group's work and provides secretariat support (communication, events, website). No amount specified.",
+      "source_excerpt": "UEF pays for a website...; Sekretariatsunterstützung durch Mitarbeiter*in der UEF."
     }
   ],
   "gifts_travel": [],
   "data_quality": {
-    "confidence": "medium",
-    "parsing_method": "pdf",
+    "confidence": "high",
+    "parsing_method": "manual",
     "issues": [
-      "Sections found: A, B, C, D, E, F, G"
+      "Latest DPI is 'Revision no 1 – 23-07-2025'; supersedes original declaration (16-07-2024).",
+      "Section (E) lists in-kind support from UEF without monetary amounts.",
+      "No shareholdings with policy impact declared in section (D)."
     ]
   }
 }
