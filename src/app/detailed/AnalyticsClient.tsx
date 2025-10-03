@@ -90,7 +90,7 @@ export default function AnalyticsClient() {
         <TabsTrigger value="strasbourg">Strasbourg vs Brussels</TabsTrigger>
         <TabsTrigger value="groups">Group Variance</TabsTrigger>
         <TabsTrigger value="seasonality">Seasonality</TabsTrigger>
-        <TabsTrigger value="age">Age Groups</TabsTrigger>
+        <TabsTrigger value="age">Country Size</TabsTrigger>
       </TabsList>
 
       <TabsContent value="strasbourg" className="space-y-6">
@@ -226,9 +226,9 @@ export default function AnalyticsClient() {
       <TabsContent value="age" className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Attendance by Age Group</CardTitle>
+            <CardTitle>Attendance by Country Size</CardTitle>
             <CardDescription>
-              How attendance varies across different age demographics
+              How attendance varies across countries of different sizes
             </CardDescription>
           </CardHeader>
           <CardContent>
