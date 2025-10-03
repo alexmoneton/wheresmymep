@@ -1,0 +1,285 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
+
+interface AnalyticsData {
+  strasbourgVsBrussels: {
+    strasbourg: { average: number; count: number }
+    brussels: { average: number; count: number }
+    difference: number
+    significance: string
+  }
+  groupVariance: Array<{
+    group: string
+    variance: number
+    average: number
+    count: number
+  }>
+  seasonality: Array<{
+    month: string
+    average: number
+    count: number
+  }>
+  ageGroups: Array<{
+    ageGroup: string
+    average: number
+    count: number
+  }>
+}
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D']
+
+export default function AnalyticsClient() {
+  const [data, setData] = useState<AnalyticsData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchAnalytics()
+  }, [])
+
+  const fetchAnalytics = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/analytics')
+      if (!response.ok) {
+        throw new Error('Failed to fetch analytics data')
+      }
+      const analyticsData = await response.json()
+      setData(analyticsData)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading analytics...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-red-600">Error: {error}</p>
+        <button 
+          onClick={fetchAnalytics}
+          className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Retry
+        </button>
+      </div>
+    )
+  }
+
+  if (!data) return null
+
+  return (
+    <Tabs defaultValue="strasbourg" className="space-y-6">
+      <TabsList className="grid w-full grid-cols-4">
+        <TabsTrigger value="strasbourg">Strasbourg vs Brussels</TabsTrigger>
+        <TabsTrigger value="groups">Group Variance</TabsTrigger>
+        <TabsTrigger value="seasonality">Seasonality</TabsTrigger>
+        <TabsTrigger value="age">Age Groups</TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="strasbourg" className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Strasbourg vs Brussels Attendance</CardTitle>
+            <CardDescription>
+              Comparing average attendance rates between Strasbourg and Brussels plenary sessions
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">
+                  {data.strasbourgVsBrussels.strasbourg.average.toFixed(1)}%
+                </div>
+                <div className="text-sm text-gray-600">Strasbourg Average</div>
+                <div className="text-xs text-gray-500">
+                  {data.strasbourgVsBrussels.strasbourg.count} sessions
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">
+                  {data.strasbourgVsBrussels.brussels.average.toFixed(1)}%
+                </div>
+                <div className="text-sm text-gray-600">Brussels Average</div>
+                <div className="text-xs text-gray-500">
+                  {data.strasbourgVsBrussels.brussels.count} sessions
+                </div>
+              </div>
+              <div className="text-center">
+                <div className={`text-2xl font-bold ${data.strasbourgVsBrussels.difference > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                  {data.strasbourgVsBrussels.difference > 0 ? '+' : ''}{data.strasbourgVsBrussels.difference.toFixed(1)}%
+                </div>
+                <div className="text-sm text-gray-600">Difference</div>
+                <div className="text-xs text-gray-500">
+                  {data.strasbourgVsBrussels.significance}
+                </div>
+              </div>
+            </div>
+            
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={[
+                { location: 'Strasbourg', attendance: data.strasbourgVsBrussels.strasbourg.average },
+                { location: 'Brussels', attendance: data.strasbourgVsBrussels.brussels.average }
+              ]}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="location" />
+                <YAxis />
+                <Tooltip formatter={(value) => [`${value}%`, 'Attendance Rate']} />
+                <Bar dataKey="attendance" fill="#8884D8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="groups" className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Political Group Attendance Variance</CardTitle>
+            <CardDescription>
+              Internal consistency of attendance within each political group
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={data.groupVariance} layout="horizontal">
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" />
+                <YAxis dataKey="group" type="category" width={120} />
+                <Tooltip formatter={(value) => [`${value}%`, 'Variance']} />
+                <Bar dataKey="variance" fill="#FF8042" />
+              </BarChart>
+            </ResponsiveContainer>
+            
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {data.groupVariance.map((group, index) => (
+                <div key={group.group} className="p-4 border rounded-lg">
+                  <div className="font-medium">{group.group}</div>
+                  <div className="text-sm text-gray-600">
+                    Variance: {group.variance.toFixed(1)}%
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Average: {group.average.toFixed(1)}%
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {group.count} MEPs
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="seasonality" className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Seasonal Attendance Patterns</CardTitle>
+            <CardDescription>
+              Monthly attendance patterns throughout the year
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={data.seasonality}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => [`${value}%`, 'Attendance Rate']} />
+                <Line type="monotone" dataKey="average" stroke="#8884D8" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+            
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {data.seasonality.map((month) => (
+                <div key={month.month} className="text-center p-3 border rounded">
+                  <div className="font-medium">{month.month}</div>
+                  <div className="text-lg font-bold text-blue-600">
+                    {month.average.toFixed(1)}%
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {month.count} sessions
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="age" className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Attendance by Age Group</CardTitle>
+            <CardDescription>
+              How attendance varies across different age demographics
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={data.ageGroups}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="ageGroup" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => [`${value}%`, 'Attendance Rate']} />
+                  <Bar dataKey="average" fill="#00C49F" />
+                </BarChart>
+              </ResponsiveContainer>
+              
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={data.ageGroups}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ ageGroup, average }) => `${ageGroup}: ${average.toFixed(1)}%`}
+                    outerRadius={80}
+                    fill="#8884D8"
+                    dataKey="average"
+                  >
+                    {data.ageGroups.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => [`${value}%`, 'Attendance Rate']} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {data.ageGroups.map((ageGroup, index) => (
+                <div key={ageGroup.ageGroup} className="p-4 border rounded-lg">
+                  <div className="font-medium">{ageGroup.ageGroup}</div>
+                  <div className="text-lg font-bold text-blue-600">
+                    {ageGroup.average.toFixed(1)}%
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {ageGroup.count} MEPs
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
+  )
+}
