@@ -6,12 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 
 interface AnalyticsData {
-  strasbourgVsBrussels: {
-    strasbourg: { average: number; count: number }
-    brussels: { average: number; count: number }
-    difference: number
-    significance: string
-  }
   groupVariance: Array<{
     group: string
     variance: number
@@ -28,6 +22,31 @@ interface AnalyticsData {
     average: number
     count: number
   }>
+  countryRankings: {
+    topCountries: Array<{
+      country: string
+      average: number
+      count: number
+      meps: Array<{
+        name: string
+        attendance: number
+      }>
+    }>
+    bottomCountries: Array<{
+      country: string
+      average: number
+      count: number
+      meps: Array<{
+        name: string
+        attendance: number
+      }>
+    }>
+    allCountries: Array<{
+      country: string
+      average: number
+      count: number
+    }>
+  }
 }
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D']
@@ -85,63 +104,93 @@ export default function AnalyticsClient() {
   if (!data) return null
 
   return (
-    <Tabs defaultValue="strasbourg" className="space-y-6">
+    <Tabs defaultValue="countries" className="space-y-6">
       <TabsList className="grid w-full grid-cols-4">
-        <TabsTrigger value="strasbourg">Strasbourg vs Brussels</TabsTrigger>
+        <TabsTrigger value="countries">Country Rankings</TabsTrigger>
         <TabsTrigger value="groups">Group Variance</TabsTrigger>
         <TabsTrigger value="seasonality">Seasonality</TabsTrigger>
         <TabsTrigger value="age">Country Size</TabsTrigger>
       </TabsList>
 
-      <TabsContent value="strasbourg" className="space-y-6">
+      <TabsContent value="countries" className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Top Countries */}
+          <Card>
+            <CardHeader>
+              <CardTitle>🏆 Top Countries by Attendance</CardTitle>
+              <CardDescription>
+                Countries with the highest average MEP attendance rates
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {data.countryRankings.topCountries.map((country, index) => (
+                  <div key={country.country} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="text-lg font-bold text-gray-600">#{index + 1}</div>
+                      <div>
+                        <div className="font-medium">{country.country}</div>
+                        <div className="text-sm text-gray-500">{country.count} MEPs</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-green-600">
+                        {country.average.toFixed(1)}%
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Bottom Countries */}
+          <Card>
+            <CardHeader>
+              <CardTitle>📉 Countries with Lowest Attendance</CardTitle>
+              <CardDescription>
+                Countries with the lowest average MEP attendance rates
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {data.countryRankings.bottomCountries.map((country, index) => (
+                  <div key={country.country} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="text-lg font-bold text-gray-600">#{data.countryRankings.allCountries.length - index}</div>
+                      <div>
+                        <div className="font-medium">{country.country}</div>
+                        <div className="text-sm text-gray-500">{country.count} MEPs</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-red-600">
+                        {country.average.toFixed(1)}%
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* All Countries Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>Strasbourg vs Brussels Attendance</CardTitle>
+            <CardTitle>All Countries Attendance Overview</CardTitle>
             <CardDescription>
-              Comparing average attendance rates between Strasbourg and Brussels plenary sessions
+              Complete ranking of all countries by average MEP attendance
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
-                  {data.strasbourgVsBrussels.strasbourg.average.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600">Strasbourg Average</div>
-                <div className="text-xs text-gray-500">
-                  {data.strasbourgVsBrussels.strasbourg.count} sessions
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">
-                  {data.strasbourgVsBrussels.brussels.average.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600">Brussels Average</div>
-                <div className="text-xs text-gray-500">
-                  {data.strasbourgVsBrussels.brussels.count} sessions
-                </div>
-              </div>
-              <div className="text-center">
-                <div className={`text-2xl font-bold ${data.strasbourgVsBrussels.difference > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                  {data.strasbourgVsBrussels.difference > 0 ? '+' : ''}{data.strasbourgVsBrussels.difference.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600">Difference</div>
-                <div className="text-xs text-gray-500">
-                  {data.strasbourgVsBrussels.significance}
-                </div>
-              </div>
-            </div>
-            
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={[
-                { location: 'Strasbourg', attendance: data.strasbourgVsBrussels.strasbourg.average },
-                { location: 'Brussels', attendance: data.strasbourgVsBrussels.brussels.average }
-              ]}>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={data.countryRankings.allCountries.slice(0, 20)} layout="horizontal">
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="location" />
-                <YAxis />
+                <XAxis type="number" />
+                <YAxis dataKey="country" type="category" width={120} />
                 <Tooltip formatter={(value) => [`${value}%`, 'Attendance Rate']} />
-                <Bar dataKey="attendance" fill="#8884D8" />
+                <Bar dataKey="average" fill="#8884D8" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

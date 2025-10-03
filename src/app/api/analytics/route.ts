@@ -47,9 +47,7 @@ export async function GET(request: NextRequest) {
       votesByMonth.get(month)!.push(vote.id)
     })
 
-    // For Strasbourg vs Brussels, we'll use a mock comparison since we don't have location data
-    const strasbourgAttendance = { average: 78.5, count: 0 }
-    const brusselsAttendance = { average: 82.3, count: 0 }
+    // No location data available for Strasbourg vs Brussels comparison
 
     // Analyze political group variance
     const groupVariance = analyzeGroupVariance(meps, votes.map(v => v.id))
@@ -60,22 +58,14 @@ export async function GET(request: NextRequest) {
     // Analyze country size groups
     const ageGroups = analyzeAgeGroups(meps, votes.map(v => v.id))
 
+    // Analyze country rankings
+    const countryRankings = analyzeCountryRankings(meps, votes.map(v => v.id))
+
     const analyticsData = {
-      strasbourgVsBrussels: {
-        strasbourg: {
-          average: strasbourgAttendance.average,
-          count: strasbourgVotes.length
-        },
-        brussels: {
-          average: brusselsAttendance.average,
-          count: brusselsVotes.length
-        },
-        difference: strasbourgAttendance.average - brusselsAttendance.average,
-        significance: Math.abs(strasbourgAttendance.average - brusselsAttendance.average) > 5 ? 'Significant' : 'Minor'
-      },
       groupVariance: groupVariance,
       seasonality: seasonality,
-      ageGroups: ageGroups
+      ageGroups: ageGroups,
+      countryRankings: countryRankings
     }
 
     console.log('Analytics API: Successfully generated analytics data')
@@ -230,4 +220,45 @@ function analyzeAgeGroups(meps: any[], voteIds: string[]) {
   })
 
   return ageGroupStats
+}
+
+function analyzeCountryRankings(meps: any[], voteIds: string[]) {
+  const countryGroups = new Map<string, any[]>()
+
+  // Group MEPs by country
+  meps.forEach(mep => {
+    const country = mep.country?.name || 'Unknown'
+    if (!countryGroups.has(country)) {
+      countryGroups.set(country, [])
+    }
+    countryGroups.get(country)!.push(mep)
+  })
+
+  const countryStats = Array.from(countryGroups.entries()).map(([country, countryMeps]) => {
+    const attendances = countryMeps.map(mep => {
+      const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
+      const attended = mepVotes.filter((v: any) => v.choice !== 'absent').length
+      return mepVotes.length > 0 ? (attended / mepVotes.length) * 100 : 0
+    }).filter(att => att > 0)
+
+    const average = attendances.length > 0 
+      ? attendances.reduce((sum, att) => sum + att, 0) / attendances.length 
+      : 0
+
+    return {
+      country,
+      average,
+      count: countryMeps.length,
+      meps: countryMeps.map(mep => ({
+        name: mep.firstName + ' ' + mep.lastName,
+        attendance: attendances[countryMeps.indexOf(mep)] || 0
+      }))
+    }
+  }).sort((a, b) => b.average - a.average) // Sort by highest attendance first
+
+  return {
+    topCountries: countryStats.slice(0, 10), // Top 10 countries
+    bottomCountries: countryStats.slice(-10).reverse(), // Bottom 10 countries
+    allCountries: countryStats
+  }
 }
