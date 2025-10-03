@@ -106,6 +106,15 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
               
               {/* Sort Controls */}
               <LeaderboardSort sortBy={sortBy} sortOrder={sortOrder} />
+              
+              {/* Download CSV Button */}
+              <a
+                href="/api/attendance/export"
+                download
+                className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
+              >
+                📥 Download CSV
+              </a>
             </div>
           </div>
 
