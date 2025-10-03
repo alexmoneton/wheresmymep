@@ -21,6 +21,11 @@ export async function GET(request: NextRequest) {
     })
     
     console.log(`Analytics API: Found ${meps.length} MEPs`)
+    
+    // Debug: Check first MEP structure
+    if (meps.length > 0) {
+      console.log('First MEP structure:', JSON.stringify(meps[0], null, 2))
+    }
 
     // Get all votes to determine timing
     const votes = await prisma.vote.findMany({
@@ -32,6 +37,11 @@ export async function GET(request: NextRequest) {
     })
     
     console.log(`Analytics API: Found ${votes.length} votes`)
+    
+    // Debug: Check first vote structure
+    if (votes.length > 0) {
+      console.log('First vote structure:', JSON.stringify(votes[0], null, 2))
+    }
 
     // Since we don't have location data, let's analyze by date patterns instead
     // Group votes by month to see seasonal patterns
@@ -223,6 +233,8 @@ function analyzeAgeGroups(meps: any[], voteIds: string[]) {
 }
 
 function analyzeCountryRankings(meps: any[], voteIds: string[]) {
+  console.log(`analyzeCountryRankings: Processing ${meps.length} MEPs with ${voteIds.length} votes`)
+  
   const countryGroups = new Map<string, any[]>()
 
   // Group MEPs by country
@@ -233,11 +245,23 @@ function analyzeCountryRankings(meps: any[], voteIds: string[]) {
     }
     countryGroups.get(country)!.push(mep)
   })
+  
+  console.log(`Country groups created: ${countryGroups.size} countries`)
 
   const countryStats = Array.from(countryGroups.entries()).map(([country, countryMeps]) => {
     const attendances = countryMeps.map(mep => {
       const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
       const attended = mepVotes.filter((v: any) => v.choice !== 'absent').length
+      
+      // Debug first MEP
+      if (countryMeps.indexOf(mep) === 0) {
+        console.log(`Debug ${country} MEP ${mep.firstName} ${mep.lastName}:`)
+        console.log(`  - Total votes for MEP: ${mep.votes.length}`)
+        console.log(`  - Votes matching voteIds: ${mepVotes.length}`)
+        console.log(`  - Attended votes: ${attended}`)
+        console.log(`  - Sample vote:`, mep.votes[0])
+      }
+      
       return mepVotes.length > 0 ? (attended / mepVotes.length) * 100 : 0
     }).filter(att => att > 0)
 
