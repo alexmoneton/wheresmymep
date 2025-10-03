@@ -1,77 +1,85 @@
 {
   "mep_id": "197401",
   "name": "Karin Karlsbro",
-  "country": "Spain",
-  "party": "Renew Europe Group",
+  "country": "Sweden",
+  "party": "Renew Europe (Liberalerna)",
   "sources": {
-    "declaration_url": "https://www.europarl.europa.eu/meps/en/197401/ADRI_N_V_ZQUEZ_L_ZARA/declarations"
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197401/KARIN_KARLSBRO/declarations#detailedcardmep"
   },
-  "last_updated_utc": "2025-10-02T07:19:06.540Z",
+  "last_updated_utc": "2025-10-03T04:58:00Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
-      "entity_name": "Karin Karlsbro AB Se också övriga",
-      "entity_type": "unknown",
-      "source_excerpt": "1. Karin Karlsbro AB Se också övriga"
+      "entity_name": "Member of the European Parliament",
+      "entity_type": "public_body",
+      "role": "MEP",
+      "period": "monthly",
+      "notes": "Listed under section (A); income marked as public information.",
+      "source_excerpt": "ledamot av Europaparlamentet – offentlig information – månadsvis"
+    },
+    {
+      "category": "ownership",
+      "entity_name": "Karin Karlsbro AB",
+      "entity_type": "company",
+      "role": "Owner/Board participation noted in A & C",
+      "notes": "Company stated as inactive; see section (G).",
+      "source_excerpt": "Karin Karlsbro AB – Se övriga upplysningar. Företaget ej aktivt."
     },
     {
       "category": "outside_activity",
-      "entity_name": "SILC Swedish International Liberal Centre",
-      "entity_type": "unknown",
-      "source_excerpt": "2. SILC Swedish International Liberal Centre,"
+      "entity_name": "SILC – Swedish International Liberal Centre",
+      "entity_type": "ngo",
+      "role": "Affiliation (until 2023)",
+      "period": "one-off",
+      "notes": "Listed in section (A) as prior activity up to 2023; no income shown.",
+      "source_excerpt": "SILC Swedish International Liberal Centre, tom 2023"
     },
     {
       "category": "outside_activity",
       "entity_name": "Nätverket Gröna Liberaler",
-      "entity_type": "media",
-      "source_excerpt": "3. Nätverket Gröna LiberalerX",
-      "notes": "Unpaid"
+      "entity_type": "ngo",
+      "role": "Member",
+      "notes": "Listed in sections (A) and (C); no remuneration indicated.",
+      "source_excerpt": "Nätverket Gröna Liberaler – X"
     },
     {
-      "category": "outside_activity",
-      "entity_name": "ledamot av Europaparlamentetoffentlig",
-      "entity_type": "unknown",
-      "source_excerpt": "4. ledamot av Europaparlamentetoffentlig"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "Liberalerans partistyrelse och riksdagsgrupp",
+      "category": "board_membership",
+      "entity_name": "Liberalerna – party board and parliamentary group",
       "entity_type": "political_party",
-      "source_excerpt": "5. Liberalerans partistyrelse och riksdagsgrupp,"
+      "role": "Co-opted member (adjungerad)",
+      "notes": "Listed in sections (A) and (C); no remuneration indicated.",
+      "source_excerpt": "Liberalerans partistyrelse och riksdagsgrupp, adjungerad – X"
     },
     {
       "category": "outside_activity",
-      "entity_name": "Frisinnade landsföreningen tom dec 2023",
-      "entity_type": "unknown",
-      "source_excerpt": "6. Frisinnade landsföreningen tom dec 2023X",
-      "notes": "Unpaid"
+      "entity_name": "Frisinnade landsföreningen",
+      "entity_type": "ngo",
+      "role": "Member (until Dec 2023)",
+      "period": "one-off",
+      "notes": "Listed in section (A) as prior activity; no income indicated.",
+      "source_excerpt": "Frisinnade landsföreningen tom dec 2023 – X"
     },
     {
-      "category": "board_membership",
-      "entity_name": "Liberalerans partistyrelse och riksdagsgrupp",
-      "entity_type": "political_party",
-      "source_excerpt": "1. Liberalerans partistyrelse och riksdagsgrupp,"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "Nätverket Gröna Liberaler",
-      "entity_type": "media",
-      "source_excerpt": "2. Nätverket Gröna LiberalerX",
-      "notes": "Unpaid"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "Karin Karlsbro AB Se övriga upplysningar.",
-      "entity_type": "unknown",
-      "source_excerpt": "3. Karin Karlsbro AB Se övriga upplysningar."
+      "category": "other",
+      "entity_name": "Household student lodger income (SEK)",
+      "entity_type": "other",
+      "role": "Additional information",
+      "amount_eur_min": null,
+      "amount_eur_max": null,
+      "period": "annual",
+      "notes": "Section (G): Family hosted a student; SEK 29,000 (2022) and SEK 16,500 (2023). Currency not converted.",
+      "source_excerpt": "År 2022: Familjen hade en inneboende student, 29 000 kronor. År 2023: ... 16 500 kronor."
     }
   ],
   "gifts_travel": [],
   "data_quality": {
-    "confidence": "medium",
-    "parsing_method": "pdf",
+    "confidence": "high",
+    "parsing_method": "manual",
     "issues": [
-      "Sections found: A, B, C, D, E, F, G"
+      "Section (B) contains no remunerated outside activities over €5,000/year.",
+      "Section (D) (shareholdings with policy impact) has no entries.",
+      "Section (E) (third-party support) has no entries.",
+      "Page also includes multiple role-specific 'Declaration on awareness of conflicts of interest', an 'appropriate behaviour' declaration, and a voluntary confirmation on the General Expenditure Allowance (non-financial items)."
     ]
   }
 }
