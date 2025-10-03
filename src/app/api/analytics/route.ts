@@ -5,50 +5,72 @@ const prisma = new PrismaClient()
 
 export async function GET(request: NextRequest) {
   try {
-    // For now, return mock data to test the API structure
-    // TODO: Replace with real database queries once we confirm the API works
+    console.log('Analytics API: Starting database queries...')
+    
+    // Get all MEPs with their attendance data
+    const meps = await prisma.mEP.findMany({
+      include: {
+        votes: {
+          include: {
+            vote: true
+          }
+        },
+        party: true,
+        country: true
+      }
+    })
+    
+    console.log(`Analytics API: Found ${meps.length} MEPs`)
+
+    // Get all votes to determine location and timing
+    const votes = await prisma.vote.findMany({
+      select: {
+        id: true,
+        date: true,
+        location: true,
+        title: true
+      }
+    })
+    
+    console.log(`Analytics API: Found ${votes.length} votes`)
+
+    // Analyze Strasbourg vs Brussels attendance
+    const strasbourgVotes = votes.filter(v => v.location?.toLowerCase().includes('strasbourg'))
+    const brusselsVotes = votes.filter(v => v.location?.toLowerCase().includes('brussels'))
+    
+    console.log(`Analytics API: Strasbourg votes: ${strasbourgVotes.length}, Brussels votes: ${brusselsVotes.length}`)
+
+    const strasbourgAttendance = calculateAverageAttendance(meps, strasbourgVotes.map(v => v.id))
+    const brusselsAttendance = calculateAverageAttendance(meps, brusselsVotes.map(v => v.id))
+
+    // Analyze political group variance
+    const groupVariance = analyzeGroupVariance(meps, votes.map(v => v.id))
+
+    // Analyze seasonality
+    const seasonality = analyzeSeasonality(meps, votes)
+
+    // Analyze country size groups
+    const ageGroups = analyzeAgeGroups(meps, votes.map(v => v.id))
+
     const analyticsData = {
       strasbourgVsBrussels: {
         strasbourg: {
-          average: 78.5,
-          count: 24
+          average: strasbourgAttendance.average,
+          count: strasbourgVotes.length
         },
         brussels: {
-          average: 82.3,
-          count: 36
+          average: brusselsAttendance.average,
+          count: brusselsVotes.length
         },
-        difference: -3.8,
-        significance: 'Minor'
+        difference: strasbourgAttendance.average - brusselsAttendance.average,
+        significance: Math.abs(strasbourgAttendance.average - brusselsAttendance.average) > 5 ? 'Significant' : 'Minor'
       },
-      groupVariance: [
-        { group: 'EPP', variance: 12.5, average: 85.2, count: 178 },
-        { group: 'S&D', variance: 15.3, average: 82.1, count: 145 },
-        { group: 'Renew', variance: 18.7, average: 79.8, count: 102 },
-        { group: 'Greens/EFA', variance: 22.1, average: 76.5, count: 72 },
-        { group: 'ECR', variance: 14.2, average: 81.3, count: 68 },
-        { group: 'ID', variance: 25.6, average: 72.1, count: 58 }
-      ],
-      seasonality: [
-        { month: 'Jan', average: 79.2, count: 8 },
-        { month: 'Feb', average: 81.5, count: 6 },
-        { month: 'Mar', average: 83.1, count: 7 },
-        { month: 'Apr', average: 80.8, count: 5 },
-        { month: 'May', average: 77.3, count: 6 },
-        { month: 'Jun', average: 75.9, count: 4 },
-        { month: 'Jul', average: 72.1, count: 3 },
-        { month: 'Aug', average: 68.5, count: 2 },
-        { month: 'Sep', average: 82.7, count: 6 },
-        { month: 'Oct', average: 84.2, count: 7 },
-        { month: 'Nov', average: 81.8, count: 6 },
-        { month: 'Dec', average: 78.4, count: 5 }
-      ],
-      ageGroups: [
-        { ageGroup: 'Large Countries (10+ MEPs)', average: 81.2, count: 245 },
-        { ageGroup: 'Medium Countries (5-9 MEPs)', average: 79.8, count: 156 },
-        { ageGroup: 'Small Countries (1-4 MEPs)', average: 76.3, count: 89 }
-      ]
+      groupVariance: groupVariance,
+      seasonality: seasonality,
+      ageGroups: ageGroups
     }
 
+    console.log('Analytics API: Successfully generated analytics data')
     return NextResponse.json(analyticsData)
   } catch (error) {
     console.error('Analytics API error:', error)
@@ -56,6 +78,8 @@ export async function GET(request: NextRequest) {
       { error: 'Failed to generate analytics', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
@@ -83,7 +107,7 @@ function analyzeGroupVariance(meps: any[], voteIds: string[]) {
 
   // Group MEPs by political group
   meps.forEach(mep => {
-    const group = mep.party || 'Unknown'
+    const group = mep.party?.euGroup || mep.party?.name || 'Unknown'
     if (!groups.has(group)) {
       groups.set(group, [])
     }
