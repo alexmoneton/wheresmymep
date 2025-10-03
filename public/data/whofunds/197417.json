@@ -1,100 +1,132 @@
 {
   "mep_id": "197417",
   "name": "Tomislav Sokol",
-  "country": "Poland",
-  "party": "European Conservatives and Reformists Group",
+  "country": "Croatia",
+  "party": "EPP (HDZ)",
   "sources": {
-    "declaration_url": "https://www.europarl.europa.eu/meps/en/197417/ANNA_FOTYGA/declarations"
+    "declaration_url": "https://www.europarl.europa.eu/meps/en/197417/TOMISLAV_SOKOL/declarations#detailedcardmep"
   },
-  "last_updated_utc": "2025-10-02T07:21:40.744Z",
+  "last_updated_utc": "2025-10-03T04:50:00Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
-      "entity_name": "Zastupnik u Europskom parlamentuJavno dostupna",
-      "entity_type": "unknown",
-      "source_excerpt": "1. Zastupnik u Europskom parlamentuJavno dostupna"
+      "entity_name": "Member of the European Parliament",
+      "entity_type": "public_body",
+      "role": "MEP",
+      "period": "monthly",
+      "notes": "Listed under section (A) for the prior 3 years; income marked as public information.",
+      "source_excerpt": "Zastupnik u Europskom parlamentu – Javno dostupna informacija – mjesečno"
+    },
+    {
+      "category": "teaching",
+      "entity_name": "Scientific-teaching activity (general entry)",
+      "entity_type": "university",
+      "role": "Lecturer (law)",
+      "amount_eur_max": 6023,
+      "period": "annual",
+      "notes": "Section (A): 'ZNANSTVENO-NASTAVNA DJELATNOST – 6023 EUR maksimalno godišnje.'",
+      "source_excerpt": "ZNANSTVENO-NASTAVNA DJELATNOST – 6023 EUR maksimalno – godišnje"
+    },
+    {
+      "category": "teaching",
+      "entity_name": "Hrvatsko katoličko sveučilište (Croatian Catholic University)",
+      "entity_type": "university",
+      "role": "Lecturer (law)",
+      "amount_eur_max": 4820,
+      "period": "unknown",
+      "notes": "Section (B): 'maksimalno 4820 EUR polugodišnje' (maximum per half-year).",
+      "source_excerpt": "ZNANSTVENO-NASTAVNA DJELATNOST – polje pravo – HRVATSKO KATOLIČKO SVEUČILIŠTE – 4820 EUR maksimalno – polugodišnje"
+    },
+    {
+      "category": "teaching",
+      "entity_name": "Zagrebačka škola ekonomije i managementa (Zagreb School of Economics and Management)",
+      "entity_type": "university",
+      "role": "Lecturer (law)",
+      "amount_eur_max": 6239,
+      "period": "unknown",
+      "notes": "Section (B): 'maksimalno 6239 EUR polugodišnje' (maximum per half-year).",
+      "source_excerpt": "ZNANSTVENO-NASTAVNA DJELATNOST – polje pravo – ZAGREBAČKA ŠKOLA EKONOMIJE I MENADŽMENTA – 6239 EUR maksimalno – polugodišnje"
     },
     {
       "category": "outside_activity",
-      "entity_name": "ZNANSTVENO-NASTAVNA",
-      "entity_type": "media",
-      "source_excerpt": "2. ZNANSTVENO-NASTAVNA"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "THE EUROPEAN ASSOCIATION OF",
+      "entity_name": "The European Association of Health Law",
       "entity_type": "ngo",
-      "source_excerpt": "3. THE EUROPEAN ASSOCIATION OF"
+      "role": "Member",
+      "notes": "Listed in sections (A) and (C) as 'ČLAN'; unpaid.",
+      "source_excerpt": "THE EUROPEAN ASSOCIATION OF HEALTH LAW – ČLAN – X"
     },
     {
       "category": "outside_activity",
-      "entity_name": "THE EUROPEAN INSTITUTE OF SOCIAL",
-      "entity_type": "unknown",
-      "source_excerpt": "4. THE EUROPEAN INSTITUTE OF SOCIAL"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "HRVATSKA DEMOKRATSKA",
-      "entity_type": "unknown",
-      "source_excerpt": "5. HRVATSKA DEMOKRATSKA"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "stavkom 2. točkom (b) Kodeksa ponašanja",
-      "entity_type": "unknown",
-      "source_excerpt": "4. stavkom 2. točkom (b) Kodeksa ponašanja, prijavljujem svaku plaćenu aktivnost koju obavljam usporedo s",
-      "notes": "Paid activity >5,000 EUR/year"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "ZNANSTVENO-NASTAVNA DJELATNOST",
-      "entity_type": "media",
-      "source_excerpt": "1. ZNANSTVENO-NASTAVNA DJELATNOST, polje pravo -",
-      "notes": "Paid activity >5,000 EUR/year"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "stavkom 2. točkom (c) Kodeksa ponašanja",
-      "entity_type": "media",
-      "source_excerpt": "4. stavkom 2. točkom (c) Kodeksa ponašanja, prijavljujem članstvo u odborima ili vijećima poduzeća,"
-    },
-    {
-      "category": "board_membership",
-      "entity_name": "THE EUROPEAN ASSOCIATION OF",
+      "entity_name": "European Institute of Social Security (EISS)",
       "entity_type": "ngo",
-      "source_excerpt": "1. THE EUROPEAN ASSOCIATION OF"
+      "role": "Member",
+      "notes": "Listed in sections (A) and (C); unpaid.",
+      "source_excerpt": "THE EUROPEAN INSTITUTE OF SOCIAL SECURITY (EISS) – ČLAN – X"
+    },
+    {
+      "category": "outside_activity",
+      "entity_name": "Hrvatska demokratska zajednica (HDZ)",
+      "entity_type": "political_party",
+      "role": "National Board Member",
+      "notes": "Listed in sections (A) and (C); unpaid.",
+      "source_excerpt": "HRVATSKA DEMOKRATSKA ZAJEDNICA (HDZ) – član Nacionalnog odbora – X"
     },
     {
       "category": "board_membership",
-      "entity_name": "THE EUROPEAN INSTITUTE OF SOCIAL",
-      "entity_type": "unknown",
-      "source_excerpt": "2. THE EUROPEAN INSTITUTE OF SOCIAL"
+      "entity_name": "The European Parliamentary Association (APE)",
+      "entity_type": "ngo",
+      "role": "Vice-President",
+      "notes": "Listed in sections (A) and (C); unpaid.",
+      "source_excerpt": "The European Parliamentary Association (APE) – potpredsjednik – X"
     },
     {
       "category": "board_membership",
-      "entity_name": "HRVATSKA DEMOKRATSKA",
-      "entity_type": "unknown",
-      "source_excerpt": "3. HRVATSKA DEMOKRATSKA"
+      "entity_name": "Working Group drafting the Church–Government (Croatia) Health Cooperation Agreement",
+      "entity_type": "public_body",
+      "role": "Member",
+      "notes": "Section (C); unpaid.",
+      "source_excerpt": "Radna skupina za izradu Nacrta prijedloga Ugovora o suradnji Crkve i Vlade RH iz područja zdravstva – član – X"
     },
     {
-      "category": "ownership",
-      "entity_name": "stavkom 2. točkom (d) Kodeksa ponašanja",
-      "entity_type": "media",
-      "source_excerpt": "4. stavkom 2. točkom (d) Kodeksa ponašanja, prijavljujem udio u poduzeću ili partnerstvu ako to ima moguće"
+      "category": "board_membership",
+      "entity_name": "Quality Committee, Faculty of Law – Croatian Catholic University",
+      "entity_type": "university",
+      "role": "Member",
+      "notes": "Section (C); unpaid.",
+      "source_excerpt": "Odbor za kvalitetu Pravnog fakulteta Hrvatskog katoličkog sveučilišta – član – X"
+    },
+    {
+      "category": "board_membership",
+      "entity_name": "Commission drafting the Scientific Strategy (2026–2030), Croatian Catholic University",
+      "entity_type": "university",
+      "role": "Member",
+      "notes": "Section (C); unpaid.",
+      "source_excerpt": "Povjerenstvo za izradu Znanstvene strategije HKS 2026–2030 – član – X"
     }
   ],
   "gifts_travel": [
     {
-      "sponsor": "Poslovnika:",
-      "item": "Poslovnika:",
-      "source_excerpt": "4. Poslovnika:"
+      "sponsor": "Hrvatska paneuropska unija (Croatian Paneuropean Union)",
+      "item": "Conference attendance (Split/Sinj)",
+      "value_eur": null,
+      "date": "2024-10-25",
+      "notes": "Accommodation covered (Hotel Dioklecijan, Split) for 1 night; event 25–26/10/2024; venue: Croatia, Split."
+    },
+    {
+      "sponsor": "Instituto de Investigación Marqués de Valdecilla (IDIVAL)",
+      "item": "Conference attendance (Santander)",
+      "value_eur": null,
+      "date": "2025-05-28",
+      "notes": "Accommodation covered (Hotel Vincci Puertochico), 3 nights; event 28–30/05/2025; venue: Spain, Santander."
     }
   ],
   "data_quality": {
-    "confidence": "medium",
-    "parsing_method": "pdf",
+    "confidence": "high",
+    "parsing_method": "manual",
     "issues": [
-      "Sections found: A, B, C, D, E, F, G"
+      "No shareholdings with policy impact declared in section (D).",
+      "No third-party financial/staff support listed in section (E).",
+      "Teaching entries in section (B) reported as maximum amounts per half-year; exact totals may vary."
     ]
   }
 }
