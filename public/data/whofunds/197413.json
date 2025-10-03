@@ -1,71 +1,48 @@
 {
   "mep_id": "197413",
   "name": "Karlo Ressler",
-  "country": "Bulgaria",
-  "party": "European People's Party",
+  "country": "Croatia",
+  "party": "EPP (HDZ)",
   "sources": {
-    "declaration_url": "https://www.europarl.europa.eu/meps/en/197413/ANDREY_KOVATCHEV/declarations"
+    "declaration_url": "https://www.europarl.europa.eu/meps/fr/197413/KARLO_RESSLER/declarations#detailedcardmep"
   },
-  "last_updated_utc": "2025-10-02T07:21:06.385Z",
+  "last_updated_utc": "2025-10-03T05:05:00Z",
   "income_and_interests": [
     {
       "category": "outside_activity",
-      "entity_name": "Zastupnik u Europskom parlamentuJavna informacijamjesečno",
-      "entity_type": "unknown",
-      "source_excerpt": "1. Zastupnik u Europskom parlamentuJavna informacijamjesečno"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "Potpredsjednik Mladeži Europske pučke",
-      "entity_type": "unknown",
-      "source_excerpt": "2. Potpredsjednik Mladeži Europske pučke"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "Potpredsjednik Hrvatske paneuropske unije",
-      "entity_type": "unknown",
-      "source_excerpt": "3. Potpredsjednik Hrvatske paneuropske unijeX",
-      "notes": "Unpaid"
-    },
-    {
-      "category": "outside_activity",
-      "entity_name": "stavkom 2. točkom (b) Kodeksa ponašanja",
-      "entity_type": "unknown",
-      "source_excerpt": "4. stavkom 2. točkom (b) Kodeksa ponašanja, prijavljujem svaku plaćenu aktivnost koju obavljam usporedo s",
-      "notes": "Paid activity >5,000 EUR/year"
+      "entity_name": "Member of the European Parliament",
+      "entity_type": "public_body",
+      "role": "MEP",
+      "period": "monthly",
+      "notes": "Listed in section (A); income marked as public information.",
+      "source_excerpt": "Zastupnik u Europskom parlamentu – Javna informacija – mjesečno"
     },
     {
       "category": "board_membership",
-      "entity_name": "stavkom 2. točkom (c) Kodeksa ponašanja",
-      "entity_type": "media",
-      "source_excerpt": "4. stavkom 2. točkom (c) Kodeksa ponašanja, prijavljujem članstvo u odborima ili vijećima poduzeća,"
+      "entity_name": "Youth of the European People's Party (YEPP)",
+      "entity_type": "political_party",
+      "role": "Vice-President",
+      "notes": "Listed in section (A) as 'Potpredsjednik Mladeži Europske pučke stranke'; no remuneration indicated.",
+      "source_excerpt": "Potpredsjednik Mladeži Europske pučke stranke – X"
     },
     {
       "category": "board_membership",
-      "entity_name": "Potpredsjednik Hrvatske paneuropske unije",
-      "entity_type": "unknown",
-      "source_excerpt": "1. Potpredsjednik Hrvatske paneuropske unijeX",
-      "notes": "Unpaid"
-    },
-    {
-      "category": "ownership",
-      "entity_name": "stavkom 2. točkom (d) Kodeksa ponašanja",
-      "entity_type": "media",
-      "source_excerpt": "4. stavkom 2. točkom (d) Kodeksa ponašanja, prijavljujem udio u poduzeću ili partnerstvu ako to ima moguće"
+      "entity_name": "Croatian Paneuropean Union",
+      "entity_type": "ngo",
+      "role": "Vice-President",
+      "notes": "Listed in sections (A) and (C); no remuneration indicated.",
+      "source_excerpt": "Potpredsjednik Hrvatske paneuropske unije – X"
     }
   ],
-  "gifts_travel": [
-    {
-      "sponsor": "Poslovnika:",
-      "item": "Poslovnika:",
-      "source_excerpt": "4. Poslovnika:"
-    }
-  ],
+  "gifts_travel": [],
   "data_quality": {
-    "confidence": "medium",
-    "parsing_method": "pdf",
+    "confidence": "high",
+    "parsing_method": "manual",
     "issues": [
-      "Sections found: A, B, C, D, E, F, G"
+      "Section (B) (remunerated outside activities > €5,000/year) has no entries.",
+      "Section (D) (shareholdings with policy impact) has no entries.",
+      "Section (E) (third-party financial/staff support) has no entries.",
+      "Page also contains multiple role-specific 'Declarations on awareness of conflicts of interest' and an 'appropriate behaviour' declaration (non-financial)."
     ]
   }
 }
