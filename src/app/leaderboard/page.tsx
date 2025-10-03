@@ -4,6 +4,7 @@ import { fetchLeaderboard, type LeaderboardRow } from '@/lib/meps/leaderboard';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
 import { LeaderboardSearch } from '@/components/LeaderboardSearch';
+import LeaderboardSort from '@/components/LeaderboardSort';
 
 export const revalidate = 43200; // 12 hours
 
@@ -26,6 +27,8 @@ interface LeaderboardPageProps {
   searchParams: {
     page?: string;
     q?: string;
+    sortBy?: string;
+    sortOrder?: string;
   };
 }
 
@@ -33,12 +36,16 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
   const resolvedSearchParams = await searchParams;
   const page = parseInt(resolvedSearchParams.page || '1', 10);
   const query = resolvedSearchParams.q || '';
+  const sortBy = (resolvedSearchParams.sortBy as 'attendance' | 'party' | 'country' | 'name') || 'attendance';
+  const sortOrder = (resolvedSearchParams.sortOrder as 'asc' | 'desc') || 'desc';
   const pageSize = 50;
 
   const { rows, total, totalPages } = await fetchLeaderboard({
     page,
     pageSize,
     q: query,
+    sortBy,
+    sortOrder,
   });
 
   const startRank = (page - 1) * pageSize + 1;
@@ -91,9 +98,14 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
               Attendance in roll-call votes, last 180 days
             </p>
             
-            {/* Search */}
-            <div className="max-w-md">
-              <LeaderboardSearch defaultValue={query} />
+            {/* Search and Sort Controls */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="max-w-md">
+                <LeaderboardSearch defaultValue={query} />
+              </div>
+              
+              {/* Sort Controls */}
+              <LeaderboardSort sortBy={sortBy} sortOrder={sortOrder} />
             </div>
           </div>
 
@@ -205,7 +217,7 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
               <div className="flex space-x-2">
                 {page > 1 && (
                   <Link
-                    href={`/leaderboard?page=${page - 1}${query ? `&q=${encodeURIComponent(query)}` : ''}`}
+                    href={`/leaderboard?page=${page - 1}${query ? `&q=${encodeURIComponent(query)}` : ''}&sortBy=${sortBy}&sortOrder=${sortOrder}`}
                     className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
                   >
                     Previous
@@ -213,7 +225,7 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
                 )}
                 {page < totalPages && (
                   <Link
-                    href={`/leaderboard?page=${page + 1}${query ? `&q=${encodeURIComponent(query)}` : ''}`}
+                    href={`/leaderboard?page=${page + 1}${query ? `&q=${encodeURIComponent(query)}` : ''}&sortBy=${sortBy}&sortOrder=${sortOrder}`}
                     className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
                   >
                     Next

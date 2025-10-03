@@ -15,6 +15,8 @@ export interface LeaderboardParams {
   page?: number;
   pageSize?: number;
   q?: string;
+  sortBy?: 'attendance' | 'party' | 'country' | 'name';
+  sortOrder?: 'asc' | 'desc';
 }
 
 export interface LeaderboardResult {
@@ -74,7 +76,7 @@ function normalizeMEP(mep: EnrichedMEP): LeaderboardRow {
 }
 
 export async function fetchLeaderboard(params: LeaderboardParams = {}): Promise<LeaderboardResult> {
-  const { page = 1, pageSize = 50, q = '' } = params;
+  const { page = 1, pageSize = 50, q = '', sortBy = 'attendance', sortOrder = 'desc' } = params;
   
   try {
     // Get all MEPs from the data source
@@ -105,8 +107,29 @@ export async function fetchLeaderboard(params: LeaderboardParams = {}): Promise<
       );
     }
     
-    // Sort by attendance percentage (descending) - same as homepage
-    filteredMEPs.sort((a, b) => (b.attendance_pct || 0) - (a.attendance_pct || 0));
+    // Sort based on sortBy parameter
+    filteredMEPs.sort((a, b) => {
+      let comparison = 0;
+      
+      switch (sortBy) {
+        case 'attendance':
+          comparison = (a.attendance_pct || 0) - (b.attendance_pct || 0);
+          break;
+        case 'party':
+          comparison = (a.party || '').localeCompare(b.party || '');
+          break;
+        case 'country':
+          comparison = a.country.localeCompare(b.country);
+          break;
+        case 'name':
+          comparison = a.name.localeCompare(b.name);
+          break;
+        default:
+          comparison = (a.attendance_pct || 0) - (b.attendance_pct || 0);
+      }
+      
+      return sortOrder === 'desc' ? -comparison : comparison;
+    });
     
     // Calculate pagination
     const total = filteredMEPs.length;
