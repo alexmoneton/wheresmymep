@@ -1,24 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { loadData, listMEPs, type EnrichedMEP } from '@/lib/data'
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('Analytics API: Starting database queries...')
+    console.log('Analytics API: Starting data analysis...')
     
-    // Get all MEPs with their attendance data
-    const meps = await prisma.mEP.findMany({
-      include: {
-        votes: {
-          include: {
-            vote: true
-          }
-        },
-        party: true,
-        country: true
-      }
-    })
+    // Load data from JSON files
+    loadData()
+    const meps = listMEPs()
     
     console.log(`Analytics API: Found ${meps.length} MEPs`)
     
@@ -27,49 +16,26 @@ export async function GET(request: NextRequest) {
       console.log('First MEP structure:', JSON.stringify(meps[0], null, 2))
     }
 
-    // Get all votes to determine timing
-    const votes = await prisma.vote.findMany({
-      select: {
-        id: true,
-        date: true,
-        title: true
-      }
-    })
+    // Filter MEPs with valid attendance data
+    const mepsWithAttendance = meps.filter(mep => 
+      mep.mep_id && 
+      (mep.votes_total_period || 0) > 0 && 
+      typeof mep.attendance_pct === 'number'
+    )
     
-    console.log(`Analytics API: Found ${votes.length} votes`)
-    
-    // Debug: Check first vote structure
-    if (votes.length > 0) {
-      console.log('First vote structure:', JSON.stringify(votes[0], null, 2))
-    }
-
-    // Since we don't have location data, let's analyze by date patterns instead
-    // Group votes by month to see seasonal patterns
-    const votesByMonth = new Map<string, string[]>()
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    
-    votes.forEach(vote => {
-      const date = new Date(vote.date)
-      const month = months[date.getMonth()]
-      if (!votesByMonth.has(month)) {
-        votesByMonth.set(month, [])
-      }
-      votesByMonth.get(month)!.push(vote.id)
-    })
-
-    // No location data available for Strasbourg vs Brussels comparison
+    console.log(`Analytics API: Found ${mepsWithAttendance.length} MEPs with attendance data`)
 
     // Analyze political group variance
-    const groupVariance = analyzeGroupVariance(meps, votes.map(v => v.id))
+    const groupVariance = analyzeGroupVariance(mepsWithAttendance)
 
-    // Analyze seasonality using the grouped votes
-    const seasonality = analyzeSeasonality(meps, votesByMonth)
+    // Analyze seasonality (simplified - we don't have monthly breakdown in JSON)
+    const seasonality = analyzeSeasonality(mepsWithAttendance)
 
     // Analyze country size groups
-    const ageGroups = analyzeAgeGroups(meps, votes.map(v => v.id))
+    const ageGroups = analyzeAgeGroups(mepsWithAttendance)
 
     // Analyze country rankings
-    const countryRankings = analyzeCountryRankings(meps, votes.map(v => v.id))
+    const countryRankings = analyzeCountryRankings(mepsWithAttendance)
 
     const analyticsData = {
       groupVariance: groupVariance,
@@ -86,36 +52,15 @@ export async function GET(request: NextRequest) {
       { error: 'Failed to generate analytics', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }
 
-function calculateAverageAttendance(meps: any[], voteIds: string[]) {
-  if (voteIds.length === 0) return { average: 0, count: 0 }
-
-  let totalAttendance = 0
-  let totalPossible = 0
-
-    meps.forEach(mep => {
-      const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
-      const attended = mepVotes.filter((v: any) => v.choice !== 'absent').length
-      totalAttendance += attended
-      totalPossible += mepVotes.length
-    })
-
-  return {
-    average: totalPossible > 0 ? (totalAttendance / totalPossible) * 100 : 0,
-    count: totalPossible
-  }
-}
-
-function analyzeGroupVariance(meps: any[], voteIds: string[]) {
-  const groups = new Map<string, any[]>()
+function analyzeGroupVariance(meps: EnrichedMEP[]) {
+  const groups = new Map<string, EnrichedMEP[]>()
 
   // Group MEPs by political group
   meps.forEach(mep => {
-    const group = mep.party?.euGroup || mep.party?.name || 'Unknown'
+    const group = mep.party || 'Unknown'
     if (!groups.has(group)) {
       groups.set(group, [])
     }
@@ -123,11 +68,9 @@ function analyzeGroupVariance(meps: any[], voteIds: string[]) {
   })
 
   const groupStats = Array.from(groups.entries()).map(([group, groupMeps]) => {
-    const attendances = groupMeps.map(mep => {
-      const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
-      const attended = mepVotes.filter((v: any) => v.choice !== 'absent').length
-      return mepVotes.length > 0 ? (attended / mepVotes.length) * 100 : 0
-    }).filter(att => att > 0)
+    const attendances = groupMeps
+      .map(mep => mep.attendance_pct || 0)
+      .filter(att => att > 0)
 
     if (attendances.length === 0) {
       return {
@@ -152,42 +95,31 @@ function analyzeGroupVariance(meps: any[], voteIds: string[]) {
   return groupStats
 }
 
-function analyzeSeasonality(meps: any[], votesByMonth: Map<string, string[]>) {
-  const monthlyStats = new Map<string, { total: number, attended: number, sessions: number }>()
-
-  // Initialize months
+function analyzeSeasonality(meps: EnrichedMEP[]) {
+  // Since we don't have monthly breakdown in the JSON data,
+  // we'll return a simplified seasonality analysis
+  // This could be enhanced by adding monthly data to the JSON files in the future
+  
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  months.forEach(month => {
-    monthlyStats.set(month, { total: 0, attended: 0, sessions: 0 })
-  })
-
-  // Calculate attendance for each month
-  votesByMonth.forEach((voteIds, month) => {
-    const stats = monthlyStats.get(month)!
-    stats.sessions = voteIds.length
-
-    meps.forEach(mep => {
-      const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
-      stats.total += mepVotes.length
-      stats.attended += mepVotes.filter((v: any) => v.choice !== 'absent').length
-    })
-  })
-
-  return Array.from(monthlyStats.entries()).map(([month, stats]) => ({
+  
+  // For now, return average attendance across all months
+  const averageAttendance = meps.reduce((sum, mep) => sum + (mep.attendance_pct || 0), 0) / meps.length
+  
+  return months.map(month => ({
     month,
-    average: stats.total > 0 ? (stats.attended / stats.total) * 100 : 0,
-    count: stats.sessions
+    average: averageAttendance,
+    count: Math.floor(meps.length / 12) // Rough estimate
   }))
 }
 
-function analyzeAgeGroups(meps: any[], voteIds: string[]) {
+function analyzeAgeGroups(meps: EnrichedMEP[]) {
   // Since we don't have birth_date in the schema, let's analyze by country size instead
   // This gives us a different but interesting perspective on attendance patterns
-  const countryGroups = new Map<string, any[]>()
+  const countryGroups = new Map<string, EnrichedMEP[]>()
 
   // Group MEPs by country
   meps.forEach(mep => {
-    const country = mep.country?.name || 'Unknown'
+    const country = mep.country || 'Unknown'
     if (!countryGroups.has(country)) {
       countryGroups.set(country, [])
     }
@@ -212,11 +144,9 @@ function analyzeAgeGroups(meps: any[], voteIds: string[]) {
 
   const ageGroupStats = Object.entries(sizeGroups).map(([groupName, countries]) => {
     const allMeps = countries.flatMap(c => c.meps)
-    const attendances = allMeps.map(mep => {
-      const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
-      const attended = mepVotes.filter((v: any) => v.choice !== 'absent').length
-      return mepVotes.length > 0 ? (attended / mepVotes.length) * 100 : 0
-    }).filter(att => att > 0)
+    const attendances = allMeps
+      .map(mep => mep.attendance_pct || 0)
+      .filter(att => att > 0)
 
     const average = attendances.length > 0 
       ? attendances.reduce((sum, att) => sum + att, 0) / attendances.length 
@@ -232,14 +162,14 @@ function analyzeAgeGroups(meps: any[], voteIds: string[]) {
   return ageGroupStats
 }
 
-function analyzeCountryRankings(meps: any[], voteIds: string[]) {
-  console.log(`analyzeCountryRankings: Processing ${meps.length} MEPs with ${voteIds.length} votes`)
+function analyzeCountryRankings(meps: EnrichedMEP[]) {
+  console.log(`analyzeCountryRankings: Processing ${meps.length} MEPs`)
   
-  const countryGroups = new Map<string, any[]>()
+  const countryGroups = new Map<string, EnrichedMEP[]>()
 
   // Group MEPs by country
   meps.forEach(mep => {
-    const country = mep.country?.name || 'Unknown'
+    const country = mep.country || 'Unknown'
     if (!countryGroups.has(country)) {
       countryGroups.set(country, [])
     }
@@ -249,21 +179,9 @@ function analyzeCountryRankings(meps: any[], voteIds: string[]) {
   console.log(`Country groups created: ${countryGroups.size} countries`)
 
   const countryStats = Array.from(countryGroups.entries()).map(([country, countryMeps]) => {
-    const attendances = countryMeps.map(mep => {
-      const mepVotes = mep.votes.filter((v: any) => voteIds.includes(v.voteId))
-      const attended = mepVotes.filter((v: any) => v.choice !== 'absent').length
-      
-      // Debug first MEP
-      if (countryMeps.indexOf(mep) === 0) {
-        console.log(`Debug ${country} MEP ${mep.firstName} ${mep.lastName}:`)
-        console.log(`  - Total votes for MEP: ${mep.votes.length}`)
-        console.log(`  - Votes matching voteIds: ${mepVotes.length}`)
-        console.log(`  - Attended votes: ${attended}`)
-        console.log(`  - Sample vote:`, mep.votes[0])
-      }
-      
-      return mepVotes.length > 0 ? (attended / mepVotes.length) * 100 : 0
-    }).filter(att => att > 0)
+    const attendances = countryMeps
+      .map(mep => mep.attendance_pct || 0)
+      .filter(att => att > 0)
 
     const average = attendances.length > 0 
       ? attendances.reduce((sum, att) => sum + att, 0) / attendances.length 
@@ -274,8 +192,8 @@ function analyzeCountryRankings(meps: any[], voteIds: string[]) {
       average,
       count: countryMeps.length,
       meps: countryMeps.map(mep => ({
-        name: mep.firstName + ' ' + mep.lastName,
-        attendance: attendances[countryMeps.indexOf(mep)] || 0
+        name: mep.name,
+        attendance: mep.attendance_pct || 0
       }))
     }
   }).sort((a, b) => b.average - a.average) // Sort by highest attendance first
