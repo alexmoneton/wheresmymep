@@ -319,14 +319,28 @@ export default function MEPProfilePage() {
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-1">
                               <span className="font-medium text-gray-900">{income.entity_name}</span>
-                              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                              <span className={`px-2 py-1 text-xs rounded font-medium ${
+                                income.category === 'board_membership' ? 'bg-purple-100 text-purple-800' :
+                                income.category === 'outside_activity' ? 'bg-blue-100 text-blue-800' :
+                                income.category === 'consultancy' ? 'bg-green-100 text-green-800' :
+                                income.category === 'teaching' ? 'bg-orange-100 text-orange-800' :
+                                income.category === 'ownership' ? 'bg-yellow-100 text-yellow-800' :
+                                income.category === 'honoraria' ? 'bg-pink-100 text-pink-800' :
+                                income.category === 'writing' ? 'bg-indigo-100 text-indigo-800' :
+                                'bg-gray-100 text-gray-800'
+                              }`}>
                                 {income.category.replace('_', ' ')}
                               </span>
+                              {income.notes && income.notes.toLowerCase().includes('unpaid') && (
+                                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded border">
+                                  💰 Unpaid
+                                </span>
+                              )}
                             </div>
                             {income.role && (
                               <div className="text-sm text-gray-600 mb-1">{income.role}</div>
                             )}
-                            {(income.amount_eur_min || income.amount_eur_max) && (
+                            {(income.amount_eur_min || income.amount_eur_max) ? (
                               <div className="text-sm font-medium text-green-600">
                                 €{income.amount_eur_min?.toLocaleString() || '0'}
                                 {income.amount_eur_max && income.amount_eur_max !== income.amount_eur_min && 
@@ -334,8 +348,12 @@ export default function MEPProfilePage() {
                                 }
                                 {income.period && ` ${income.period}`}
                               </div>
-                            )}
-                            {income.notes && (
+                            ) : income.notes && income.notes.toLowerCase().includes('unpaid') ? (
+                              <div className="text-sm font-medium text-gray-600">
+                                💰 Unpaid position
+                              </div>
+                            ) : null}
+                            {income.notes && !income.notes.toLowerCase().includes('unpaid') && (
                               <div className="text-sm text-gray-500 mt-1">{income.notes}</div>
                             )}
                           </div>
