@@ -52,6 +52,7 @@ export default function MEPProfilePage() {
   const [whoFundsData, setWhoFundsData] = useState<WhoFundsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAllEntries, setShowAllEntries] = useState(false);
   
   // Feature flags
   const [alertsEnabled] = useFlag('alerts');
@@ -313,7 +314,7 @@ export default function MEPProfilePage() {
                     Income & Interests
                   </h3>
                   <div className="space-y-3">
-                    {whoFundsData.income_and_interests.slice(0, 5).map((income, index) => (
+                    {whoFundsData.income_and_interests.slice(0, showAllEntries ? whoFundsData.income_and_interests.length : 5).map((income, index) => (
                       <div key={index} className="p-4 bg-gray-50 rounded-lg">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
@@ -348,10 +349,6 @@ export default function MEPProfilePage() {
                                 }
                                 {income.period && ` ${income.period}`}
                               </div>
-                            ) : income.notes && income.notes.toLowerCase().includes('unpaid') ? (
-                              <div className="text-sm font-medium text-gray-600">
-                                💰 Unpaid position
-                              </div>
                             ) : null}
                             {income.notes && !income.notes.toLowerCase().includes('unpaid') && (
                               <div className="text-sm text-gray-500 mt-1">{income.notes}</div>
@@ -360,9 +357,12 @@ export default function MEPProfilePage() {
                         </div>
                       </div>
                     ))}
-                    {whoFundsData.income_and_interests.length > 5 && (
+                    {whoFundsData.income_and_interests.length > 5 && !showAllEntries && (
                       <div className="text-center">
-                        <button className="text-blue-600 hover:text-blue-800 text-sm">
+                        <button 
+                          onClick={() => setShowAllEntries(true)}
+                          className="text-blue-600 hover:text-blue-800 text-sm underline cursor-pointer"
+                        >
                           View all {whoFundsData.income_and_interests.length} entries
                         </button>
                       </div>

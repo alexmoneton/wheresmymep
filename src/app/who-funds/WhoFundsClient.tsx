@@ -260,7 +260,14 @@ export function WhoFundsClient() {
                           {mep.total_income_entries + mep.total_gifts_entries}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {mep.total_income_entries} income, {mep.total_gifts_entries} gifts
+                          {mep.total_income_entries > 0 && mep.total_gifts_entries > 0 
+                            ? `${mep.total_income_entries} income, ${mep.total_gifts_entries} gifts`
+                            : mep.total_income_entries > 0 
+                            ? `${mep.total_income_entries} income`
+                            : mep.total_gifts_entries > 0
+                            ? `${mep.total_gifts_entries} gifts`
+                            : 'No entries'
+                          }
                         </td>
                       </tr>
                     ))}
