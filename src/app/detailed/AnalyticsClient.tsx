@@ -330,5 +330,20 @@ export default function AnalyticsClient() {
         </Card>
       </TabsContent>
     </Tabs>
+    
+    {/* Footer with Twitter link */}
+    <div className="mt-12 pt-8 border-t border-gray-200 text-center">
+      <p className="text-sm text-gray-600">
+        Analytics by{' '}
+        <a 
+          href="https://twitter.com/alexmoneton" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-blue-800 underline"
+        >
+          @alexmoneton
+        </a>
+      </p>
+    </div>
   )
 }
