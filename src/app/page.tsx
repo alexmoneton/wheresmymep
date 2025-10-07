@@ -443,6 +443,17 @@ export default function HomePage() {
             <p>
               Data source: HowTheyVote.eu • European Parliament roll-call votes
             </p>
+            <p className="mt-2">
+              Built by{' '}
+              <a 
+                href="https://twitter.com/alexmoneton" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                @alexmoneton
+              </a>
+            </p>
           </div>
         </div>
       </footer>

@@ -104,7 +104,8 @@ export default function AnalyticsClient() {
   if (!data) return null
 
   return (
-    <Tabs defaultValue="countries" className="space-y-6">
+    <>
+      <Tabs defaultValue="countries" className="space-y-6">
       <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="countries">Country Rankings</TabsTrigger>
         <TabsTrigger value="groups">Group Variance</TabsTrigger>
@@ -345,5 +346,6 @@ export default function AnalyticsClient() {
         </a>
       </p>
     </div>
+    </>
   )
 }
