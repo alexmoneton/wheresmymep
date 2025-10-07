@@ -7,6 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import CountryFlag from '@/components/CountryFlag';
 import PartyBadge from '@/components/PartyBadge';
 import SpecialRoleBadge from '@/components/SpecialRoleBadge';
+import PoliticalGroupsChart from '@/components/PoliticalGroupsChart';
 
 interface MEP {
   id: string;
@@ -366,6 +367,11 @@ export default function HomePage() {
               )}
             </div>
         </div>
+      </div>
+
+      {/* Political Groups Analysis */}
+      <div className="mt-8">
+        <PoliticalGroupsChart />
       </div>
 
       {/* Notification Signup */}
