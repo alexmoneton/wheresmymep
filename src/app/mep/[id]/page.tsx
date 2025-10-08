@@ -250,8 +250,8 @@ export default function MEPProfilePage() {
           {mep.sick_leave && (
             <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-md">
               <p className="text-purple-800 text-sm">
-                <strong>On Medical Leave:</strong> This MEP is currently on medical leave and unable to attend votes. 
-                Their attendance data reflects this period and should not be considered representative of their normal performance.
+                <strong>Medical Leave:</strong> This MEP is or has recently been on medical leave. 
+                Their attendance data may reflect this period and should not be considered representative of their normal performance.
               </p>
             </div>
           )}
@@ -527,11 +527,7 @@ export default function MEPProfilePage() {
             </p>
           </div>
           
-          {mep.sick_leave ? (
-            <div className="text-center py-8">
-              <p className="text-gray-500">This MEP is currently on medical leave and doesn&apos;t have recent voting data.</p>
-            </div>
-          ) : !mep.mep_id ? (
+          {!mep.mep_id ? (
             <div className="text-center py-8">
               <p className="text-gray-500">This MEP doesn&apos;t have voting data yet as they recently started their term.</p>
             </div>

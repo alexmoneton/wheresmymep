@@ -370,7 +370,7 @@ export default function HomePage() {
             {/* Note about exclusions */}
             <div className="mt-4 p-3 bg-gray-50 rounded-lg">
               <p className="text-xs text-gray-600">
-                <strong>Note:</strong> MEPs on medical leave (like Anja Hazekamp and Sabine Verheyen) are excluded from rankings as their attendance is affected by health circumstances.
+                <strong>Note:</strong> MEPs who are or have recently been on medical leave (like Anja Hazekamp and Sabine Verheyen) are excluded from rankings as their attendance may be affected by health circumstances.
               </p>
             </div>
         </div>
