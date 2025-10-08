@@ -65,12 +65,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257117",
     "name": "Adrian Axinia",
-    "country": "Romania",
-    "party": "",
+    "country": "Group of the European Conservatives and Reformists",
+    "party": "Group of the European Conservatives and Reformists",
     "national_party": "Alliance for the Union of Romanians",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257117/ADRIAN-GEORGE_AXINIA/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Adrian-George%20Axinia%20MEP%20%282024%29.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -509,7 +509,7 @@
   {
     "mep_id": null,
     "name": "Andrius Kubilius",
-    "country": "Lithuania",
+    "country": "Soviet Union",
     "party": "",
     "national_party": "Homeland Union – Lithuanian Christian Democrats",
     "profile_url": "",
@@ -782,7 +782,7 @@
   {
     "mep_id": "256859",
     "name": "Annamária Vicsek",
-    "country": "Hungary",
+    "country": "Socialist Federal Republic of Yugoslavia",
     "party": "Patriots for Europe Group",
     "national_party": "Alliance of Vojvodina Hungarians",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256859",
@@ -964,7 +964,7 @@
   {
     "mep_id": "197469",
     "name": "Assita Kanko",
-    "country": "Belgium",
+    "country": "Burkina Faso",
     "party": "European Conservatives and Reformists Group",
     "national_party": "New Flemish Alliance",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197469",
@@ -1742,12 +1742,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257114",
     "name": "Claudiu Târziu",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "Alliance for the Union of Romanians",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257114/CLAUDIU-RICHARD_TARZIU/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Claudiu%20T%C3%A2rziu%20-%202025%20%28cropped%29.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -2184,12 +2184,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257120",
     "name": "Diana Șoșoacă",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "S.O.S. Romania Party",
     "national_party": "S.O.S. Romania Party",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257120/DIANA_IOVANOVICI+SOSOACA/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Diana%20%C8%98o%C8%99oac%C4%83%20%281%20July%202024%29%20%28cropped%29.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -2262,12 +2262,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257129",
     "name": "Domenico Lucano",
-    "country": "Italy",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "independent politician",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Domenico%20Lucano.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -2680,7 +2680,7 @@
   {
     "mep_id": "197672",
     "name": "Eugen Tomac",
-    "country": "Romania",
+    "country": "Ukraine",
     "party": "Renew Europe Group",
     "national_party": "European People's Party",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197672",
@@ -2953,7 +2953,7 @@
   {
     "mep_id": "256947",
     "name": "Fredis Beleris",
-    "country": "Greece",
+    "country": "Albania",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Together We Win",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256947",
@@ -3042,12 +3042,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257126",
     "name": "Gaetano Pedullà",
-    "country": "Italy",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257126/GAETANO_PEDULLA%27/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1720176569619%2020240705%20PEDULLA%20Gaetano%20IT%20019.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -3315,12 +3315,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257128",
     "name": "Giuseppina Princi",
-    "country": "Italy",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257128/GIUSI_PRINCI/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1720443647730%2020240708%20PRINCI%20Giuseppina%20IT%20021.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -3640,12 +3640,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257132",
     "name": "Ignazio Marino",
-    "country": "Italy",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "Democratic Party",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257132/IGNAZIO+ROBERTO_MARINO/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Ignazio%20Marino%20-%20Festivaletteratura%202012%2001.JPG",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -5072,7 +5072,7 @@
   {
     "mep_id": null,
     "name": "Leïla Chaibi",
-    "country": "France",
+    "country": "Tunisia",
     "party": "",
     "national_party": "La France insoumise",
     "profile_url": "",
@@ -5200,12 +5200,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257118",
     "name": "Luis Lazarus",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "S.O.S. Romania Party",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257118/LUIS-VICENTIU_LAZARUS/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718870277777%2020240619%20LAZARUS%20Luis%20Vicentiu%20RO%20009.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -5332,7 +5332,7 @@
   {
     "mep_id": "256871",
     "name": "Malika Sorel",
-    "country": "France",
+    "country": "Algeria",
     "party": "",
     "national_party": "National Rally",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256871",
@@ -5579,7 +5579,7 @@
   {
     "mep_id": "197863",
     "name": "Maria Walsh",
-    "country": "Ireland",
+    "country": "United States",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Fine Gael",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197863",
@@ -5774,7 +5774,7 @@
   {
     "mep_id": "197429",
     "name": "Marion Walsmann",
-    "country": "Germany",
+    "country": "German Democratic Republic",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Christian Democratic Union",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197429",
@@ -6723,7 +6723,7 @@
   {
     "mep_id": "204129",
     "name": "Nikolina Brnjac",
-    "country": "Croatia",
+    "country": "Socialist Federal Republic of Yugoslavia",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Croatian Democratic Union",
     "profile_url": "https://www.europarl.europa.eu/meps/en/204129",
@@ -7282,7 +7282,7 @@
   {
     "mep_id": "257080",
     "name": "Piotr Müller",
-    "country": "Poland",
+    "country": "Polish People's Republic",
     "party": "European Conservatives and Reformists Group",
     "national_party": "Law and Justice",
     "profile_url": "https://www.europarl.europa.eu/meps/en/257080",
@@ -7451,7 +7451,7 @@
   {
     "mep_id": "197840",
     "name": "Rasa Juknevičienė",
-    "country": "Lithuania",
+    "country": "Soviet Union",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Homeland Union – Lithuanian Christian Democrats",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197840",
@@ -7607,7 +7607,7 @@
   {
     "mep_id": "256912",
     "name": "Rima Hassan",
-    "country": "France",
+    "country": "State of Palestine",
     "party": "",
     "national_party": "La France insoumise",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256912",
@@ -7748,12 +7748,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257105",
     "name": "Roxana Mînzatu",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "Social Democratic Party",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257105/ROXANA_MINZATU/history/10",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C3%AEnzatu%20EC%20Portrait%202024.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -7919,7 +7919,7 @@
   {
     "mep_id": "256924",
     "name": "Sarah Knafo",
-    "country": "France",
+    "country": "Morocco",
     "party": "Europe of Sovereign Nations Group",
     "national_party": "Reconquête",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256924",
@@ -8062,7 +8062,7 @@
   {
     "mep_id": "256960",
     "name": "Sibylle Berg",
-    "country": "Germany",
+    "country": "German Democratic Republic",
     "party": "",
     "national_party": "",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256960",
@@ -8894,7 +8894,7 @@
   {
     "mep_id": "256857",
     "name": "Viktória Ferenc",
-    "country": "Hungary",
+    "country": "Soviet Union",
     "party": "Patriots for Europe Group",
     "national_party": "Fidesz",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256857",
@@ -8920,7 +8920,7 @@
   {
     "mep_id": "256909",
     "name": "Vilis Krištopans",
-    "country": "Latvia",
+    "country": "Soviet Union",
     "party": "Patriots for Europe Group",
     "national_party": "Union of Greens and Farmers",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256909",
@@ -8957,12 +8957,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257107",
     "name": "Virgil Popescu",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "National Liberal Party",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257107/VIRGIL-DANIEL_POPESCU/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Virgil-Daniel%20Popescu%20MEP%20%282024%29.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -9009,12 +9009,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257112",
     "name": "Vlad Voiculescu",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "Save Romania Union",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257112/VLAD_VASILE-VOICULESCU/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718281726080%2020240611%20VASILE%20VOICULESCU%20Vlad%20RO%20006.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -9050,7 +9050,7 @@
   {
     "mep_id": null,
     "name": "Vytenis Andriukaitis",
-    "country": "Lithuania",
+    "country": "Soviet Union",
     "party": "",
     "national_party": "Social Democratic Party of Lithuania",
     "profile_url": "",
@@ -9245,7 +9245,7 @@
   {
     "mep_id": "185341",
     "name": "Željana Zovko",
-    "country": "Croatia",
+    "country": "Bosnia and Herzegovina",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Croatian Democratic Union of Bosnia and Herzegovina",
     "profile_url": "https://www.europarl.europa.eu/meps/en/185341",
@@ -9256,12 +9256,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257119",
     "name": "Șerban-Dimitrie Sturdza",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257119/SERBAN+DIMITRIE_STURDZA/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/%C8%98erban-Dimitrie%20Sturdza%20MEP%20%282024%29.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
@@ -9269,12 +9269,12 @@
     "partial_term": false
   },
   {
-    "mep_id": null,
+    "mep_id": "257103",
     "name": "Ștefan Mușoiu",
-    "country": "Romania",
+    "country": "Group of the European Conservatives and Reformists",
     "party": "",
     "national_party": "Social Democratic Party",
-    "profile_url": "",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257103/STEFAN_MUSOIU/home",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/%C8%98tefan%20Mu%C8%99oiu%2C%20portret%20oficial%202025.jpg",
     "votes_total_period": 0,
     "votes_cast": 0,
