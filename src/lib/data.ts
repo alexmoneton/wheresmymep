@@ -211,7 +211,7 @@ export function getMEPsWithLimitedTerms(): EnrichedMEP[] {
 }
 
 export function searchMEPs(query: string, group?: string, country?: string): EnrichedMEP[] {
-  let results = mepsEnriched;
+  let results = mepsEnriched.filter(mep => mep.mep_id !== null && mep.mep_id !== undefined);
   
   if (query) {
     const searchTerm = query.toLowerCase();

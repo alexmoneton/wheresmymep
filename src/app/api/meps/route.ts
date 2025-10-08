@@ -10,15 +10,17 @@ export async function GET(request: NextRequest) {
     
     const results = searchMEPs(query, group, country);
     
-    // Return minimal data for list view
-    const meps = results.map(mep => ({
-      id: mep.mep_id,
-      name: mep.name,
-      country: mep.country,
-      party: mep.party,
-      national_party: mep.national_party,
-      attendance_pct: mep.attendance_pct,
-    }));
+    // Return minimal data for list view, filtering out MEPs without IDs
+    const meps = results
+      .filter(mep => mep.mep_id !== null && mep.mep_id !== undefined)
+      .map(mep => ({
+        id: mep.mep_id,
+        name: mep.name,
+        country: mep.country,
+        party: mep.party,
+        national_party: mep.national_party,
+        attendance_pct: mep.attendance_pct,
+      }));
     
     return NextResponse.json(meps);
   } catch (error) {
