@@ -68,6 +68,11 @@ function isOnSickLeave(mep: MEPIdentity): boolean {
     return true;
   }
   
+  // Sabine Verheyen is on medical leave
+  if (mep.name === 'Sabine Verheyen') {
+    return true;
+  }
+  
   // Add other MEPs on sick leave as needed
   
   return false;
