@@ -249,7 +249,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257257,Hristo Petrov,Bulgaria,Renew Europe Group,,1215,1156,95.1,False
 257068,Hélder Sousa Silva,Portugal,Group of the European People's Party (Christian Democrats),,1215,1187,97.7,False
 257127,Ilaria Salis,Italy,The Left in the European Parliament - GUE/NGL,independent politician,1215,1197,98.5,False
-28617,Inese Vaidere,Latvia,Group of the European People's Party (Christian Democrats),Communist Party of the Soviet Union,1215,1180,97.1,False
+28617,Inese Vaidere,Latvia,Group of the European People's Party (Christian Democrats),Unity Party,1215,1180,97.1,False
 256968,Ingeborg ter Laak,Kingdom of the Netherlands,Group of the European People's Party (Christian Democrats),Christian Democratic Appeal,1215,1206,99.3,False
 28298,Iratxe García,Spain,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Spanish Socialist Workers' Party,1215,1166,96.0,False
 197447,Irena Joveva,Slovenia,Renew Europe Group,List of Marjan Šarec,1215,1213,99.8,False
@@ -511,7 +511,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 197425,Ralf Seekatz,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1215,1064,87.6,False
 197694,Raphaël Glucksmann,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Place publique,1215,1161,95.6,False
 256970,Raquel García Hermida-van der Walle,Kingdom of the Netherlands,Renew Europe Group,Democrats 66,1215,1211,99.7,False
-197840,Rasa Juknevičienė,Soviet Union,Group of the European People's Party (Christian Democrats),Homeland Union – Lithuanian Christian Democrats,1215,837,68.9,False
+197840,Rasa Juknevičienė,Lithuania,Group of the European People's Party (Christian Democrats),Homeland Union – Lithuanian Christian Democrats,1215,837,68.9,False
 197448,Rasmus Andresen,Germany,Group of the Greens/European Free Alliance,Alliance '90/The Greens,1215,1197,98.5,False
 257044,Rasmus Nordqvist,Kingdom of Denmark,Group of the Greens/European Free Alliance,Green Left,1215,1208,99.4,False
 257030,Raúl de la Hoz Quintano,Spain,Group of the European People's Party (Christian Democrats),,1215,1086,89.4,False
@@ -615,9 +615,9 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257014,Veronika Cifrová Ostrihoňová,Slovakia,Renew Europe Group,,1215,1205,99.2,False
 197552,Veronika Vrecionová,Czech Republic,European Conservatives and Reformists Group,Civic Democratic Party,1215,1193,98.2,False
 88882,Victor Negrescu,Romania,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party,1215,1117,91.9,False
-256857,Viktória Ferenc,Soviet Union,Patriots for Europe Group,Fidesz,1215,1098,90.4,False
+256857,Viktória Ferenc,Hungary,Patriots for Europe Group,Fidesz,1215,1098,90.4,False
 96681,Vilija Blinkevičiūtė,Lithuania,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Lithuania,1215,1204,99.1,False
-256909,Vilis Krištopans,Soviet Union,Patriots for Europe Group,Union of Greens and Farmers,1215,1155,95.1,False
+256909,Vilis Krištopans,Latvia,Patriots for Europe Group,Union of Greens and Farmers,1215,1155,95.1,False
 197802,Ville Niinistö,Finland,Group of the Greens/European Free Alliance,Green League,1215,1188,97.8,False
 111412,Villy Søvndal,Kingdom of Denmark,Group of the Greens/European Free Alliance,Green Left,1215,1195,98.4,False
 197627,Virginie Joron,France,Patriots for Europe Group,National Rally,1215,1200,98.8,False
