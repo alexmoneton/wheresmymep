@@ -466,6 +466,15 @@ export default function HomePage() {
               >
                 @alexmoneton
               </a>
+              {' • '}
+              <a 
+                href="https://www.linkedin.com/in/alexmoneton/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                LinkedIn
+              </a>
             </p>
           </div>
         </div>
