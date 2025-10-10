@@ -9280,5 +9280,31 @@
     "votes_cast": 0,
     "attendance_pct": 0,
     "partial_term": false
+  },
+  {
+    "mep_id": "257025",
+    "name": "Kristoffer STORM",
+    "country": "Kingdom of Denmark",
+    "party": "European Conservatives and Reformists Group",
+    "national_party": "Denmark Democrats",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257025/KRISTOFFER_STORM/home",
+    "photo_url": "",
+    "votes_total_period": 1045,
+    "votes_cast": 945,
+    "attendance_pct": 90.4,
+    "partial_term": false
+  },
+  {
+    "mep_id": "257038",
+    "name": "Sigrid FRIIS",
+    "country": "Kingdom of Denmark",
+    "party": "Renew Europe Group",
+    "national_party": "Danish Social Liberal Party",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/257038/SIGRID_FRIIS/home",
+    "photo_url": "",
+    "votes_total_period": 1045,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
   }
 ]
