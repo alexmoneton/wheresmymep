@@ -61,7 +61,7 @@ function getSpecialRole(mep: MEPIdentity): string | undefined {
   return undefined;
 }
 
-// Function to identify MEPs on sick leave
+// Function to identify MEPs on medical or maternity leave
 function isOnSickLeave(mep: MEPIdentity): boolean {
   // Anja Hazekamp is on sick leave due to breast cancer
   if (mep.name === 'Anja Hazekamp') {
@@ -73,7 +73,12 @@ function isOnSickLeave(mep: MEPIdentity): boolean {
     return true;
   }
   
-  // Add other MEPs on sick leave as needed
+  // Delara Burkhardt is on maternity leave
+  if (mep.name === 'Delara Burkhardt') {
+    return true;
+  }
+  
+  // Add other MEPs on medical or maternity leave as needed
   
   return false;
 }

@@ -59,7 +59,7 @@ export default function MethodologyPage() {
           <ul>
             <li><strong>New MEPs:</strong> Those who started their term recently may have limited data</li>
             <li><strong>Partial Terms:</strong> MEPs who joined mid-term are flagged accordingly</li>
-            <li><strong>Sick Leave:</strong> MEPs on documented sick leave are excluded from rankings</li>
+            <li><strong>Medical/Maternity Leave:</strong> MEPs on documented medical or maternity leave are excluded from rankings</li>
             <li><strong>Special Roles:</strong> Presidents and other officials may have different voting patterns</li>
           </ul>
 
