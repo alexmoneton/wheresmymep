@@ -602,8 +602,8 @@ export default function MEPProfilePage() {
             Methodology
           </h3>
           <p className="text-sm text-blue-800">
-            Attendance is calculated based on roll-call votes in the European Parliament over the last 180 days. 
-            Abstaining counts as present; not voting counts as absent. Notable votes are selected based on 
+            Attendance is calculated based on roll-call votes in plenary sessions of the European Parliament over the last 180 days. 
+            Committee votes are excluded. Abstaining counts as present; not voting counts as absent. Notable votes are selected based on 
             significance, close outcomes, and high participation. Some MEPs may have partial terms affecting 
             their attendance percentage.
           </p>
