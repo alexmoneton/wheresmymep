@@ -370,7 +370,7 @@ export default function HomePage() {
             {/* Note about exclusions */}
             <div className="mt-4 p-3 bg-gray-50 rounded-lg">
               <p className="text-xs text-gray-600">
-                <strong>Note:</strong> MEPs who are or have recently been on medical leave or maternity leave (like Anja Hazekamp, Sabine Verheyen, Delara Burkhardt, and Sigrid Friis Proschowsky) are excluded from rankings as their attendance may be affected by health or family circumstances.
+                <strong>Note:</strong> MEPs who are or have recently been on medical leave or maternity leave (like Anja Hazekamp, Sabine Verheyen, Delara Burkhardt, and Sigrid Friis Frederiksen) are excluded from rankings as their attendance may be affected by health or family circumstances.
               </p>
             </div>
         </div>

@@ -250,7 +250,7 @@ export default function MEPProfilePage() {
           {mep.sick_leave && (
             <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-md">
               <p className="text-purple-800 text-sm">
-                {(mep.name === 'Delara Burkhardt' || mep.name === 'Sigrid Friis Proschowsky') ? (
+                {(mep.name === 'Delara Burkhardt' || mep.name === 'Sigrid Friis Frederiksen') ? (
                   <>
                     <strong>Maternity Leave:</strong> This MEP is or has recently been on maternity leave. 
                     Their attendance data may reflect this period and should not be considered representative of their normal performance.

@@ -1,9 +1,9 @@
 {
-  "crawl_date": "2025-09-08T14:04:52.059023",
+  "crawl_date": "2025-10-14T13:34:14.855397",
   "sessions_parsed": 0,
-  "votes_parsed": 1215,
-  "ballots_parsed": 873234,
-  "meps_matched": 773580,
+  "votes_parsed": 1170,
+  "ballots_parsed": 841230,
+  "meps_matched": 759535,
   "ambiguous_matches": 0,
   "sources_used": [
     "HowTheyVote.eu"

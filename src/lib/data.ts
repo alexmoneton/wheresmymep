@@ -78,8 +78,8 @@ function isOnSickLeave(mep: MEPIdentity): boolean {
     return true;
   }
   
-  // Sigrid Friis Proschowsky is on maternity leave
-  if (mep.name === 'Sigrid Friis Proschowsky') {
+  // Sigrid Friis Frederiksen is on maternity leave
+  if (mep.name === 'Sigrid Friis Frederiksen') {
     return true;
   }
   
