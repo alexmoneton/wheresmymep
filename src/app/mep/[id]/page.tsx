@@ -228,7 +228,7 @@ export default function MEPProfilePage() {
                 {mep.special_role ? 'N/A' : mep.sick_leave ? 'N/A' : (mep.attendance_pct !== undefined ? `${mep.attendance_pct}%` : 'N/A')}
               </div>
               <div className="text-sm text-gray-600">
-                {mep.special_role ? 'Doesn\'t usually vote' : mep.sick_leave ? 'On medical leave' : 'Overall Attendance'}
+                {mep.special_role ? 'Doesn\'t usually vote' : mep.sick_leave ? 'On leave' : 'Overall Attendance'}
               </div>
             </div>
             
@@ -250,8 +250,17 @@ export default function MEPProfilePage() {
           {mep.sick_leave && (
             <div className="mt-6 p-4 bg-purple-50 border border-purple-200 rounded-md">
               <p className="text-purple-800 text-sm">
-                <strong>Medical Leave:</strong> This MEP is or has recently been on medical leave. 
-                Their attendance data may reflect this period and should not be considered representative of their normal performance.
+                {(mep.name === 'Delara Burkhardt' || mep.name === 'Sigrid Friis Proschowsky') ? (
+                  <>
+                    <strong>Maternity Leave:</strong> This MEP is or has recently been on maternity leave. 
+                    Their attendance data may reflect this period and should not be considered representative of their normal performance.
+                  </>
+                ) : (
+                  <>
+                    <strong>Medical Leave:</strong> This MEP is or has recently been on medical leave. 
+                    Their attendance data may reflect this period and should not be considered representative of their normal performance.
+                  </>
+                )}
               </p>
             </div>
           )}
