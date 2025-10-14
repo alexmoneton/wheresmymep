@@ -1,91 +1,10 @@
 {
   "meta": {
-    "generated_at": "2025-10-02T07:23:09.767Z",
-    "total_meps": 18,
-    "last_full_refresh": "2025-10-02T07:23:09.767Z"
+    "generated_at": "2025-10-14T12:00:00.000Z",
+    "total_meps": 6,
+    "last_full_refresh": "2025-10-14T12:00:00.000Z"
   },
   "meps": [
-    {
-      "mep_id": "23788",
-      "name": "Adam Bielan",
-      "country": "Poland",
-      "party": "European Conservatives and Reformists Group",
-      "last_updated_utc": "2025-10-02T07:15:13.836Z",
-      "total_income_entries": 1,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197432",
-      "name": "Jan-Christoph Oetjen",
-      "country": "Germany",
-      "party": "Renew Europe Group",
-      "last_updated_utc": "2025-10-02T07:16:08.155Z",
-      "total_income_entries": 7,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197449",
-      "name": "Michael Bloss",
-      "country": "Germany",
-      "party": "Group of the Greens/European Free Alliance",
-      "last_updated_utc": "2025-10-02T07:16:41.859Z",
-      "total_income_entries": 3,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197448",
-      "name": "Rasmus Andresen",
-      "country": "Germany",
-      "party": "Group of the Greens/European Free Alliance",
-      "last_updated_utc": "2025-10-02T07:17:10.197Z",
-      "total_income_entries": 7,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197422",
-      "name": "Christine Schneider",
-      "country": "Germany",
-      "party": "EPP (CDU)",
-      "last_updated_utc": "2025-10-03T04:55:00Z",
-      "total_income_entries": 6,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197435",
-      "name": "Gabriele Bischoff",
-      "country": "Germany",
-      "party": "S&D (SPD)",
-      "last_updated_utc": "2025-10-03T04:35:00Z",
-      "total_income_entries": 12,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197447",
-      "name": "Irena Joveva",
-      "country": "Slovenia",
-      "party": "Renew Europe Group",
-      "last_updated_utc": "2025-10-02T07:18:33.011Z",
-      "total_income_entries": 1,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197404",
-      "name": "Jessica Polfjärd",
-      "country": "Sweden",
-      "party": "Group of the European People's Party (Christian Democrats)",
-      "last_updated_utc": "2025-10-02T07:18:46.795Z",
-      "total_income_entries": 1,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197405",
-      "name": "Jörgen Warborn",
-      "country": "Sweden",
-      "party": "Group of the European People's Party (Christian Democrats)",
-      "last_updated_utc": "2025-10-02T07:18:56.650Z",
-      "total_income_entries": 7,
-      "total_gifts_entries": 0
-    },
     {
       "mep_id": "197401",
       "name": "Karin Karlsbro",
@@ -93,15 +12,6 @@
       "party": "Renew Europe (Liberalerna)",
       "last_updated_utc": "2025-10-03T04:58:00Z",
       "total_income_entries": 7,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197402",
-      "name": "Tomas Tobé",
-      "country": "Sweden",
-      "party": "Group of the European People's Party (Christian Democrats)",
-      "last_updated_utc": "2025-10-02T07:20:25.463Z",
-      "total_income_entries": 1,
       "total_gifts_entries": 0
     },
     {
@@ -114,15 +24,6 @@
       "total_gifts_entries": 0
     },
     {
-      "mep_id": "197445",
-      "name": "Moritz Körner",
-      "country": "Germany",
-      "party": "Renew Europe Group",
-      "last_updated_utc": "2025-10-02T07:21:23.341Z",
-      "total_income_entries": 4,
-      "total_gifts_entries": 0
-    },
-    {
       "mep_id": "197417",
       "name": "Tomislav Sokol",
       "country": "Croatia",
@@ -132,21 +33,12 @@
       "total_gifts_entries": 2
     },
     {
-      "mep_id": "197400",
-      "name": "Abir Al-Sahlani",
-      "country": "Sweden",
-      "party": "Renew Europe Group",
-      "last_updated_utc": "2025-10-02T07:21:49.787Z",
-      "total_income_entries": 2,
-      "total_gifts_entries": 0
-    },
-    {
-      "mep_id": "197439",
-      "name": "Damian Boeselager",
+      "mep_id": "197422",
+      "name": "Christine Schneider",
       "country": "Germany",
-      "party": "Group of the Greens/European Free Alliance",
-      "last_updated_utc": "2025-10-02T07:22:14.814Z",
-      "total_income_entries": 2,
+      "party": "EPP (CDU)",
+      "last_updated_utc": "2025-10-03T04:55:00Z",
+      "total_income_entries": 6,
       "total_gifts_entries": 0
     },
     {
@@ -159,14 +51,14 @@
       "total_gifts_entries": 0
     },
     {
-      "mep_id": "197412",
-      "name": "Niclas Herbst",
+      "mep_id": "197435",
+      "name": "Gabriele Bischoff",
       "country": "Germany",
-      "party": "Group of the European People's Party (Christian Democrats)",
-      "last_updated_utc": "2025-10-02T07:22:47.730Z",
-      "total_income_entries": 4,
+      "party": "S&D (SPD)",
+      "last_updated_utc": "2025-10-03T04:35:00Z",
+      "total_income_entries": 12,
       "total_gifts_entries": 0
     }
   ],
-  "last_updated_utc": "2025-10-03T12:00:00Z"
+  "last_updated_utc": "2025-10-14T12:00:00Z"
 }
