@@ -184,7 +184,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 256880,Estelle Ceulemans,Belgium,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,,1170,1156,98.8,False
 257012,Estrella Galán,Spain,,Sumar,1170,1011,86.4,False
 256865,Eszter Lakos,Hungary,Group of the European People's Party (Christian Democrats),Respect and Freedom Party,1170,837,71.5,False
-197672,Eugen Tomac,Ukraine,Renew Europe Group,European People's Party,1170,926,79.1,False
+197672,Eugen Tomac,Romania,Group of the European People's Party (Christian Democrats),European People's Party,1170,926,79.1,False
 98341,Eva Maydell,Bulgaria,Group of the European People's Party (Christian Democrats),Citizens for European Development of Bulgaria,1170,1037,88.6,False
 96998,Evelyn Regner,Austria,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Austria,1170,1149,98.2,False
 197392,Evin Incir,Sweden,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Swedish Social Democratic Party,1170,1163,99.4,False
@@ -364,7 +364,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257052,Maciej Wąsik,Poland,European Conservatives and Reformists Group,Law and Justice,1170,1061,90.7,False
 197490,Magdalena Adamowicz,Poland,Group of the European People's Party (Christian Democrats),Civic Platform,1170,1127,96.3,False
 197781,Malik Azmani,Kingdom of the Netherlands,Renew Europe Group,People's Party for Freedom and Democracy,1170,1163,99.4,False
-256871,Malika Sorel,Algeria,,National Rally,1170,1170,100.0,False
+256871,Malika Sorel,France,Patriots for Europe Group,National Rally,1170,1170,100.0,False
 28229,Manfred Weber,Germany,Group of the European People's Party (Christian Democrats),Christian Social Union of Bavaria,1170,794,67.9,False
 197533,Manon Aubry,France,,La France insoumise,1170,1137,97.2,False
 206158,Manuela Ripa,Germany,Group of the European People's Party (Christian Democrats),Ecological Democratic Party,1170,1159,99.1,False
@@ -553,7 +553,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 96934,Sandra Kalniete,Latvia,Group of the European People's Party (Christian Democrats),Unity,1170,1065,91.0,False
 204419,Sandro Gozi,France,Renew Europe Group,Democratic Party,1170,1157,98.9,False
 257170,Sandro Ruotolo,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,independent politician,1170,1034,88.4,False
-256924,Sarah Knafo,Morocco,Europe of Sovereign Nations Group,Reconquête,1170,1070,91.5,False
+256924,Sarah Knafo,France,Europe of Sovereign Nations Group,Reconquête,1170,1070,91.5,False
 197470,Saskia Bricmont,Belgium,Group of the Greens/European Free Alliance,Ecolo,1170,1095,93.6,False
 256991,Sebastiaan Stöteler,Kingdom of the Netherlands,Patriots for Europe Group,Party for Freedom,1170,770,65.8,False
 256961,Sebastian Everding,Germany,,,1170,1002,85.6,False
@@ -647,6 +647,6 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257013,Ľubica Karvašová,Slovakia,Renew Europe Group,,1170,1057,90.3,False
 257010,Ľudovít Ódor,Slovakia,Renew Europe Group,,1170,907,77.5,False
 197523,Łukasz Kohut,Poland,Group of the European People's Party (Christian Democrats),Civic Coalition,1170,1162,99.3,False
-185341,Željana Zovko,Bosnia and Herzegovina,Group of the European People's Party (Christian Democrats),Croatian Democratic Union of Bosnia and Herzegovina,1170,700,59.8,False
+185341,Željana Zovko,Croatia,Group of the European People's Party (Christian Democrats),Croatian Democratic Union,1170,700,59.8,False
 257119,Șerban-Dimitrie Sturdza,Group of the European Conservatives and Reformists,,,1170,1079,92.2,False
 257103,Ștefan Mușoiu,Group of the European Conservatives and Reformists,,Social Democratic Party,1170,981,83.8,False
