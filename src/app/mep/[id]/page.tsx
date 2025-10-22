@@ -8,7 +8,6 @@ import PartyBadge from '@/components/PartyBadge';
 import SpecialRoleBadge from '@/components/SpecialRoleBadge';
 import { useFlag } from '@/lib/useFlag';
 import { CreateAlertModal } from '@/components/CreateAlertModal';
-import { ExportCSVButton } from '@/components/ExportCSVButton';
 import { WatchMEPButton } from '@/components/WatchMEPButton';
 import { Bell, Download, ExternalLink, AlertTriangle, DollarSign, Calendar, Building, Gift, FileText } from 'lucide-react';
 import { WhoFundsData } from '@/lib/zod/whofunds';
@@ -56,7 +55,6 @@ export default function MEPProfilePage() {
   
   // Feature flags
   const [alertsEnabled] = useFlag('alerts');
-  const [csvEnabled] = useFlag('csv');
 
   const fetchMEPData = useCallback(async () => {
     try {
@@ -537,10 +535,6 @@ export default function MEPProfilePage() {
                 </a>
               )}
               
-              {/* Sprout: Export CSV Button */}
-              {csvEnabled && notableVotes.length > 0 && (
-                <ExportCSVButton selector="#votes-table" filename={`mep-${mep.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} />
-              )}
             </div>
           </div>
           
