@@ -177,11 +177,15 @@ export async function GET(request: NextRequest) {
         return;
       }
       
-      // Get MEPs who voted on this vote
-      const voteNotableVotes = notableVotes[vote.vote_id] || [];
-      
-      voteNotableVotes.forEach((notableVote: any) => {
-        const mep = mepLookup.get(notableVote.mep_id);
+      // Get all MEPs who voted on this vote by checking notable votes
+      // notableVotes is organized by MEP ID, so we need to check each MEP
+      Object.keys(notableVotes).forEach(mepId => {
+        const mepVotes = notableVotes[mepId];
+        const voteRecord = mepVotes.find((v: any) => v.vote_id === vote.vote_id);
+        
+        if (!voteRecord) return;
+        
+        const mep = mepLookup.get(mepId);
         if (!mep) return;
         
         // Apply MEP filters
@@ -189,7 +193,7 @@ export async function GET(request: NextRequest) {
         if (params.country && getCountryCode(mep.country) !== params.country) return;
         if (params.group && getGroupAbbreviation(mep.party) !== params.group) return;
         if (params.party && mep.national_party !== params.party) return;
-        if (params.outcome && notableVote.vote_position !== params.outcome) return;
+        if (params.outcome && voteRecord.vote_position !== params.outcome) return;
         
         // Get leadership role info
         const leadershipRole = getLeadershipRole(mep.name);
@@ -216,7 +220,7 @@ export async function GET(request: NextRequest) {
           group: getGroupAbbreviation(mep.party),
           country: getCountryCode(mep.country),
           party: mep.national_party || '',
-          outcome: notableVote.vote_position,
+          outcome: voteRecord.vote_position,
           majority_outcome: majorityOutcome,
           ep_source_url: vote.source_url,
           leadership_role: leadershipRole
