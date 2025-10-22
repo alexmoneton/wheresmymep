@@ -2262,16 +2262,16 @@
     "partial_term": false
   },
   {
-    "mep_id": "257129",
+    "mep_id": "https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home",
     "name": "Domenico Lucano",
     "country": "Italy",
-    "party": "",
-    "national_party": "independent politician",
-    "profile_url": "https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home",
-    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Domenico%20Lucano.jpg",
-    "votes_total_period": 1170,
-    "votes_cast": 504,
-    "attendance_pct": 43.1,
+    "party": "European Conservatives and Reformists Group",
+    "national_party": "",
+    "profile_url": "independent politician",
+    "photo_url": "257129.0",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
     "partial_term": false
   },
   {
