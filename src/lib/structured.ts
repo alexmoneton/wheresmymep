@@ -163,3 +163,5 @@ export function newsArticleLd(data: NewsArticleData) {
 export function renderJsonLd(data: any): string {
   return `<script type="application/ld+json">${JSON.stringify(data, null, 2)}</script>`
 }
+
+

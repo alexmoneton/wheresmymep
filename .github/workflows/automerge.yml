@@ -16,3 +16,5 @@ jobs:
           MERGE_METHOD: squash
           UPDATE_METHOD: rebase
           REQUIRED_LABELS: automerge
+
+

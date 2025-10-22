@@ -65,3 +65,5 @@ export function LeaderboardSearch({ defaultValue = '', placeholder = 'Search MEP
     </form>
   )
 }
+
+

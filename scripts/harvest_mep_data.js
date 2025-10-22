@@ -149,7 +149,7 @@ function processVotesData(rawVotes) {
     total_for: vote.for || vote.total_for || 0,
     total_against: vote.against || vote.total_against || 0,
     total_abstain: vote.abstain || vote.total_abstain || 0,
-    source_url: vote.source_url || `https://www.europarl.europa.eu/plenary/en/votes/${vote.id || vote.vote_id}.xml`
+    source_url: vote.source_url || `https://www.europarl.europa.eu/plenary/en/votes/${vote.id || vote.vote_id}`
   }));
 }
 
@@ -261,3 +261,5 @@ async function main() {
 
 // Run the harvest
 main();
+
+

@@ -106,3 +106,4 @@ if (require.main === module) {
 }
 
 export { main, validateFile };
+

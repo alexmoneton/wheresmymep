@@ -52,3 +52,5 @@ export function getEARLimits(isPro: boolean = false) {
     message: 'Free plan: 3 alerts and 3 CSV exports per month'
   }
 }
+
+

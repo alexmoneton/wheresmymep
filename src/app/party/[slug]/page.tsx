@@ -240,3 +240,5 @@ export default async function PartyPage({ params }: PartyPageProps) {
     </>
   )
 }
+
+

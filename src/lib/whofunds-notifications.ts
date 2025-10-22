@@ -121,3 +121,4 @@ export async function processWhoFundsChanges(changes: WhoFundsChange[]): Promise
     }
   }
 }
+

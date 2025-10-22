@@ -157,3 +157,5 @@ export function logPSEOGate(page: string, reason: string, details: any) {
     console.log(`[pSEO Gate] ${page}: ${reason}`, details)
   }
 }
+
+

@@ -939,7 +939,7 @@
     "mep_id": "256948",
     "name": "Arno Bausemer",
     "country": "Germany",
-    "party": "Europe of Sovereign Nations Group",
+    "party": "ESN",
     "national_party": "Alternative for Germany",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256948",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718611539783%2020240614%20BAUSEMER%20Arno%20DE%20001.jpg",
@@ -964,7 +964,7 @@
   {
     "mep_id": "197469",
     "name": "Assita Kanko",
-    "country": "Burkina Faso",
+    "country": "Belgium",
     "party": "European Conservatives and Reformists Group",
     "national_party": "New Flemish Alliance",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197469",
@@ -1472,7 +1472,7 @@
     "mep_id": "257063",
     "name": "Catarina Martins",
     "country": "Portugal",
-    "party": "",
+    "party": "European United Left–Nordic Green Left",
     "national_party": "Left Bloc",
     "profile_url": "https://www.europarl.europa.eu/meps/en/257063",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/1718281764385%2020240611%20SOARES%20MARTINS%20Catarina%20PT%20005.jpg",
@@ -2264,7 +2264,7 @@
   {
     "mep_id": "257129",
     "name": "Domenico Lucano",
-    "country": "Group of the European Conservatives and Reformists",
+    "country": "Italy",
     "party": "",
     "national_party": "independent politician",
     "profile_url": "https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home",
@@ -4423,7 +4423,7 @@
     "mep_id": "257083",
     "name": "João Oliveira",
     "country": "Portugal",
-    "party": "",
+    "party": "European United Left–Nordic Green Left",
     "national_party": "Portuguese Communist Party",
     "profile_url": "https://www.europarl.europa.eu/meps/en/257083",
     "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/Jo%C3%A3o%20Oliveira%2C%202024%20%28cropped%29.jpg",
@@ -5774,7 +5774,7 @@
   {
     "mep_id": "197429",
     "name": "Marion Walsmann",
-    "country": "German Democratic Republic",
+    "country": "Germany",
     "party": "Group of the European People's Party (Christian Democrats)",
     "national_party": "Christian Democratic Union",
     "profile_url": "https://www.europarl.europa.eu/meps/en/197429",
@@ -7607,7 +7607,7 @@
   {
     "mep_id": "256912",
     "name": "Rima Hassan",
-    "country": "State of Palestine",
+    "country": "France",
     "party": "",
     "national_party": "La France insoumise",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256912",
@@ -7746,19 +7746,6 @@
     "votes_cast": 0,
     "attendance_pct": 0,
     "partial_term": false
-  },
-  {
-    "mep_id": "257105",
-    "name": "Roxana Mînzatu",
-    "country": "Group of the European Conservatives and Reformists",
-    "party": "",
-    "national_party": "Social Democratic Party",
-    "profile_url": "https://www.europarl.europa.eu/meps/en/257105/ROXANA_MINZATU/history/10",
-    "photo_url": "http://commons.wikimedia.org/wiki/Special:FilePath/M%C3%AEnzatu%20EC%20Portrait%202024.jpg",
-    "votes_total_period": 1170,
-    "votes_cast": 0,
-    "attendance_pct": 0,
-    "partial_term": true
   },
   {
     "mep_id": "256890",
@@ -8062,7 +8049,7 @@
   {
     "mep_id": "256960",
     "name": "Sibylle Berg",
-    "country": "German Democratic Republic",
+    "country": "Germany",
     "party": "",
     "national_party": "",
     "profile_url": "https://www.europarl.europa.eu/meps/en/256960",

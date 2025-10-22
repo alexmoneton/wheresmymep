@@ -68,3 +68,5 @@ function computeStatsFromCSV(csv) {
   }
   console.log("Published MEP stats:", Object.keys(stats.byId).length, "MEPs");
 })();
+
+

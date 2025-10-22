@@ -55,8 +55,30 @@ function getSpecialRole(mep: MEPIdentity): string | undefined {
     return 'President';
   }
   
+  // Vice-Presidents of the European Parliament (14 total)
+  const vicePresidents = [
+    'Katarina Barley',
+    'Othmar Karas',
+    'Pina Picierno',
+    'Pedro Silva Pereira',
+    'Ewa Kopacz',
+    'Rainer Wieland',
+    'Dita Charanzová',
+    'Nicola Beer',
+    'Heidi Hautala',
+    'Marc Angel',
+    'Fabienne Keller',
+    'Paulo Rangel',
+    'Sergey Lagodinsky',
+    'Michal Šimečka'
+  ];
+  
+  if (vicePresidents.includes(mep.name)) {
+    return 'Vice-President';
+  }
+  
   // Add other special roles as needed
-  // Vice-Presidents, Committee Chairs, etc.
+  // Committee Chairs, etc.
   
   return undefined;
 }

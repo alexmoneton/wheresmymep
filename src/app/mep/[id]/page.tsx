@@ -607,6 +607,12 @@ export default function MEPProfilePage() {
             significance, close outcomes, and high participation. Some MEPs may have partial terms affecting 
             their attendance percentage.
           </p>
+          {mep.special_role === 'Vice-President' && (
+            <p className="text-sm text-blue-800 mt-2">
+              <strong>Note:</strong> Vice-Presidents of the European Parliament do not vote when chairing sessions, 
+              which may affect their attendance percentage.
+            </p>
+          )}
         </div>
       </main>
     </div>

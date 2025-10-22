@@ -119,3 +119,5 @@ export default async function VotePage({ params }: VotePageProps) {
     </div>
   )
 }
+
+

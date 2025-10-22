@@ -65,3 +65,5 @@ export function SearchInput({ defaultValue = '', placeholder = 'Search MEPs...' 
     </form>
   )
 }
+
+
