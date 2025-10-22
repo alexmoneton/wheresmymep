@@ -109,10 +109,47 @@ function VoteExplorerContent() {
     outcome: ''
   });
   
+  const [meps, setMeps] = useState<Array<{id: string, name: string, country: string}>>([]);
+  const [nationalParties, setNationalParties] = useState<string[]>([]);
+  
   const [results, setResults] = useState<VoteSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(true);
+
+  // Load MEPs and national parties data
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/meps');
+        const mepsData = await response.json();
+        
+        // Extract MEPs with IDs
+        const mepsWithIds = mepsData
+          .filter((mep: any) => mep.mep_id)
+          .map((mep: any) => ({
+            id: mep.mep_id,
+            name: mep.name,
+            country: mep.country
+          }))
+          .sort((a: any, b: any) => a.name.localeCompare(b.name));
+        
+        setMeps(mepsWithIds);
+        
+        // Extract unique national parties
+        const parties = [...new Set(mepsData
+          .map((mep: any) => mep.national_party)
+          .filter((party: string) => party && party.trim() !== '')
+        )].sort();
+        
+        setNationalParties(parties);
+      } catch (error) {
+        console.error('Error loading MEPs data:', error);
+      }
+    };
+    
+    loadData();
+  }, []);
 
   // Parse URL parameters on load
   useEffect(() => {
@@ -355,32 +392,42 @@ function VoteExplorerContent() {
                 </select>
               </div>
 
-              {/* Party */}
+              {/* National Party */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   National Party
                 </label>
-                <input
-                  type="text"
+                <select
                   value={filters.party}
                   onChange={(e) => updateFilter('party', e.target.value)}
-                  placeholder="Exact match"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+                >
+                  <option value="">All parties</option>
+                  {nationalParties.map(party => (
+                    <option key={party} value={party}>
+                      {party}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              {/* MEP ID */}
+              {/* MEP Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  MEP ID
+                  MEP Name
                 </label>
-                <input
-                  type="text"
+                <select
                   value={filters.mep_id}
                   onChange={(e) => updateFilter('mep_id', e.target.value)}
-                  placeholder="Specific MEP ID"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+                >
+                  <option value="">All MEPs</option>
+                  {meps.map(mep => (
+                    <option key={mep.id} value={mep.id}>
+                      {mep.name} ({mep.country})
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Outcome */}
