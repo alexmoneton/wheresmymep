@@ -205,7 +205,16 @@ export function getVote(voteId: string): VoteCatalog | null {
 
 export function getLeaderboardTop(n: number = 25): EnrichedMEP[] {
   return mepsEnriched
-    .filter(mep => mep.mep_id && (mep.votes_total_period || 0) > 0)
+    .filter(mep => {
+      // Exclude MEPs with special roles (like President, Vice-President) from top leaderboard
+      if (mep.special_role) return false;
+      
+      // Exclude MEPs on sick leave
+      if (mep.sick_leave) return false;
+      
+      // Only include MEPs with valid IDs and votes
+      return mep.mep_id && (mep.votes_total_period || 0) > 0;
+    })
     .sort((a, b) => (b.attendance_pct || 0) - (a.attendance_pct || 0))
     .slice(0, n);
 }
