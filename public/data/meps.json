@@ -9267,5 +9267,17 @@
     "votes_cast": 981,
     "attendance_pct": 83.8,
     "partial_term": false
+  },
+  {
+    "mep_id": "1909",
+    "name": "Bernd Lange",
+    "country": "Germany",
+    "party": "Progressive Alliance of Socialists and Democrats (S&D)",
+    "national_party": "Sozialdemokratische Partei Deutschlands",
+    "profile_url": "https://www.europarl.europa.eu/meps/en/1909/BERND_LANGE/home",
+    "votes_total_period": 0,
+    "votes_cast": 0,
+    "attendance_pct": 0,
+    "partial_term": false
   }
 ]
