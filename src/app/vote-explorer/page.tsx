@@ -112,7 +112,7 @@ function VoteExplorerContent() {
   const [results, setResults] = useState<VoteSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
 
   // Parse URL parameters on load
   useEffect(() => {
