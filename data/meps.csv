@@ -21,7 +21,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 183916,Alexandra Geese,Germany,Group of the Greens/European Free Alliance,Alliance '90/The Greens,1170,1156,98.8,false
 256980,Alexandra Mehnert,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,1106,94.5,false
 5736,Alexandre Varaut,France,Patriots for Europe Group,Union for a Popular Movement,1170,1097,93.8,false
-,Alice Bah Kuhnke,Sweden,Green Party,Green Party,0,0,0,false
+197395,Alice Bah Kuhnke,Sweden,Green Party,Green Party,0,0,0,false
 257089,Alice Teodorescu Måwe,Sweden,Group of the European People's Party (Christian Democrats),Christian Democrats,1170,1094,93.5,false
 122978,Alicia Homs Ginel,Spain,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Spanish Socialist Workers' Party,1170,1165,99.6,false
 257035,Alma Ezcurra,Spain,Group of the European People's Party (Christian Democrats),People's Party,1170,319,27.3,false
@@ -31,7 +31,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 110673,Ana Miguel Pedro,Portugal,Group of the European People's Party (Christian Democrats),Group of the European People's Party (Christian Democrats),1170,934,79.8,false
 24942,Ana Miranda Paz,Spain,Group of the Greens/European Free Alliance,Galician Nationalist Bloc,1170,1151,98.4,false
 124875,Anders Vistisen,Kingdom of Denmark,Patriots for Europe Group,Danish People's Party,1170,1012,86.5,false
-,Andi-Lucian Cristea,Romania,Social Democratic Party,Social Democratic Party,0,0,0,false
+40224,Andi-Lucian Cristea,Romania,Social Democratic Party,Social Democratic Party,0,0,0,false
 256977,Andrea Wechsler,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,1103,94.3,false
 197443,Andreas Glück,Germany,Renew Europe Group,Free Democratic Party,1170,862,73.7,false
 197670,Andreas Schieder,Austria,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Austria,1170,1165,99.6,false
@@ -42,7 +42,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257051,Andrzej Buła,Poland,Group of the European People's Party (Christian Democrats),Civic Platform,1170,1166,99.7,false
 197514,Andrzej Halicki,Poland,Group of the European People's Party (Christian Democrats),Civic Platform,1170,1154,98.6,false
 23816,András Gyürk,Hungary,Patriots for Europe Group,Fidesz,1170,1015,86.8,false
-,András Kulja,Hungary,Respect and Freedom Party,Respect and Freedom Party,0,0,0,false
+256864,András Kulja,Hungary,Respect and Freedom Party,Respect and Freedom Party,0,0,0,false
 256860,András László,Hungary,Patriots for Europe Group,Fidesz,1170,1069,91.4,false
 257066,André Rodrigues,Portugal,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,1110,94.9,false
 197690,André Rougé,France,Patriots for Europe Group,National Rally,1170,1063,90.9,false
@@ -89,14 +89,14 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 197553,Beata Szydło,Poland,European Conservatives and Reformists Group,Law and Justice,1170,973,83.2,false
 257090,Beatrice Rugland Timgren,Sweden,Sweden Democrats,Sweden Democrats,0,0,0,false
 257139,Benedetta Scuderi,Italy,The Greens–European Free Alliance,Green Europe,1170,949,81.1,false
-,Benoît Cassart,Belgium,,,0,0,0,false
+256891,Benoît Cassart,Belgium,,,0,0,0,false
 197543,Bernard Guetta,France,Renew Europe Group,Revolutionary Communist League,1170,759,64.9,false
 197773,Bert-Jan Ruissen,Kingdom of the Netherlands,European Conservatives and Reformists Group,Reformed Political Party,1170,1167,99.7,false
 112748,Biljana Borzan,Croatia,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Croatia,1170,1094,93.5,false
 197818,Billy Kelleher,Ireland,Renew Europe Group,Fianna Fáil,1170,960,82.1,false
 96932,Birgit Sippel,Germany,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Germany,1170,879,75.1,false
 197545,Bogdan Rzońca,Poland,European Conservatives and Reformists Group,Law and Justice,1170,1160,99.1,false
-,Bogdan Zdrojewski,Poland,Civic Platform,Civic Platform,0,0,0,false
+124893,Bogdan Zdrojewski,Poland,Civic Platform,Civic Platform,0,0,0,false
 125204,Borja Giménez Larraz,Spain,Group of the European People's Party (Christian Democrats),Group of the European People's Party (Christian Democrats),1170,1161,99.2,false
 257047,Borys Budka,Poland,Group of the European People's Party (Christian Democrats),Conservative People's Party,1170,913,78,false
 124867,Brando Benifei,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Democratic Party,1170,948,81,false
@@ -119,7 +119,7 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257101,Cecilia Strada,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,1157,98.9,false
 840,Charles Goerens,Luxembourg,Renew Europe Group,Democratic Party,1170,1131,96.7,false
 123562,Charlie Weimers,Sweden,European Conservatives and Reformists Group,Sweden Democrats,1170,1162,99.3,false
-,Chiara Maria Gemma,Italy,Brothers of Italy,Brothers of Italy,0,0,0,false
+197794,Chiara Maria Gemma,Italy,Brothers of Italy,Brothers of Italy,0,0,0,false
 256904,Chloé Ridel,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Socialist Party,1170,815,69.7,false
 37312,Christel Schaldemose,Kingdom of Denmark,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democrats,1170,1096,93.7,false
 197473,Christian Doleschal,Germany,Group of the European People's Party (Christian Democrats),Christian Social Union of Bavaria,1170,1024,87.5,false
@@ -134,19 +134,19 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 257298,Ciaran Mullooly,Ireland,Renew Europe Group,Renew Europe Group,1170,901,77,false
 256906,Claire Fita,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,860,73.5,false
 257114,Claudiu Târziu,Romania,Group of the European Conservatives and Reformists,Alliance for the Union of Romanians,1170,1080,92.3,false
-,Cristian Terheș,Romania,Romanian National Conservative Party,Romanian National Conservative Party,0,0,0,false
+197655,Cristian Terheș,Romania,Romanian National Conservative Party,Romanian National Conservative Party,0,0,0,false
 257130,Cristina Guarda,Italy,Group of the Greens/European Free Alliance,Group of the Greens/European Free Alliance,1170,981,83.8,false
 197719,Cristina Maestre,Spain,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Spanish Socialist Workers' Party,1170,1106,94.5,false
 260724,Csaba Dömötör,Hungary,Patriots for Europe Group,Fidesz,1170,1061,90.7,false
 124722,Csaba Molnár,Hungary,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Hungarian Socialist Party,1170,790,67.5,false
 257301,Cynthia Ní Mhurchú,Ireland,Renew Europe Group,Renew Europe Group,1170,1152,98.5,false
 256918,Céline Imart,France,Group of the European People's Party (Christian Democrats),The Republicans,1170,991,84.7,false
-,César Luena López,Spain,Spanish Socialist Workers' Party,Spanish Socialist Workers' Party,0,0,0,false
+197721,César Luena López,Spain,Spanish Socialist Workers' Party,Spanish Socialist Workers' Party,0,0,0,false
 256807,Dainius Žalimas,Lithuania,Renew Europe Group,Homeland Union – Lithuanian Christian Democrats,1170,795,67.9,false
 197439,Damian Boeselager,Germany,Group of the Greens/European Free Alliance,Volt Europa,1170,1101,94.1,false
 197574,Damien Carême,France,The Ecologists – Europe Écologie Les Verts,The Ecologists – Europe Écologie Les Verts,1170,990,84.6,false
 257110,Dan Barna,Romania,Renew Europe Group,Save Romania Union,1170,1076,92,false
-,Dan Motreanu,Romania,National Liberal Party,National Liberal Party,0,0,0,false
+197647,Dan Motreanu,Romania,National Liberal Party,National Liberal Party,0,0,0,false
 124784,Dan Nica,Romania,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party,1170,727,62.1,false
 256934,Daniel Attard,Malta,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,1051,89.8,false
 125012,Daniel Buda,Romania,Group of the European People's Party (Christian Democrats),National Liberal Party,1170,1092,93.3,false
@@ -166,16 +166,16 @@ mep_id,name,country,party,national_party,votes_total_period,votes_cast,attendanc
 197440,Delara Burkhardt,Germany,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Germany,1170,328,28,false
 239260,Denis Nesci,Italy,European Conservatives and Reformists Group,European Conservatives and Reformists Group,1170,1166,99.7,false
 188945,Dennis Radtke,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,1149,98.2,false
-,Diana Riba Giner,Spain,Republican Left of Catalonia,Republican Left of Catalonia,0,0,0,false
+197832,Diana Riba Giner,Spain,Republican Left of Catalonia,Republican Left of Catalonia,0,0,0,false
 257120,Diana Șoșoacă,Romania,Group of the European Conservatives and Reformists,S.O.S. Romania Party,1170,1133,96.8,false
 257091,Dick Erixon,Sweden,European Conservatives and Reformists Group,Sweden Democrats,1170,1163,99.4,false
 257021,Diego Solier,Spain,European Conservatives and Reformists Group,European Conservatives and Reformists Group,1170,1138,97.3,false
 256950,Dimitris Tsiodras,Greece,Group of the European People's Party (Christian Democrats),New Democracy,1170,1137,97.2,false
 97399,Dirk Gotink,Kingdom of the Netherlands,Group of the European People's Party (Christian Democrats),Christian Democratic Appeal,1170,1144,97.8,false
-,Dolors Montserrat i Montserrat,Spain,People's Party,People's Party,0,0,0,false
+197711,Dolors Montserrat i Montserrat,Spain,People's Party,People's Party,0,0,0,false
 https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,Italy,European Conservatives and Reformists Group,European Conservatives and Reformists Group,0,0,0,false
 204346,Dominik Tarczyński,Poland,European Conservatives and Reformists Group,Poland Comes First,1170,633,54.1,false
-,Dragoș Benea,Romania,Social Democratic Party,Social Democratic Party,0,0,0,false
+197658,Dragoș Benea,Romania,Social Democratic Party,Social Democratic Party,0,0,0,false
 256862,Dóra Dávid,Hungary,Group of the European People's Party (Christian Democrats),Respect and Freedom Party,1170,840,71.8,false
 197800,Eero Heinäluoma,Finland,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Finland,1170,1068,91.3,false
 257095,Elena Donazzan,Italy,European Conservatives and Reformists Group,National Alliance,1170,964,82.4,false
@@ -185,18 +185,18 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 197842,Elena Yoncheva,Bulgaria,Bulgarian Socialist Party,Bulgarian Socialist Party,1170,582,49.7,false
 256943,Eleonora Meleti,Greece,Group of the European People's Party (Christian Democrats),New Democracy,1170,917,78.4,false
 1294,Elio Di Rupo,Belgium,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Socialist Party,1170,1149,98.2,false
-,Elisabeth Dieringer-Granza,Austria,Austrian Freedom Party,Austrian Freedom Party,0,0,0,false
+256834,Elisabeth Dieringer-Granza,Austria,Austrian Freedom Party,Austrian Freedom Party,0,0,0,false
 256830,Elisabeth Grossmann,Austria,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Austria,1170,1165,99.6,false
 197618,Elisabetta Gualmini,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Democratic Party,1170,1012,86.5,false
-,Eliza Vozemberg,Greece,New Democracy,New Democracy,0,0,0,false
+125065,Eliza Vozemberg,Greece,New Democracy,New Democracy,0,0,0,false
 191693,Elsi Katainen,Finland,Renew Europe Group,Centre Party,1170,1076,92,false
-,Elżbieta Łukacijewska,Poland,Civic Platform,Civic Platform,0,0,0,false
+96791,Elżbieta Łukacijewska,Poland,Civic Platform,Civic Platform,0,0,0,false
 124850,Emil Radev,Bulgaria,Group of the European People's Party (Christian Democrats),Citizens for European Development of Bulgaria,1170,958,81.9,false
 256913,Emma Fourreau,France,La France insoumise,La France insoumise,1170,892,76.2,false
 256902,Emma Rafowicz,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Socialist Party,1170,778,66.5,false
 214839,Emma Wiesner,Sweden,Renew Europe Group,Centre Party,1170,947,80.9,false
-,Emmanouíl Fragkos,Greece,Greek Solution,Greek Solution,0,0,0,false
-,Engin Eroğlu,Germany,Free Voters,Free Voters,0,0,0,false
+198490,Emmanouíl Fragkos,Greece,Greek Solution,Greek Solution,0,0,0,false
+197430,Engin Eroğlu,Germany,Free Voters,Free Voters,0,0,0,false
 96830,Enikő Győri,Hungary,Patriots for Europe Group,Fidesz,1170,1067,91.2,false
 257007,Erik Kaliňák,Slovakia,Direction – Social Democracy,Direction – Social Democracy,1170,922,78.8,false
 197462,Erik Marquardt,Germany,Group of the Greens/European Free Alliance,Alliance '90/The Greens,1170,1154,98.6,false
@@ -229,7 +229,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 256947,Fredis Beleris,Albania,Group of the European People's Party (Christian Democrats),Together We Win,1170,905,77.4,false
 256969,Friedrich Pürner,Germany,,,1170,1164,99.5,false
 124828,Fulvio Martusciello,Italy,Group of the European People's Party (Christian Democrats),Forza Italia,1170,604,51.6,false
-,Gabriel Mato Adrover,Spain,People's Party,People's Party,0,0,0,false
+96936,Gabriel Mato Adrover,Spain,People's Party,People's Party,0,0,0,false
 257098,Gabriela Firea,Romania,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party,1170,418,35.7,false
 197435,Gabriele Bischoff,Germany,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Germany,1170,1146,97.9,false
 256866,Gabriella Gerzsenyi,Hungary,Group of the European People's Party (Christian Democrats),Respect and Freedom Party,1170,827,70.7,false
@@ -247,13 +247,13 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 197577,Gilles Boyer,France,Renew Europe Group,The Republicans,1170,1163,99.4,false
 126699,Gilles Pennelle,France,Patriots for Europe Group,Party of New Forces,1170,1129,96.5,false
 257102,Giorgio Gori,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Democratic Party,1170,1091,93.2,false
-,Giorgos Aftias,Greece,New Democracy,New Democracy,0,0,0,false
+256820,Giorgos Aftias,Greece,New Democracy,New Democracy,0,0,0,false
 197416,Giorgos Georgiou,Cyprus,Progressive Party of Working People,Progressive Party of Working People,1170,864,73.8,false
 257094,Giovanni Crosetto,Italy,European Conservatives and Reformists Group,European Conservatives and Reformists Group,1170,1088,93,false
 257138,Giuseppe Antoci,Italy,,,1170,1077,92.1,false
 257124,Giuseppe Lupo,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,1161,99.2,false
 197824,Giuseppe Milazzo,Italy,European Conservatives and Reformists Group,The People of Freedom,1170,398,34,false
-,Giuseppina Picierno,Italy,Democratic Party,Democratic Party,0,0,0,false
+124846,Giuseppina Picierno,Italy,Democratic Party,Democratic Party,0,0,0,false
 257128,Giuseppina Princi,Romania,Group of the European Conservatives and Reformists,Group of the European Conservatives and Reformists,1170,1158,99,false
 256995,Gordan Bosanac,Croatia,Group of the Greens/European Free Alliance,Group of the Greens/European Free Alliance,1170,1107,94.6,false
 257067,Grzegorz Braun,Poland,Confederation of the Polish Crown,Confederation of the Polish Crown,1170,783,66.9,false
@@ -278,30 +278,30 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 197408,Hildegard Bentele,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,816,69.7,false
 257257,Hristo Petrov,Bulgaria,Renew Europe Group,Renew Europe Group,1170,1110,94.9,false
 257068,Hélder Sousa Silva,Portugal,Group of the European People's Party (Christian Democrats),Group of the European People's Party (Christian Democrats),1170,818,69.9,false
-,Idoia Mendia Cueva,Spain,Socialist Party of the Basque Country – Basque Country Left,Socialist Party of the Basque Country – Basque Country Left,0,0,0,false
+256994,Idoia Mendia Cueva,Spain,Socialist Party of the Basque Country – Basque Country Left,Socialist Party of the Basque Country – Basque Country Left,0,0,0,false
 257132,Ignazio Marino,Romania,Group of the European Conservatives and Reformists,Democratic Party,1170,1036,88.5,false
 257127,Ilaria Salis,Italy,The Left in the European Parliament - GUE/NGL,independent politician,1170,1103,94.3,false
-,Ilhan Kyuchuk,Bulgaria,Movement for Rights and Freedoms,Movement for Rights and Freedoms,0,0,0,false
-,Iliya Lazarov,Bulgaria,,,0,0,0,false
+124866,Ilhan Kyuchuk,Bulgaria,Movement for Rights and Freedoms,Movement for Rights and Freedoms,0,0,0,false
+257261,Iliya Lazarov,Bulgaria,,,0,0,0,false
 28617,Inese Vaidere,Latvia,Group of the European People's Party (Christian Democrats),Unity Party,1170,1141,97.5,false
 256968,Ingeborg ter Laak,Kingdom of the Netherlands,Group of the European People's Party (Christian Democrats),Christian Democratic Appeal,1170,1165,99.6,false
-,Ioannis Maniatis,Greece,Panhellenic Socialist Movement,Panhellenic Socialist Movement,0,0,0,false
+256824,Ioannis Maniatis,Greece,Panhellenic Socialist Movement,Panhellenic Socialist Movement,0,0,0,false
 28298,Iratxe García,Spain,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Spanish Socialist Workers' Party,1170,1115,95.3,false
 197447,Irena Joveva,Slovenia,Renew Europe Group,List of Marjan Šarec,1170,1167,99.7,false
 197591,Irene Tinagli,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Democratic Party,1170,1137,97.2,false
 256945,Irmhild Boßdorf,Germany,Europe of Sovereign Nations Group,Alternative for Germany,1170,1151,98.4,false
 197679,Isabel Benjumea,Spain,Group of the European People's Party (Christian Democrats),People's Party,1170,1049,89.7,false
 257009,Isabel Serra,Spain,Podemos,Podemos,1170,177,15.1,false
-,Isabel Wiseler-Santos Lima,Luxembourg,Christian Social People's Party,Christian Social People's Party,0,0,0,false
+197421,Isabel Wiseler-Santos Lima,Luxembourg,Christian Social People's Party,Christian Social People's Party,0,0,0,false
 96675,Isabella Lövin,Sweden,Group of the Greens/European Free Alliance,Green Party,1170,1168,99.8,false
 197580,Isabella Tovaglieri,Italy,Patriots for Europe Group,Lega Nord,1170,1124,96.1,false
 256920,Isabelle Le Callennec,France,Group of the European People's Party (Christian Democrats),Union for a Popular Movement,1170,926,79.1,false
 257075,Isilda Gomes,Portugal,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,1036,88.5,false
-,Iulian Claudiu Manda,Romania,Social Democratic Party,Social Democratic Party,0,0,0,false
+197653,Iulian Claudiu Manda,Romania,Social Democratic Party,Social Democratic Party,0,0,0,false
 39725,Iuliu Winkler,Romania,Group of the European People's Party (Christian Democrats),Democratic Union of Hungarians in Romania,1170,997,85.2,false
 197556,Ivan David,Czech Republic,Europe of Sovereign Nations Group,Freedom and Direct Democracy,1170,1158,99,false
 197624,Ivars Ijabs,Latvia,Renew Europe Group,For Latvia's Development,1170,813,69.5,false
-,Ivaylo Vulchev,Bulgaria,,,0,0,0,false
+257258,Ivaylo Vulchev,Bulgaria,,,0,0,0,false
 197493,Jaak Madison,Estonia,European Conservatives and Reformists Group,Estonian Centre Party,1170,938,80.2,false
 257086,Jacek Ozdoba,Poland,European Conservatives and Reformists Group,Polska Razem,1170,1136,97.1,false
 257041,Jacek Protas,Poland,Group of the European People's Party (Christian Democrats),Civic Platform,1170,1093,93.4,false
@@ -316,7 +316,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 270261,Jaroslav Knot,Czech Republic,Patriots for Europe Group,Patriots for Europe Group,1170,257,22,false
 256844,Jaroslava Pokorná Jermanová,Czech Republic,Patriots for Europe Group,ANO 2011,1170,850,72.6,false
 257015,Jaume Asens Llodrà,Spain,Group of the Greens/European Free Alliance,Procés Constituent,1170,1110,94.9,false
-,Javier López Fernández,Spain,Socialists' Party of Catalonia,Socialists' Party of Catalonia,0,0,0,false
+125042,Javier López Fernández,Spain,Socialists' Party of Catalonia,Socialists' Party of Catalonia,0,0,0,false
 28347,Javier Moreno Sánchez,Spain,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Spanish Socialist Workers' Party,1170,836,71.5,false
 197606,Javier Zarzalejos,Spain,Group of the European People's Party (Christian Democrats),People's Party,1170,1081,92.4,false
 256901,Jean-Marc Germain,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Socialist Party,1170,1003,85.7,false
@@ -327,7 +327,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 95074,Jeroen Lenaers,Kingdom of the Netherlands,Group of the European People's Party (Christian Democrats),Christian Democratic Appeal,1170,1168,99.8,false
 197404,Jessica Polfjärd,Sweden,Group of the European People's Party (Christian Democrats),Moderate Party,1170,1162,99.3,false
 256983,Jessika van Leeuwen,Kingdom of the Netherlands,Group of the European People's Party (Christian Democrats),Farmer–Citizen Movement,1170,1161,99.2,false
-,Joachim Brudziński,Poland,Law and Justice,Law and Justice,0,0,0,false
+197501,Joachim Brudziński,Poland,Law and Justice,Law and Justice,0,0,0,false
 256962,Joachim Streit,Germany,Renew Europe Group,Free Voters,1170,1041,89,false
 257084,Joanna Scheuring-Wielgus,Poland,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Nowoczesna,1170,1160,99.1,false
 38542,Johan Danielsson,Sweden,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Swedish Social Democratic Party,1170,1162,99.3,false
@@ -366,11 +366,11 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 256861,Kinga Kollár,Hungary,Group of the European People's Party (Christian Democrats),Respect and Freedom Party,1170,800,68.4,false
 197573,Kira Marie Peter-Hansen,Kingdom of Denmark,Group of the Greens/European Free Alliance,Green Left,1170,1138,97.3,false
 197579,Klára Dobrev,Hungary,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Democratic Coalition,1170,717,61.3,false
-,Klára Dostálová,Czech Republic,ANO 2011,ANO 2011,0,0,0,false
+256853,Klára Dostálová,Czech Republic,ANO 2011,ANO 2011,0,0,0,false
 ,Konstantinos Papadakis,Greece,Communist Party of Greece,Communist Party of Greece,0,0,0,false
 124884,Kosma Złotowski,Poland,European Conservatives and Reformists Group,Law and Justice,1170,1161,99.2,false
-,Kostas Arvanitis,Greece,SYRIZA,SYRIZA,0,0,0,false
-,Kostas Mavrides,Cyprus,Democratic Party (Cyprus),Democratic Party (Cyprus),0,0,0,false
+197701,Kostas Arvanitis,Greece,SYRIZA,SYRIZA,0,0,0,false
+124691,Kostas Mavrides,Cyprus,Democratic Party (Cyprus),Democratic Party (Cyprus),0,0,0,false
 256884,Kris Van Dijck,Belgium,European Conservatives and Reformists Group,New Flemish Alliance,1170,838,71.6,false
 34232,Kristian Vigenin,Bulgaria,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Bulgarian Socialist Party,1170,1097,93.8,false
 257025,Kristoffer Hjort Storm,Kingdom of Denmark,Denmark Democrats - Inger Støjberg,Denmark Democrats - Inger Støjberg,0,0,0,false
@@ -389,12 +389,12 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 256833,Lena Schilling,Austria,Group of the Greens/European Free Alliance,Group of the Greens/European Free Alliance,1170,1099,93.9,false
 2152,Leoluca Orlando,Italy,Group of the Greens/European Free Alliance,Democracy Is Freedom – The Daisy,1170,1139,97.4,false
 257151,Letizia Moratti,Italy,Group of the European People's Party (Christian Democrats),The People of Freedom,1170,586,50.1,false
-,Leïla Chaibi,France,The Left group in the European Parliament - GUE/NGL,La France insoumise,0,0,0,false
+197529,Leïla Chaibi,France,The Left group in the European Parliament - GUE/NGL,La France insoumise,0,0,0,false
 256805,Li Andersson,Finland,Left Alliance,Left Alliance,1170,1060,90.6,false
 256889,Liesbet Sommen,Belgium,Group of the European People's Party (Christian Democrats),Group of the European People's Party (Christian Democrats),1170,1162,99.3,false
-,Lina Gálvez Muñoz,Spain,Spanish Socialist Workers' Party,Spanish Socialist Workers' Party,0,0,0,false
+197702,Lina Gálvez Muñoz,Spain,Spanish Socialist Workers' Party,Spanish Socialist Workers' Party,0,0,0,false
 98582,Loránt Vincze,Romania,Group of the European People's Party (Christian Democrats),Democratic Union of Hungarians in Romania,1170,961,82.1,false
-,Loukas Fourlas,Cyprus,Democratic Rally,Democratic Rally,0,0,0,false
+197414,Loukas Fourlas,Cyprus,Democratic Rally,Democratic Rally,0,0,0,false
 257005,Luboš Blaha,Slovakia,Direction – Social Democracy,Direction – Social Democracy,0,0,0,false
 257123,Lucia Annunziata,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,892,76.2,false
 257011,Lucia Yar,Slovakia,Renew Europe Group,Renew Europe Group,1170,1124,96.1,false
@@ -402,16 +402,16 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 257118,Luis Lazarus,Romania,Group of the European Conservatives and Reformists,S.O.S. Romania Party,1170,818,69.9,false
 190713,Lukas Mandl,Austria,Group of the European People's Party (Christian Democrats),Austrian People's Party,1170,961,82.1,false
 256971,Lukas Sieper,Germany,Party of Progress,Party of Progress,1170,1085,92.7,false
-,Luke 'Ming' Flanagan,Ireland,,,0,0,0,false
+124985,Luke 'Ming' Flanagan,Ireland,,,0,0,0,false
 124984,Lynn Boylan,Ireland,Sinn Féin,Sinn Féin,1170,822,70.3,false
 197738,Lídia Pereira,Portugal,Group of the European People's Party (Christian Democrats),Social Democratic Party,1170,997,85.2,false
 257052,Maciej Wąsik,Poland,European Conservatives and Reformists Group,Law and Justice,1170,1061,90.7,false
 197490,Magdalena Adamowicz,Poland,Group of the European People's Party (Christian Democrats),Civic Platform,1170,1127,96.3,false
-,Majdouline Sbaï,France,,,0,0,0,false
+256917,Majdouline Sbaï,France,,,0,0,0,false
 197781,Malik Azmani,Kingdom of the Netherlands,Renew Europe Group,People's Party for Freedom and Democracy,1170,1163,99.4,false
 256871,Malika Sorel,France,Patriots for Europe Group,National Rally,1170,1170,100,false
 28229,Manfred Weber,Germany,Group of the European People's Party (Christian Democrats),Christian Social Union of Bavaria,1170,794,67.9,false
-,Manolis Kefalogiannis,Greece,New Democracy,New Democracy,0,0,0,false
+125068,Manolis Kefalogiannis,Greece,New Democracy,New Democracy,0,0,0,false
 197533,Manon Aubry,France,La France insoumise,La France insoumise,1170,1137,97.2,false
 206158,Manuela Ripa,Germany,Group of the European People's Party (Christian Democrats),Ecological Democratic Party,1170,1159,99.1,false
 257043,Maravillas Abadía Jover,Spain,Group of the European People's Party (Christian Democrats),Group of the European People's Party (Christian Democrats),1170,1077,92.1,false
@@ -459,7 +459,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 190517,Martin Schirdewan,Germany,,,1170,1096,93.7,false
 124834,Martin Sonneborn,Germany,Die PARTEI,Die PARTEI,1170,1055,90.2,false
 249603,Martine Kemp,Luxembourg,Group of the European People's Party (Christian Democrats),Christian Social People's Party,1170,584,49.9,false
-,Mary Khan-Hohloch,Germany,Young Alternative for Germany,Young Alternative for Germany,0,0,0,false
+256957,Mary Khan-Hohloch,Germany,Young Alternative for Germany,Young Alternative for Germany,0,0,0,false
 257022,María Esther Herranz García,Spain,People's Party,People's Party,0,0,0,false
 125670,Massimiliano Salini,Italy,Group of the European People's Party (Christian Democrats),Forza Italia,1170,1167,99.7,false
 219652,Matej Tonin,Slovenia,Group of the European People's Party (Christian Democrats),New Slovenia,1170,1127,96.3,false
@@ -475,7 +475,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 257300,Michael McNamara,Ireland,Renew Europe Group,Labour Party,1170,992,84.8,false
 256966,Michael von der Schulenburg,Germany,Sahra Wagenknecht Alliance,Sahra Wagenknecht Alliance,1170,1140,97.4,false
 197769,Michal Wiezik,Slovakia,Renew Europe Group,Progressive Slovakia,1170,1124,96.1,false
-,Michalis Catzipantela,Cyprus,,,0,0,0,false
+256985,Michalis Catzipantela,Cyprus,,,0,0,0,false
 257037,Michał Kobosko,Poland,Renew Europe Group,Poland 2050,1170,1162,99.3,false
 257026,Michał Szczerba,Poland,Group of the European People's Party (Christian Democrats),Solidarity Electoral Action,1170,1144,97.8,false
 257045,Michał Wawrykiewicz,Poland,Group of the European People's Party (Christian Democrats),Group of the European People's Party (Christian Democrats),1170,962,82.2,false
@@ -485,7 +485,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 249982,Milan Mazurek,Slovakia,Europe of Sovereign Nations Group,Republic,1170,1158,99,false
 197763,Milan Uhrík,Slovakia,Europe of Sovereign Nations Group,Republic,1170,836,71.5,false
 96933,Milan Zver,Slovenia,Group of the European People's Party (Christian Democrats),Slovenian Democratic Party,1170,871,74.4,false
-,Mircea Hava,Romania,National Liberal Party,National Liberal Party,0,0,0,false
+197646,Mircea Hava,Romania,National Liberal Party,National Liberal Party,0,0,0,false
 257024,Mireia Borrás Pabón,Spain,Patriots for Europe Group,Vox,1170,1149,98.2,false
 204336,Miriam Lexmann,Slovakia,Group of the European People's Party (Christian Democrats),Christian Democratic Movement,1170,888,75.9,false
 257049,Mirosława Nykiel,Poland,Group of the European People's Party (Christian Democrats),Civic Platform,1170,1168,99.8,false
@@ -517,14 +517,14 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 257259,Nikola Minchev,Bulgaria,Renew Europe Group,We Continue the Change,1170,1093,93.4,false
 256823,Nikolas Farantouris,Greece,SYRIZA,SYRIZA,1170,927,79.2,false
 204129,Nikolina Brnjac,Croatia,Group of the European People's Party (Christian Democrats),Croatian Democratic Union,1170,853,72.9,false
-,Nikos Anadiotis,Greece,Victory,Victory,0,0,0,false
+256858,Nikos Anadiotis,Greece,Victory,Victory,0,0,0,false
 256952,Nikos Pappas,Greece,Communist Party of Greece (Interior),Communist Party of Greece (Interior),1170,785,67.1,false
 197810,Nils Ušakovs,Latvia,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party "Harmony",1170,873,74.6,false
 257296,Nina Carberry,Ireland,Group of the European People's Party (Christian Democrats),Fine Gael,1170,1168,99.8,false
 257022,Nora Junco,Spain,European Conservatives and Reformists Group,European Conservatives and Reformists Group,1170,1129,96.5,false
 204418,Nora Mebarek,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Socialist Party,1170,1101,94.1,false
 124808,Norbert Lins,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,1068,91.3,false
-,Níkos Papandréou,Greece,,,0,0,0,false
+244571,Níkos Papandréou,Greece,,,0,0,0,false
 256987,Oihane Agirregoitia,Spain,Renew Europe Group,Basque Nationalist Party,1170,1164,99.5,false
 256979,Oliver Schenk,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,1113,95.1,false
 197463,Olivier Chastel,Belgium,Renew Europe Group,Reformist Movement,1170,1137,97.2,false
@@ -551,7 +551,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 220897,Petra Steger,Austria,Patriots for Europe Group,Austrian Freedom Party,1170,1088,93,false
 124766,Petras Auštrevičius,Lithuania,Renew Europe Group,Liberal Movement,1170,1165,99.6,false
 256808,Petras Gražulis,Lithuania,Europe of Sovereign Nations Group,Order and Justice,1170,891,76.2,false
-,Petŭr Volgin,Bulgaria,,,0,0,0,false
+257260,Petŭr Volgin,Bulgaria,,,0,0,0,false
 197687,Philippe Olivier,France,Patriots for Europe Group,National Rally,1170,1095,93.6,false
 257727,Pierfrancesco Maran,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,1170,1164,99.5,false
 256898,Pierre Jouvet,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Socialist Party,1170,972,83.1,false
@@ -571,7 +571,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 197425,Ralf Seekatz,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,1025,87.6,false
 197694,Raphaël Glucksmann,France,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Place publique,1170,922,78.8,false
 256970,Raquel García Hermida-van der Walle,Kingdom of the Netherlands,Renew Europe Group,Democrats 66,1170,1167,99.7,false
-,Rareș Bogdan,Romania,National Liberal Party,National Liberal Party,0,0,0,false
+197636,Rareș Bogdan,Romania,National Liberal Party,National Liberal Party,0,0,0,false
 197840,Rasa Juknevičienė,Lithuania,Group of the European People's Party (Christian Democrats),Homeland Union – Lithuanian Christian Democrats,1170,865,73.9,false
 197448,Rasmus Andresen,Germany,Group of the Greens/European Free Alliance,Alliance '90/The Greens,1170,1152,98.5,false
 257044,Rasmus Nordqvist,Kingdom of Denmark,Group of the Greens/European Free Alliance,Green Left,1170,1163,99.4,false
@@ -594,7 +594,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 112747,Romana Jerković,Croatia,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Croatia,1170,1139,97.4,false
 125104,Romana Tomc,Slovenia,Group of the European People's Party (Christian Democrats),Slovenian Democratic Party,1170,1157,98.9,false
 96811,Rosa Estaràs,Spain,Group of the European People's Party (Christian Democrats),People's Party,1170,920,78.6,false
-,Rosa María Serrano Sierra,Spain,Spanish Socialist Workers' Party,Spanish Socialist Workers' Party,0,0,0,false
+256999,Rosa María Serrano Sierra,Spain,Spanish Socialist Workers' Party,Spanish Socialist Workers' Party,0,0,0,false
 256890,Rudi Kennes,Belgium,,,1170,1154,98.6,false
 257104,Ruggero Razza,Italy,European Conservatives and Reformists Group,European Conservatives and Reformists Group,1170,943,80.6,false
 25758,Ruth Firmenich,Germany,Sahra Wagenknecht Alliance,Sahra Wagenknecht Alliance,1170,1154,98.6,false
@@ -608,7 +608,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 204419,Sandro Gozi,France,Renew Europe Group,Democratic Party,1170,1157,98.9,false
 257170,Sandro Ruotolo,Italy,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,independent politician,1170,1034,88.4,false
 256924,Sarah Knafo,France,Europe of Sovereign Nations Group,Reconquête,1170,1070,91.5,false
-,Saraswati Matthieu,Belgium,Groen,Groen,0,0,0,false
+208722,Saraswati Matthieu,Belgium,Groen,Groen,0,0,0,false
 197470,Saskia Bricmont,Belgium,Group of the Greens/European Free Alliance,Ecolo,1170,1095,93.6,false
 256991,Sebastiaan Stöteler,Kingdom of the Netherlands,Patriots for Europe Group,Party for Freedom,1170,770,65.8,false
 256961,Sebastian Everding,Germany,,,1170,1002,85.6,false
@@ -619,8 +619,8 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 4746,Sergio Berlato,Italy,European Conservatives and Reformists Group,National Alliance,1170,1168,99.8,false
 96668,Seán Kelly,Ireland,Group of the European People's Party (Christian Democrats),Fine Gael,1170,1170,100,false
 256960,Sibylle Berg,Germany,,,1170,520,44.4,false
-,Siegbert Droese,Germany,Alternative for Germany,Alternative for Germany,0,0,0,false
-,Siegfried Mureșan,Romania,National Liberal Party,National Liberal Party,0,0,0,false
+256949,Siegbert Droese,Germany,Alternative for Germany,Alternative for Germany,0,0,0,false
+124802,Siegfried Mureșan,Romania,National Liberal Party,National Liberal Party,0,0,0,false
 257038,Sigrid Friis Frederiksen,Kingdom of Denmark,Renew Europe Group,Danish Social Liberal Party,0,0,0,false
 197578,Silvia Sardone,Italy,Patriots for Europe Group,The People of Freedom,1170,1070,91.5,false
 257088,Sofie Eriksson,Sweden,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Swedish Social Democratic Party,1170,1167,99.7,false
@@ -680,7 +680,7 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 256974,Verena Mertens,Germany,Group of the European People's Party (Christian Democrats),Christian Democratic Union,1170,845,72.2,false
 257014,Veronika Cifrová Ostrihoňová,Slovakia,Renew Europe Group,Renew Europe Group,1170,1158,99,false
 197552,Veronika Vrecionová,Czech Republic,European Conservatives and Reformists Group,Civic Democratic Party,1170,1151,98.4,false
-,Vicent Marzà i Ibàñez,Spain,Valencian Nationalist Bloc,Valencian Nationalist Bloc,0,0,0,false
+257016,Vicent Marzà i Ibàñez,Spain,Valencian Nationalist Bloc,Valencian Nationalist Bloc,0,0,0,false
 88882,Victor Negrescu,Romania,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party,1170,1061,90.7,false
 256857,Viktória Ferenc,Hungary,Patriots for Europe Group,Fidesz,1170,1051,89.8,false
 96681,Vilija Blinkevičiūtė,Lithuania,Group of the Progressive Alliance of Socialists and Democrats in the European Parliament,Social Democratic Party of Lithuania,1170,1161,99.2,false
@@ -694,17 +694,17 @@ https://www.europarl.europa.eu/meps/en/257129/MIMMO_LUCANO/home,Domenico Lucano,
 257112,Vlad Voiculescu,Romania,Group of the European Conservatives and Reformists,Save Romania Union,1170,1004,85.8,false
 256813,Vladimir Prebilič,Slovenia,Group of the Greens/European Free Alliance,Group of the Greens/European Free Alliance,1170,1168,99.8,false
 267485,Volker Schnurrbusch,Germany,Europe of Sovereign Nations Group,Alternative for Germany,1170,1152,98.5,false
-,Vytenis Andriukaitis,Lithuania,Social Democratic Party of Lithuania,Social Democratic Party of Lithuania,0,0,0,false
+119652,Vytenis Andriukaitis,Lithuania,Social Democratic Party of Lithuania,Social Democratic Party of Lithuania,0,0,0,false
 99878,Waldemar Buda,Poland,European Conservatives and Reformists Group,Law and Justice,1170,1042,89.1,false
 96697,Waldemar Tomaszewski,Lithuania,European Conservatives and Reformists Group,Electoral Action of Poles in Lithuania,1170,909,77.7,false
 256887,Wouter Beke,Belgium,Group of the European People's Party (Christian Democrats),Christian Democratic and Flemish,1170,1098,93.8,false
-,Yana Toom,Estonia,Estonian Centre Party,Estonian Centre Party,0,0,0,false
+124700,Yana Toom,Estonia,Estonian Centre Party,Estonian Centre Party,0,0,0,false
 30482,Younous Omarjee,France,Reunionese Communist Party,Reunionese Communist Party,1170,951,81.3,false
 256879,Yvan Verougstraete,Belgium,Renew Europe Group,Renew Europe Group,1170,689,58.9,false
 256814,Zala Tomašič,Slovenia,Group of the European People's Party (Christian Democrats),Slovenian Democratic Party,1170,1160,99.1,false
 256863,Zoltán Tarr,Hungary,Group of the European People's Party (Christian Democrats),Respect and Freedom Party,1170,545,46.6,false
 257457,Zsuzsanna Borvendég,Hungary,Europe of Sovereign Nations Group,Europe of Sovereign Nations Group,1170,1145,97.9,false
-,Éric Sargiacomo,France,Socialist Party,Socialist Party,0,0,0,false
+256905,Éric Sargiacomo,France,Socialist Party,Socialist Party,0,0,0,false
 197468,Özlem Demirel,Germany,Party of Democratic Socialism,Party of Democratic Socialism,1170,916,78.3,false
 257013,Ľubica Karvašová,Slovakia,Renew Europe Group,Renew Europe Group,1170,1057,90.3,false
 257010,Ľudovít Ódor,Slovakia,Renew Europe Group,Renew Europe Group,1170,907,77.5,false
