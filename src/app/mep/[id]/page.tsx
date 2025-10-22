@@ -524,10 +524,24 @@ export default function MEPProfilePage() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900">Notable Votes</h2>
             
-            {/* Sprout: Export CSV Button */}
-            {csvEnabled && notableVotes.length > 0 && (
-              <ExportCSVButton selector="#votes-table" filename={`mep-${mep.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} />
-            )}
+            <div className="flex items-center space-x-3">
+              {/* 6-Month CSV Download */}
+              {mep.mep_id && notableVotes.length > 0 && (
+                <a
+                  href={`/api/meps/${mepId}/votes-csv`}
+                  download
+                  className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Download 6-Month CSV</span>
+                </a>
+              )}
+              
+              {/* Sprout: Export CSV Button */}
+              {csvEnabled && notableVotes.length > 0 && (
+                <ExportCSVButton selector="#votes-table" filename={`mep-${mep.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} />
+              )}
+            </div>
           </div>
           
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
@@ -605,7 +619,7 @@ export default function MEPProfilePage() {
             Attendance is calculated based on roll-call votes in plenary sessions of the European Parliament over the last 180 days. 
             Committee votes are excluded. Abstaining counts as present; not voting counts as absent. Notable votes are selected based on 
             significance, close outcomes, and high participation. Some MEPs may have partial terms affecting 
-            their attendance percentage.
+            their attendance percentage. The CSV download provides 6 months of voting data for detailed analysis.
           </p>
           {mep.special_role === 'Vice-President' && (
             <p className="text-sm text-blue-800 mt-2">
