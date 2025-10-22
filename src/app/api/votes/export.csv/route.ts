@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { loadData, getNotableVotes, getVote } from '@/lib/data';
 
 interface VoteSearchParams {
   q?: string;
@@ -28,107 +27,61 @@ interface VoteResult {
   majority_outcome: string;
   ep_source_url: string;
   leadership_role: boolean;
+  role_note?: string;
 }
 
-// Load data from JSON files
-function loadVotesData() {
-  const publicDataDir = path.join(process.cwd(), 'public', 'data');
-  
-  const votes = JSON.parse(fs.readFileSync(path.join(publicDataDir, 'votes.json'), 'utf-8'));
-  const meps = JSON.parse(fs.readFileSync(path.join(publicDataDir, 'meps.json'), 'utf-8'));
-  const notableVotes = JSON.parse(fs.readFileSync(path.join(publicDataDir, 'notable-votes.json'), 'utf-8'));
-  
-  return { votes, meps, notableVotes };
-}
-
-// Check if MEP has leadership role
-function getLeadershipRole(mepName: string): boolean {
-  const vicePresidents = [
-    'Sabine Verheyen',
-    'Ewa Kopacz', 
-    'Esteban González Pons',
-    'Katarina Barley',
-    'Pina Picierno',
-    'Victor Negrescu',
-    'Martin Hojsík',
-    'Christel Schaldemose',
-    'Javi López Fernández',
-    'Sophie Wilmès',
-    'Nicolae Ştefănuţă',
-    'Roberts Zīle',
-    'Antonella Sberna',
-    'Younous Omarjee'
-  ];
-  
-  return vicePresidents.includes(mepName);
-}
-
-// Map party groups to abbreviations
-function getGroupAbbreviation(party: string): string {
-  const groupMap: Record<string, string> = {
-    'European People\'s Party (EPP)': 'EPP',
-    'Progressive Alliance of Socialists and Democrats (S&D)': 'S&D',
-    'Renew Europe (RE)': 'RE',
-    'Greens/European Free Alliance (Greens/EFA)': 'Greens/EFA',
-    'European Conservatives and Reformists (ECR)': 'ECR',
-    'Identity and Democracy (ID)': 'ID',
-    'The Left in the European Parliament (GUE/NGL)': 'Left',
-    'The Patriots for Europe (PfE)': 'Patriots',
-    'Europe of Sovereign Nations (ESN)': 'ESN',
-    'Non-attached (NI)': 'NI'
-  };
-  
-  return groupMap[party] || party;
-}
-
-// Map country names to ISO codes
+// Helper functions
 function getCountryCode(country: string): string {
   const countryMap: Record<string, string> = {
-    'Germany': 'DE',
-    'France': 'FR',
-    'Italy': 'IT',
-    'Spain': 'ES',
-    'Poland': 'PL',
-    'Romania': 'RO',
-    'Netherlands': 'NL',
-    'Belgium': 'BE',
-    'Greece': 'GR',
-    'Czech Republic': 'CZ',
-    'Sweden': 'SE',
-    'Portugal': 'PT',
-    'Hungary': 'HU',
-    'Austria': 'AT',
-    'Bulgaria': 'BG',
-    'Denmark': 'DK',
-    'Finland': 'FI',
-    'Slovakia': 'SK',
-    'Ireland': 'IE',
-    'Croatia': 'HR',
-    'Lithuania': 'LT',
-    'Slovenia': 'SI',
-    'Latvia': 'LV',
-    'Estonia': 'EE',
-    'Cyprus': 'CY',
-    'Luxembourg': 'LU',
-    'Malta': 'MT'
+    'Germany': 'DE', 'France': 'FR', 'Italy': 'IT', 'Spain': 'ES', 'Poland': 'PL',
+    'Romania': 'RO', 'Netherlands': 'NL', 'Belgium': 'BE', 'Greece': 'GR',
+    'Czech Republic': 'CZ', 'Sweden': 'SE', 'Portugal': 'PT', 'Hungary': 'HU',
+    'Austria': 'AT', 'Bulgaria': 'BG', 'Denmark': 'DK', 'Finland': 'FI',
+    'Slovakia': 'SK', 'Ireland': 'IE', 'Croatia': 'HR', 'Lithuania': 'LT',
+    'Slovenia': 'SI', 'Latvia': 'LV', 'Estonia': 'EE', 'Cyprus': 'CY',
+    'Luxembourg': 'LU', 'Malta': 'MT'
   };
-  
   return countryMap[country] || country;
 }
 
-// Escape CSV field
-function escapeCsvField(field: string): string {
-  if (field.includes(',') || field.includes('"') || field.includes('\n')) {
-    return `"${field.replace(/"/g, '""')}"`;
+function getGroupAbbreviation(party: string): string {
+  if (!party) return '';
+  
+  if (party.includes('European People\'s Party') || party.includes('EPP')) return 'EPP';
+  if (party.includes('Progressive Alliance of Socialists') || party.includes('S&D')) return 'S&D';
+  if (party.includes('Renew Europe') || party.includes('RE')) return 'RE';
+  if (party.includes('Greens/European Free Alliance') || party.includes('Greens/EFA')) return 'Greens/EFA';
+  if (party.includes('European Conservatives and Reformists') || party.includes('ECR')) return 'ECR';
+  if (party.includes('Identity and Democracy') || party.includes('ID')) return 'ID';
+  if (party.includes('The Left') || party.includes('GUE/NGL')) return 'Left';
+  if (party.includes('Patriots for Europe') || party.includes('PfE')) return 'Patriots';
+  if (party.includes('Europe of Sovereign Nations') || party.includes('ESN')) return 'ESN';
+  if (party.includes('Non-attached') || party.includes('NI')) return 'NI';
+  
+  return party;
+}
+
+function getLeadershipRole(name: string): { leadership_role: boolean; role_note?: string } {
+  const vicePresidents = [
+    'Sabine Verheyen', 'Ewa Kopacz', 'Esteban González Pons', 'Katarina Barley',
+    'Pina Picierno', 'Victor Negrescu', 'Martin Hojsík', 'Christel Schaldemose',
+    'Javi López Fernández', 'Sophie Wilmès', 'Nicolae Ştefănuţă', 'Roberts Zīle',
+    'Antonella Sberna', 'Younous Omarjee'
+  ];
+  
+  if (vicePresidents.includes(name)) {
+    return { leadership_role: true, role_note: 'Vice-President' };
   }
-  return field;
+  
+  return { leadership_role: false };
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    // Load data with special roles applied
+    loadData();
     
-    // Parse query parameters
+    const { searchParams } = new URL(request.url);
     const params: VoteSearchParams = {
       q: searchParams.get('q') || undefined,
       dossier_id: searchParams.get('dossier_id') || undefined,
@@ -141,67 +94,50 @@ export async function GET(request: NextRequest) {
       outcome: searchParams.get('outcome') || undefined
     };
 
-    // Load data
-    const { votes, meps, notableVotes } = loadVotesData();
+    // Get all MEPs and their notable votes
+    const meps = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/meps.json'), 'utf8'));
     
-    // Create MEP lookup
-    const mepLookup = new Map();
-    meps.forEach((mep: any) => {
-      mepLookup.set(mep.mep_id, mep);
-    });
-    
-    // Create vote results by combining votes with notable votes
     const allVoteResults: VoteResult[] = [];
     
-    // Process each vote
-    votes.forEach((vote: any) => {
-      const voteDate = new Date(vote.vote_date);
+    // Process each MEP
+    for (const mep of meps) {
+      // Apply MEP filters first
+      if (params.mep_id && mep.mep_id !== params.mep_id) continue;
+      if (params.country && getCountryCode(mep.country) !== params.country) continue;
+      if (params.group && getGroupAbbreviation(mep.party) !== params.group) continue;
+      if (params.party && mep.national_party !== params.party) continue;
       
-      // Apply date filters
-      if (params.date_from) {
-        const fromDate = new Date(params.date_from);
-        if (voteDate < fromDate) return;
-      }
-      if (params.date_to) {
-        const toDate = new Date(params.date_to);
-        if (voteDate > toDate) return;
-      }
+      // Get notable votes for this MEP
+      const notableVotes = getNotableVotes(mep.mep_id);
       
-      // Apply keyword filter
-      if (params.q && !vote.title.toLowerCase().includes(params.q.toLowerCase())) {
-        return;
-      }
-      
-      // Apply dossier filter
-      if (params.dossier_id && vote.vote_id !== params.dossier_id) {
-        return;
-      }
-      
-      // Get all MEPs who voted on this vote by checking notable votes
-      // notableVotes is organized by MEP ID, so we need to check each MEP
-      Object.keys(notableVotes).forEach(mepId => {
-        const mepVotes = notableVotes[mepId];
-        const voteRecord = mepVotes.find((v: any) => v.vote_id === vote.vote_id);
+      for (const notableVote of notableVotes) {
+        // Get the full vote details
+        const vote = getVote(notableVote.vote_id);
+        if (!vote) continue;
         
-        if (!voteRecord) return;
+        // Apply vote filters
+        if (params.q && !vote.title.toLowerCase().includes(params.q.toLowerCase())) continue;
+        if (params.dossier_id && vote.vote_id !== params.dossier_id) continue;
+        if (params.outcome && notableVote.vote_position !== params.outcome) continue;
         
-        const mep = mepLookup.get(mepId);
-        if (!mep) return;
-        
-        // Apply MEP filters
-        if (params.mep_id && mep.mep_id !== params.mep_id) return;
-        if (params.country && getCountryCode(mep.country) !== params.country) return;
-        if (params.group && getGroupAbbreviation(mep.party) !== params.group) return;
-        if (params.party && mep.national_party !== params.party) return;
-        if (params.outcome && voteRecord.vote_position !== params.outcome) return;
+        // Apply date filters
+        if (params.date_from) {
+          const voteDate = new Date(vote.vote_date);
+          const fromDate = new Date(params.date_from);
+          if (voteDate < fromDate) continue;
+        }
+        if (params.date_to) {
+          const voteDate = new Date(vote.vote_date);
+          const toDate = new Date(params.date_to);
+          if (voteDate > toDate) continue;
+        }
         
         // Get leadership role info
-        const leadershipRole = getLeadershipRole(mep.name);
+        const leadership = getLeadershipRole(mep.name);
         
         // Determine majority outcome
         const totalFor = vote.total_for || 0;
         const totalAgainst = vote.total_against || 0;
-        const totalAbstain = vote.total_abstain || 0;
         
         let majorityOutcome = 'tie';
         if (totalFor > totalAgainst) {
@@ -212,76 +148,65 @@ export async function GET(request: NextRequest) {
         
         const voteResult: VoteResult = {
           vote_id: vote.vote_id,
-          dossier_id: vote.vote_id, // Using vote_id as dossier_id for now
+          dossier_id: vote.vote_id,
           dossier_title: vote.title,
-          date: vote.vote_date.split(' ')[0], // Extract date part
+          date: vote.vote_date.split(' ')[0],
           mep_id: mep.mep_id,
           mep_name: mep.name,
           group: getGroupAbbreviation(mep.party),
           country: getCountryCode(mep.country),
           party: mep.national_party || '',
-          outcome: voteRecord.vote_position,
+          outcome: notableVote.vote_position,
           majority_outcome: majorityOutcome,
           ep_source_url: vote.source_url,
-          leadership_role: leadershipRole
+          leadership_role: leadership.leadership_role,
+          role_note: leadership.role_note
         };
         
         allVoteResults.push(voteResult);
-      });
-    });
+      }
+    }
     
     // Check row cap
     if (allVoteResults.length > 100000) {
       return NextResponse.json(
-        { error: 'Export exceeds 100,000 rows. Please narrow your filters.' },
+        { error: 'Export too large. Please apply more filters to reduce the number of results.' },
         { status: 400 }
       );
     }
     
-    // Generate CSV content
-    const csvHeader = 'vote_id,dossier_id,dossier_title,date,mep_id,mep_name,group,country,party,outcome,majority_outcome,ep_source_url,leadership_role';
+    // Create CSV content
+    const headers = [
+      'Date', 'Dossier Title', 'MEP', 'Group', 'Country', 'Party', 
+      'Outcome', 'Majority', 'Source'
+    ];
     
     const csvRows = allVoteResults.map(vote => [
-      escapeCsvField(vote.vote_id),
-      escapeCsvField(vote.dossier_id),
-      escapeCsvField(vote.dossier_title),
-      escapeCsvField(vote.date),
-      escapeCsvField(vote.mep_id),
-      escapeCsvField(vote.mep_name),
-      escapeCsvField(vote.group),
-      escapeCsvField(vote.country),
-      escapeCsvField(vote.party),
-      escapeCsvField(vote.outcome),
-      escapeCsvField(vote.majority_outcome),
-      escapeCsvField(vote.ep_source_url),
-      vote.leadership_role.toString()
-    ].join(','));
+      vote.date,
+      `"${vote.dossier_title.replace(/"/g, '""')}"`,
+      `"${vote.mep_name.replace(/"/g, '""')}"`,
+      vote.group,
+      vote.country,
+      `"${vote.party.replace(/"/g, '""')}"`,
+      vote.outcome,
+      vote.majority_outcome,
+      vote.ep_source_url
+    ]);
     
-    const csvContent = [csvHeader, ...csvRows].join('\n');
+    const csvContent = [headers, ...csvRows]
+      .map(row => row.join(','))
+      .join('\n');
     
-    // Generate filename with current date
-    const today = new Date().toISOString().split('T')[0];
-    const filename = `vote_export_${today}.csv`;
+    // Set headers for file download
+    const response = new NextResponse(csvContent);
+    response.headers.set('Content-Type', 'text/csv');
+    response.headers.set('Content-Disposition', 'attachment; filename="votes-export.csv"');
+    response.headers.set('X-Export-Filters', JSON.stringify(params));
     
-    // Create export filters header
-    const exportFilters = new URLSearchParams();
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined) {
-        exportFilters.set(key, value.toString());
-      }
-    });
-    
-    return new NextResponse(csvContent, {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/csv; charset=utf-8',
-        'Content-Disposition': `attachment; filename="${filename}"`,
-        'X-Export-Filters': exportFilters.toString()
-      }
-    });
+    return response;
     
   } catch (error) {
-    console.error('Error in vote export:', error);
+    console.error('Error in /api/votes/export.csv:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

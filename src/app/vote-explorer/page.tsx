@@ -111,6 +111,10 @@ function VoteExplorerContent() {
   
   const [meps, setMeps] = useState<Array<{id: string, name: string, country: string}>>([]);
   const [nationalParties, setNationalParties] = useState<string[]>([]);
+  const [mepSearchQuery, setMepSearchQuery] = useState('');
+  const [partySearchQuery, setPartySearchQuery] = useState('');
+  const [showMepResults, setShowMepResults] = useState(false);
+  const [showPartyResults, setShowPartyResults] = useState(false);
   
   const [results, setResults] = useState<VoteSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
@@ -275,6 +279,43 @@ function VoteExplorerContent() {
     setFilters(prev => ({ ...prev, [key]: value }));
   };
 
+  // Filter MEPs based on search query
+  const filteredMeps = meps.filter(mep => 
+    mep.name.toLowerCase().includes(mepSearchQuery.toLowerCase()) ||
+    mep.country.toLowerCase().includes(mepSearchQuery.toLowerCase())
+  ).slice(0, 10);
+
+  // Filter parties based on search query
+  const filteredParties = nationalParties.filter(party => 
+    party.toLowerCase().includes(partySearchQuery.toLowerCase())
+  ).slice(0, 10);
+
+  const handleMepSelect = (mep: {id: string, name: string, country: string}) => {
+    setFilters(prev => ({ ...prev, mep_id: mep.id }));
+    setMepSearchQuery(mep.name);
+    setShowMepResults(false);
+  };
+
+  const handlePartySelect = (party: string) => {
+    setFilters(prev => ({ ...prev, party }));
+    setPartySearchQuery(party);
+    setShowPartyResults(false);
+  };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.mep-search-container') && !target.closest('.party-search-container')) {
+        setShowMepResults(false);
+        setShowPartyResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -393,41 +434,74 @@ function VoteExplorerContent() {
               </div>
 
               {/* National Party */}
-              <div>
+              <div className="relative party-search-container">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   National Party
                 </label>
-                <select
-                  value={filters.party}
-                  onChange={(e) => updateFilter('party', e.target.value)}
+                <input
+                  type="text"
+                  value={partySearchQuery}
+                  onChange={(e) => {
+                    setPartySearchQuery(e.target.value);
+                    setShowPartyResults(e.target.value.length > 0);
+                    if (e.target.value === '') {
+                      updateFilter('party', '');
+                    }
+                  }}
+                  onFocus={() => setShowPartyResults(partySearchQuery.length > 0)}
+                  placeholder="Search national parties..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">All parties</option>
-                  {nationalParties.map(party => (
-                    <option key={party} value={party}>
-                      {party}
-                    </option>
-                  ))}
-                </select>
+                />
+                {showPartyResults && filteredParties.length > 0 && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    {filteredParties.map(party => (
+                      <button
+                        key={party}
+                        onClick={() => handlePartySelect(party)}
+                        className="w-full px-3 py-2 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
+                      >
+                        {party}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* MEP Name */}
-              <div>
+              <div className="relative mep-search-container">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   MEP Name
                 </label>
-                <select
-                  value={filters.mep_id}
-                  onChange={(e) => updateFilter('mep_id', e.target.value)}
+                <input
+                  type="text"
+                  value={mepSearchQuery}
+                  onChange={(e) => {
+                    setMepSearchQuery(e.target.value);
+                    setShowMepResults(e.target.value.length > 0);
+                    if (e.target.value === '') {
+                      updateFilter('mep_id', '');
+                    }
+                  }}
+                  onFocus={() => setShowMepResults(mepSearchQuery.length > 0)}
+                  placeholder="Search MEPs..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">All MEPs</option>
-                  {meps.map(mep => (
-                    <option key={mep.id} value={mep.id}>
-                      {mep.name} ({mep.country})
-                    </option>
-                  ))}
-                </select>
+                />
+                {showMepResults && filteredMeps.length > 0 && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    {filteredMeps.map(mep => (
+                      <button
+                        key={mep.id}
+                        onClick={() => handleMepSelect(mep)}
+                        className="w-full px-3 py-2 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium">{mep.name}</span>
+                          <span className="text-sm text-gray-500">{mep.country}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Outcome */}

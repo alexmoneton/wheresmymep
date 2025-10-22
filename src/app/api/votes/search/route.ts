@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { loadData, getNotableVotes, getVote } from '@/lib/data';
 
 interface VoteSearchParams {
   q?: string;
@@ -33,113 +32,58 @@ interface VoteResult {
   role_note?: string;
 }
 
-interface VoteSearchResponse {
-  items: VoteResult[];
-  page: number;
-  page_size: number;
-  total: number;
-  export_url: string;
-  too_large?: boolean;
+// Helper functions
+function getCountryCode(country: string): string {
+  const countryMap: Record<string, string> = {
+    'Germany': 'DE', 'France': 'FR', 'Italy': 'IT', 'Spain': 'ES', 'Poland': 'PL',
+    'Romania': 'RO', 'Netherlands': 'NL', 'Belgium': 'BE', 'Greece': 'GR',
+    'Czech Republic': 'CZ', 'Sweden': 'SE', 'Portugal': 'PT', 'Hungary': 'HU',
+    'Austria': 'AT', 'Bulgaria': 'BG', 'Denmark': 'DK', 'Finland': 'FI',
+    'Slovakia': 'SK', 'Ireland': 'IE', 'Croatia': 'HR', 'Lithuania': 'LT',
+    'Slovenia': 'SI', 'Latvia': 'LV', 'Estonia': 'EE', 'Cyprus': 'CY',
+    'Luxembourg': 'LU', 'Malta': 'MT'
+  };
+  return countryMap[country] || country;
 }
 
-// Load data from JSON files
-function loadVotesData() {
-  const publicDataDir = path.join(process.cwd(), 'public', 'data');
+function getGroupAbbreviation(party: string): string {
+  if (!party) return '';
   
-  const votes = JSON.parse(fs.readFileSync(path.join(publicDataDir, 'votes.json'), 'utf-8'));
-  const meps = JSON.parse(fs.readFileSync(path.join(publicDataDir, 'meps.json'), 'utf-8'));
-  const notableVotes = JSON.parse(fs.readFileSync(path.join(publicDataDir, 'notable-votes.json'), 'utf-8'));
+  if (party.includes('European People\'s Party') || party.includes('EPP')) return 'EPP';
+  if (party.includes('Progressive Alliance of Socialists') || party.includes('S&D')) return 'S&D';
+  if (party.includes('Renew Europe') || party.includes('RE')) return 'RE';
+  if (party.includes('Greens/European Free Alliance') || party.includes('Greens/EFA')) return 'Greens/EFA';
+  if (party.includes('European Conservatives and Reformists') || party.includes('ECR')) return 'ECR';
+  if (party.includes('Identity and Democracy') || party.includes('ID')) return 'ID';
+  if (party.includes('The Left') || party.includes('GUE/NGL')) return 'Left';
+  if (party.includes('Patriots for Europe') || party.includes('PfE')) return 'Patriots';
+  if (party.includes('Europe of Sovereign Nations') || party.includes('ESN')) return 'ESN';
+  if (party.includes('Non-attached') || party.includes('NI')) return 'NI';
   
-  return { votes, meps, notableVotes };
+  return party;
 }
 
-// Check if MEP has leadership role
-function getLeadershipRole(mepName: string): { leadership_role: boolean; role_note?: string } {
+function getLeadershipRole(name: string): { leadership_role: boolean; role_note?: string } {
   const vicePresidents = [
-    'Sabine Verheyen',
-    'Ewa Kopacz', 
-    'Esteban González Pons',
-    'Katarina Barley',
-    'Pina Picierno',
-    'Victor Negrescu',
-    'Martin Hojsík',
-    'Christel Schaldemose',
-    'Javi López Fernández',
-    'Sophie Wilmès',
-    'Nicolae Ştefănuţă',
-    'Roberts Zīle',
-    'Antonella Sberna',
-    'Younous Omarjee'
+    'Sabine Verheyen', 'Ewa Kopacz', 'Esteban González Pons', 'Katarina Barley',
+    'Pina Picierno', 'Victor Negrescu', 'Martin Hojsík', 'Christel Schaldemose',
+    'Javi López Fernández', 'Sophie Wilmès', 'Nicolae Ştefănuţă', 'Roberts Zīle',
+    'Antonella Sberna', 'Younous Omarjee'
   ];
   
-  if (vicePresidents.includes(mepName)) {
-    return {
-      leadership_role: true,
-      role_note: 'Vice-President (doesn\'t usually vote when chairing)'
-    };
+  if (vicePresidents.includes(name)) {
+    return { leadership_role: true, role_note: 'Vice-President' };
   }
   
   return { leadership_role: false };
 }
 
-// Map party groups to abbreviations
-function getGroupAbbreviation(party: string): string {
-  const groupMap: Record<string, string> = {
-    'European People\'s Party (EPP)': 'EPP',
-    'Progressive Alliance of Socialists and Democrats (S&D)': 'S&D',
-    'Renew Europe (RE)': 'RE',
-    'Greens/European Free Alliance (Greens/EFA)': 'Greens/EFA',
-    'European Conservatives and Reformists (ECR)': 'ECR',
-    'Identity and Democracy (ID)': 'ID',
-    'The Left in the European Parliament (GUE/NGL)': 'Left',
-    'The Patriots for Europe (PfE)': 'Patriots',
-    'Europe of Sovereign Nations (ESN)': 'ESN',
-    'Non-attached (NI)': 'NI'
-  };
-  
-  return groupMap[party] || party;
-}
-
-// Map country names to ISO codes
-function getCountryCode(country: string): string {
-  const countryMap: Record<string, string> = {
-    'Germany': 'DE',
-    'France': 'FR',
-    'Italy': 'IT',
-    'Spain': 'ES',
-    'Poland': 'PL',
-    'Romania': 'RO',
-    'Netherlands': 'NL',
-    'Belgium': 'BE',
-    'Greece': 'GR',
-    'Czech Republic': 'CZ',
-    'Sweden': 'SE',
-    'Portugal': 'PT',
-    'Hungary': 'HU',
-    'Austria': 'AT',
-    'Bulgaria': 'BG',
-    'Denmark': 'DK',
-    'Finland': 'FI',
-    'Slovakia': 'SK',
-    'Ireland': 'IE',
-    'Croatia': 'HR',
-    'Lithuania': 'LT',
-    'Slovenia': 'SI',
-    'Latvia': 'LV',
-    'Estonia': 'EE',
-    'Cyprus': 'CY',
-    'Luxembourg': 'LU',
-    'Malta': 'MT'
-  };
-  
-  return countryMap[country] || country;
-}
-
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    // Load data with special roles applied
+    loadData();
     
-    // Parse query parameters
+    const { searchParams } = new URL(request.url);
     const params: VoteSearchParams = {
       q: searchParams.get('q') || undefined,
       dossier_id: searchParams.get('dossier_id') || undefined,
@@ -151,62 +95,46 @@ export async function GET(request: NextRequest) {
       mep_id: searchParams.get('mep_id') || undefined,
       outcome: searchParams.get('outcome') || undefined,
       page: parseInt(searchParams.get('page') || '1'),
-      page_size: Math.min(parseInt(searchParams.get('page_size') || '50'), 200)
+      page_size: Math.min(parseInt(searchParams.get('page_size') || '20'), 200)
     };
 
-    // Load data
-    const { votes, meps, notableVotes } = loadVotesData();
+    // Get all MEPs and their notable votes
+    const meps = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/meps.json'), 'utf8'));
     
-    // Create MEP lookup
-    const mepLookup = new Map();
-    meps.forEach((mep: any) => {
-      mepLookup.set(mep.mep_id, mep);
-    });
-    
-    // Create vote results by combining votes with notable votes
     const allVoteResults: VoteResult[] = [];
     
-    // Process each vote
-    votes.forEach((vote: any) => {
-      const voteDate = new Date(vote.vote_date);
+    // Process each MEP
+    for (const mep of meps) {
+      // Apply MEP filters first
+      if (params.mep_id && mep.mep_id !== params.mep_id) continue;
+      if (params.country && getCountryCode(mep.country) !== params.country) continue;
+      if (params.group && getGroupAbbreviation(mep.party) !== params.group) continue;
+      if (params.party && mep.national_party !== params.party) continue;
       
-      // Apply date filters
-      if (params.date_from) {
-        const fromDate = new Date(params.date_from);
-        if (voteDate < fromDate) return;
-      }
-      if (params.date_to) {
-        const toDate = new Date(params.date_to);
-        if (voteDate > toDate) return;
-      }
+      // Get notable votes for this MEP
+      const notableVotes = getNotableVotes(mep.mep_id);
       
-      // Apply keyword filter
-      if (params.q && !vote.title.toLowerCase().includes(params.q.toLowerCase())) {
-        return;
-      }
-      
-      // Apply dossier filter
-      if (params.dossier_id && vote.vote_id !== params.dossier_id) {
-        return;
-      }
-      
-      // Get all MEPs who voted on this vote by checking notable votes
-      // notableVotes is organized by MEP ID, so we need to check each MEP
-      Object.keys(notableVotes).forEach(mepId => {
-        const mepVotes = notableVotes[mepId];
-        const voteRecord = mepVotes.find((v: any) => v.vote_id === vote.vote_id);
+      for (const notableVote of notableVotes) {
+        // Get the full vote details
+        const vote = getVote(notableVote.vote_id);
+        if (!vote) continue;
         
-        if (!voteRecord) return;
+        // Apply vote filters
+        if (params.q && !vote.title.toLowerCase().includes(params.q.toLowerCase())) continue;
+        if (params.dossier_id && vote.vote_id !== params.dossier_id) continue;
+        if (params.outcome && notableVote.vote_position !== params.outcome) continue;
         
-        const mep = mepLookup.get(mepId);
-        if (!mep) return;
-        
-        // Apply MEP filters
-        if (params.mep_id && mep.mep_id !== params.mep_id) return;
-        if (params.country && getCountryCode(mep.country) !== params.country) return;
-        if (params.group && getGroupAbbreviation(mep.party) !== params.group) return;
-        if (params.party && mep.national_party !== params.party) return;
-        if (params.outcome && voteRecord.vote_position !== params.outcome) return;
+        // Apply date filters
+        if (params.date_from) {
+          const voteDate = new Date(vote.vote_date);
+          const fromDate = new Date(params.date_from);
+          if (voteDate < fromDate) continue;
+        }
+        if (params.date_to) {
+          const voteDate = new Date(vote.vote_date);
+          const toDate = new Date(params.date_to);
+          if (voteDate > toDate) continue;
+        }
         
         // Get leadership role info
         const leadership = getLeadershipRole(mep.name);
@@ -214,7 +142,6 @@ export async function GET(request: NextRequest) {
         // Determine majority outcome
         const totalFor = vote.total_for || 0;
         const totalAgainst = vote.total_against || 0;
-        const totalAbstain = vote.total_abstain || 0;
         
         let majorityOutcome = 'tie';
         if (totalFor > totalAgainst) {
@@ -225,15 +152,15 @@ export async function GET(request: NextRequest) {
         
         const voteResult: VoteResult = {
           vote_id: vote.vote_id,
-          dossier_id: vote.vote_id, // Using vote_id as dossier_id for now
+          dossier_id: vote.vote_id,
           dossier_title: vote.title,
-          date: vote.vote_date.split(' ')[0], // Extract date part
+          date: vote.vote_date.split(' ')[0],
           mep_id: mep.mep_id,
           mep_name: mep.name,
           group: getGroupAbbreviation(mep.party),
           country: getCountryCode(mep.country),
           party: mep.national_party || '',
-          outcome: voteRecord.vote_position,
+          outcome: notableVote.vote_position,
           majority_outcome: majorityOutcome,
           ep_source_url: vote.source_url,
           leadership_role: leadership.leadership_role,
@@ -241,8 +168,8 @@ export async function GET(request: NextRequest) {
         };
         
         allVoteResults.push(voteResult);
-      });
-    });
+      }
+    }
     
     // Check if too large
     const tooLarge = allVoteResults.length > 50000;
@@ -255,25 +182,25 @@ export async function GET(request: NextRequest) {
     // Create export URL
     const exportParams = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && key !== 'page' && key !== 'page_size') {
+      if (value !== undefined && value !== '') {
         exportParams.set(key, value.toString());
       }
     });
     const exportUrl = `/api/votes/export.csv?${exportParams.toString()}`;
     
-    const response: VoteSearchResponse = {
+    const response = {
       items: paginatedResults,
       page: params.page,
       page_size: params.page_size,
       total: allVoteResults.length,
       export_url: exportUrl,
-      too_large: tooLarge
+      ...(tooLarge && { too_large: true })
     };
     
     return NextResponse.json(response);
     
   } catch (error) {
-    console.error('Error in vote search:', error);
+    console.error('Error in /api/votes/search:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
