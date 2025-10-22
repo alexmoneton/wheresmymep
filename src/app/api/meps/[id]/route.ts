@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getMEP } from '@/lib/data';
+import { getMEP, loadData } from '@/lib/data';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Ensure data is loaded with special roles applied
+    loadData();
+    
     const { id } = await params;
     const mep = getMEP(id);
     

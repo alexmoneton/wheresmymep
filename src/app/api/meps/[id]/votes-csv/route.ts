@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getMEP, getNotableVotes } from '@/lib/data';
+import { getMEP, getNotableVotes, loadData } from '@/lib/data';
+import path from 'path';
+import fs from 'fs';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Ensure data is loaded with special roles applied
+    loadData();
+    
     const { id } = await params;
     const mep = getMEP(id);
     
@@ -16,14 +21,15 @@ export async function GET(
       );
     }
 
-    // Get notable votes for the MEP
-    const notableVotes = getNotableVotes(id);
+    // Get all votes from the catalog for the last 6 months
+    const votesCatalogPath = path.join(process.cwd(), 'public', 'data', 'votes.json');
+    const votesCatalog = JSON.parse(fs.readFileSync(votesCatalogPath, 'utf-8'));
     
     // Filter votes to last 6 months (180 days)
     const sixMonthsAgo = new Date();
     sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 180);
     
-    const recentVotes = notableVotes.filter(vote => {
+    const recentVotes = votesCatalog.filter(vote => {
       const voteDate = new Date(vote.vote_date);
       return voteDate >= sixMonthsAgo;
     });
@@ -36,12 +42,12 @@ export async function GET(
       'Party',
       'Vote Date',
       'Vote Title',
-      'Vote Position',
       'Result',
       'Total For',
       'Total Against', 
       'Total Abstain',
-      'Source URL'
+      'Source URL',
+      'Note'
     ];
 
     const csvRows = recentVotes.map(vote => [
@@ -51,12 +57,12 @@ export async function GET(
       mep.party,
       vote.vote_date,
       `"${vote.title.replace(/"/g, '""')}"`, // Escape quotes in title
-      vote.vote_position,
       vote.result || '',
       vote.total_for || '',
       vote.total_against || '',
       vote.total_abstain || '',
-      vote.source_url
+      vote.source_url,
+      'Individual MEP vote position not available - see source URL for details'
     ]);
 
     const csvContent = [
