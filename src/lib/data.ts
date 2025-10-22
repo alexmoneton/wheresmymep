@@ -57,20 +57,20 @@ function getSpecialRole(mep: MEPIdentity): string | undefined {
   
   // Vice-Presidents of the European Parliament (14 total)
   const vicePresidents = [
-    'Katarina Barley',
-    'Othmar Karas',
-    'Pina Picierno',
-    'Pedro Silva Pereira',
+    'Sabine Verheyen', // First Vice-President
     'Ewa Kopacz',
-    'Rainer Wieland',
-    'Dita Charanzová',
-    'Nicola Beer',
-    'Heidi Hautala',
-    'Marc Angel',
-    'Fabienne Keller',
-    'Paulo Rangel',
-    'Sergey Lagodinsky',
-    'Michal Šimečka'
+    'Esteban González Pons',
+    'Katarina Barley',
+    'Pina Picierno',
+    'Victor Negrescu',
+    'Martin Hojsík',
+    'Christel Schaldemose',
+    'Javi López Fernández',
+    'Sophie Wilmès',
+    'Nicolae Ştefănuţă',
+    'Roberts Zīle',
+    'Antonella Sberna',
+    'Younous Omarjee'
   ];
   
   if (vicePresidents.includes(mep.name)) {
@@ -236,7 +236,11 @@ export function getLeaderboardBottom(n: number = 25): EnrichedMEP[] {
       
       // Only include MEPs who have had a reasonable chance to vote
       // Exclude MEPs with very few total votes (likely new/replacement MEPs)
-      return (mep.votes_total_period || 0) > 100;
+      // Also exclude MEPs with very low attendance and few votes cast (replacement MEPs like Jaroslav Knot)
+      if ((mep.votes_total_period || 0) <= 100) return false;
+      if ((mep.attendance_pct || 0) < 30 && (mep.votes_cast || 0) < 500) return false;
+      
+      return true;
     })
     .sort((a, b) => (a.attendance_pct || 0) - (b.attendance_pct || 0))
     .slice(0, n);
