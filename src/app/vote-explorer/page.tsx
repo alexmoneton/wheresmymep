@@ -134,7 +134,7 @@ function VoteExplorerContent() {
         }
       });
       
-      const response = await fetch(`/api/votes/search?${params.toString()}`);
+      const response = await fetch(`/api/votes/search-db?${params.toString()}`);
       const data = await response.json();
       
       if (!response.ok) {

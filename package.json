@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run convert-data && next build",
+    "build": "npm run convert-data && prisma generate && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint",
     "convert-data": "node scripts/convert-csv-to-json.js",
