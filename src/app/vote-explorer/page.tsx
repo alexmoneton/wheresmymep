@@ -556,15 +556,15 @@ function VoteExplorerContent() {
             
             <button
               onClick={() => setUseComprehensive(!useComprehensive)}
-              className={`flex items-center px-4 py-2 rounded-md transition-colors ${
+              className={`flex items-center px-4 py-2 rounded-md transition-colors border-2 ${
                 useComprehensive 
-                  ? 'bg-purple-600 text-white hover:bg-purple-700' 
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-purple-600 text-white hover:bg-purple-700 border-purple-600' 
+                  : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-300'
               }`}
-              title={useComprehensive ? 'Using comprehensive data (2,424 votes since July 2024)' : 'Using recent data (1,170 votes)'}
+              title={useComprehensive ? 'Using comprehensive data (2,424 votes since July 2024)' : 'Click to load full history since July 2024'}
             >
               <Calendar className="h-4 w-4 mr-2" />
-              {useComprehensive ? 'Full History (2.4K votes)' : 'Recent (1.2K votes)'}
+              {useComprehensive ? 'Full History (2.4K votes)' : 'Recent (1.2K votes) - Click for Full History'}
             </button>
             
             <button
