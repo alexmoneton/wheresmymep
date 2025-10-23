@@ -739,7 +739,7 @@ function VoteExplorerContent() {
         {/* Empty state */}
         {!results && !loading && (
           <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
-            <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <Search className="h-12 w-12 mx-auto mb-4 text-gray-300" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No search performed</h3>
             <p className="text-gray-500">Use the filters above to search for votes.</p>
           </div>
