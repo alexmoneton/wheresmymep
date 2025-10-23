@@ -121,6 +121,35 @@ function VoteExplorerContent() {
   const [error, setError] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(true);
 
+  // Define searchVotes function before useEffects
+  const searchVotes = useCallback(async (searchFilters: Filters) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const params = new URLSearchParams();
+      Object.entries(searchFilters).forEach(([key, value]) => {
+        if (value) {
+          params.set(key, value);
+        }
+      });
+      
+      const response = await fetch(`/api/votes/search?${params.toString()}`);
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Search failed');
+      }
+      
+      setResults(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Search failed');
+      setResults(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   // Load MEPs and national parties data
   useEffect(() => {
     const loadData = async () => {
@@ -174,34 +203,6 @@ function VoteExplorerContent() {
     // Always search, even with empty filters (shows all votes)
     searchVotes(newFilters);
   }, [searchParams, searchVotes]);
-
-  const searchVotes = useCallback(async (searchFilters: Filters) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const params = new URLSearchParams();
-      Object.entries(searchFilters).forEach(([key, value]) => {
-        if (value) {
-          params.set(key, value);
-        }
-      });
-      
-      const response = await fetch(`/api/votes/search?${params.toString()}`);
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Search failed');
-      }
-      
-      setResults(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Search failed');
-      setResults(null);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   const handleApplyFilters = () => {
     // Update URL with current filters
