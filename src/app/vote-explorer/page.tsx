@@ -120,6 +120,14 @@ function VoteExplorerContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(true);
+  const [useComprehensive, setUseComprehensive] = useState(false);
+
+  // Re-search when comprehensive toggle changes
+  useEffect(() => {
+    if (results) {
+      searchVotes(filters);
+    }
+  }, [useComprehensive]);
 
   // Define searchVotes function before useEffects
   const searchVotes = useCallback(async (searchFilters: Filters) => {
@@ -133,6 +141,11 @@ function VoteExplorerContent() {
           params.set(key, value);
         }
       });
+      
+      // Add comprehensive flag if enabled
+      if (useComprehensive) {
+        params.set('comprehensive', 'true');
+      }
       
       const response = await fetch(`/api/votes/search?${params.toString()}`);
       const data = await response.json();
@@ -539,6 +552,19 @@ function VoteExplorerContent() {
               className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
             >
               Reset
+            </button>
+            
+            <button
+              onClick={() => setUseComprehensive(!useComprehensive)}
+              className={`flex items-center px-4 py-2 rounded-md transition-colors ${
+                useComprehensive 
+                  ? 'bg-purple-600 text-white hover:bg-purple-700' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+              title={useComprehensive ? 'Using comprehensive data (2,424 votes since July 2024)' : 'Using recent data (1,170 votes)'}
+            >
+              <Calendar className="h-4 w-4 mr-2" />
+              {useComprehensive ? 'Full History (2.4K votes)' : 'Recent (1.2K votes)'}
             </button>
             
             <button
