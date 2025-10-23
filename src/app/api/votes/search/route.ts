@@ -100,31 +100,29 @@ export async function GET(request: NextRequest) {
       comprehensive: searchParams.get('comprehensive') === 'true'
     };
     
-    // If comprehensive flag is set, redirect to comprehensive endpoint
+    // Determine data source
+    let notableVotesSource: any;
+    let votesCatalogSource: any;
+    
     if (params.comprehensive) {
-      const comprehensiveUrl = new URL('/api/votes/comprehensive', request.url);
-      if (params.mep_id) comprehensiveUrl.searchParams.set('mep_id', params.mep_id);
-      if (params.date_from) comprehensiveUrl.searchParams.set('date_from', params.date_from);
-      if (params.date_to) comprehensiveUrl.searchParams.set('date_to', params.date_to);
-      
-      const response = await fetch(comprehensiveUrl.toString());
+      // Fetch comprehensive data from Vercel Blob
+      console.log('🔄 Using comprehensive data source');
+      const comprehensiveUrl = `${request.url.split('/api')[0]}/api/votes/comprehensive`;
+      const response = await fetch(comprehensiveUrl);
       const data = await response.json();
       
       if (!data.success) {
         throw new Error(data.error || 'Failed to fetch comprehensive data');
       }
       
-      // Transform comprehensive data to match search format
-      // Note: This is a simplified version - comprehensive data needs more processing
-      return NextResponse.json({
-        items: [],
-        page: params.page,
-        page_size: params.page_size,
-        total: data.stats.total_votes,
-        export_url: `/api/votes/export.csv?comprehensive=true`,
-        comprehensive: true,
-        message: 'Comprehensive data available. Use /api/votes/comprehensive for full access.'
-      });
+      notableVotesSource = data.notableVotes;
+      votesCatalogSource = data.votesCatalog;
+      console.log(`✅ Loaded comprehensive data: ${Object.keys(notableVotesSource).length} MEPs, ${votesCatalogSource.length} votes`);
+    } else {
+      // Use local data files
+      console.log('⚡ Using local data source');
+      notableVotesSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/notable-votes.json'), 'utf8'));
+      votesCatalogSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/votes.json'), 'utf8'));
     }
 
     // Get all MEPs and their notable votes
@@ -140,13 +138,12 @@ export async function GET(request: NextRequest) {
       if (params.group && getGroupAbbreviation(mep.party) !== params.group) continue;
       if (params.party && mep.national_party !== params.party) continue;
       
-      // Get notable votes for this MEP
-      const notableVotes = getNotableVotes(mep.mep_id);
+      // Get notable votes for this MEP from the selected source
+      const notableVotes = notableVotesSource[mep.mep_id] || [];
       
       for (const notableVote of notableVotes) {
-        // Get the full vote details
-        const vote = getVote(notableVote.vote_id);
-        if (!vote) continue;
+        // The comprehensive data already includes full vote details in each record
+        const vote = notableVote;
         
         // Apply vote filters
         if (params.q && !vote.title.toLowerCase().includes(params.q.toLowerCase())) continue;
