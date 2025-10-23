@@ -107,22 +107,38 @@ export async function GET(request: NextRequest) {
     if (params.comprehensive) {
       // Fetch comprehensive data from Vercel Blob
       console.log('🔄 Using comprehensive data source');
-      const comprehensiveUrl = `${request.url.split('/api')[0]}/api/votes/comprehensive`;
+      const baseUrl = process.env.VERCEL_URL 
+        ? `https://${process.env.VERCEL_URL}` 
+        : 'http://localhost:3000';
+      const comprehensiveUrl = `${baseUrl}/api/votes/comprehensive`;
+      console.log(`Fetching from: ${comprehensiveUrl}`);
+      
       const response = await fetch(comprehensiveUrl);
       const data = await response.json();
       
       if (!data.success) {
+        console.error('❌ Failed to fetch comprehensive data:', data.error);
         throw new Error(data.error || 'Failed to fetch comprehensive data');
       }
       
       notableVotesSource = data.notableVotes;
       votesCatalogSource = data.votesCatalog;
       console.log(`✅ Loaded comprehensive data: ${Object.keys(notableVotesSource).length} MEPs, ${votesCatalogSource.length} votes`);
+      
+      // Log a sample to verify structure
+      const sampleMepId = Object.keys(notableVotesSource)[0];
+      const sampleVotes = notableVotesSource[sampleMepId];
+      console.log(`Sample MEP ${sampleMepId} has ${sampleVotes.length} votes`);
     } else {
       // Use local data files
       console.log('⚡ Using local data source');
       notableVotesSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/notable-votes.json'), 'utf8'));
       votesCatalogSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/votes.json'), 'utf8'));
+      
+      // Log local data stats
+      const sampleMepId = Object.keys(notableVotesSource)[0];
+      const sampleVotes = notableVotesSource[sampleMepId];
+      console.log(`Local data: Sample MEP ${sampleMepId} has ${sampleVotes.length} votes`);
     }
 
     // Get all MEPs and their notable votes
@@ -199,6 +215,12 @@ export async function GET(request: NextRequest) {
     
     // Check if too large
     const tooLarge = allVoteResults.length > 50000;
+    
+    // Log results before pagination
+    console.log(`📊 Total vote results found: ${allVoteResults.length}`);
+    if (allVoteResults.length > 0) {
+      console.log(`Date range: ${allVoteResults[0].date} to ${allVoteResults[allVoteResults.length - 1].date}`);
+    }
     
     // Apply pagination
     const startIndex = (params.page - 1) * params.page_size;
