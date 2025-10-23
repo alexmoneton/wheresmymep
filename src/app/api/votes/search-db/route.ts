@@ -91,6 +91,9 @@ function mapChoiceToString(choice: Choice): string {
 
 export async function GET(request: NextRequest) {
   try {
+    console.log('🔍 Database API called');
+    console.log('POSTGRES_URL exists:', !!process.env.POSTGRES_URL);
+    
     const { searchParams } = new URL(request.url);
     const params: VoteSearchParams = {
       q: searchParams.get('q') || undefined,
