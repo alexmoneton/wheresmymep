@@ -165,11 +165,16 @@ export async function GET(request: NextRequest) {
       where.choice = choiceMap[params.outcome];
     }
 
+    console.log('📊 Where clause:', JSON.stringify(where, null, 2));
+    
     // Get total count
     const total = await prisma.mEPVote.count({ where });
+    console.log(`📊 Total count: ${total}`);
 
     // Get paginated results
     const skip = (params.page - 1) * params.page_size;
+    console.log(`📊 Pagination: skip=${skip}, take=${params.page_size}`);
+    
     const mepVotes = await prisma.mEPVote.findMany({
       where,
       include: {
