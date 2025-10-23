@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Search, Download, ExternalLink, Users, Calendar, Filter, Copy, AlertCircle } from 'lucide-react';
+import { Search, Download, ExternalLink, Users, Filter, Copy, AlertCircle } from 'lucide-react';
 
 interface VoteResult {
   vote_id: string;
@@ -120,14 +120,7 @@ function VoteExplorerContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(true);
-  const [useComprehensive, setUseComprehensive] = useState(false);
-
-  // Re-search when comprehensive toggle changes
-  useEffect(() => {
-    if (results) {
-      searchVotes(filters);
-    }
-  }, [useComprehensive]);
+  const [useComprehensive] = useState(true); // Always use comprehensive data
 
   // Define searchVotes function before useEffects
   const searchVotes = useCallback(async (searchFilters: Filters) => {
@@ -552,19 +545,6 @@ function VoteExplorerContent() {
               className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
             >
               Reset
-            </button>
-            
-            <button
-              onClick={() => setUseComprehensive(!useComprehensive)}
-              className={`flex items-center px-4 py-2 rounded-md transition-colors border-2 ${
-                useComprehensive 
-                  ? 'bg-purple-600 text-white hover:bg-purple-700 border-purple-600' 
-                  : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-300'
-              }`}
-              title={useComprehensive ? 'Using comprehensive data (2,424 votes since July 2024)' : 'Click to load full history since July 2024'}
-            >
-              <Calendar className="h-4 w-4 mr-2" />
-              {useComprehensive ? 'Full History (2.4K votes)' : 'Recent (1.2K votes) - Click for Full History'}
             </button>
             
             <button
