@@ -130,9 +130,9 @@ function VoteExplorerContent() {
         
         // Extract MEPs with IDs
         const mepsWithIds = mepsData
-          .filter((mep: any) => mep.mep_id)
+          .filter((mep: any) => mep.id)
           .map((mep: any) => ({
-            id: mep.mep_id,
+            id: mep.id,
             name: mep.name,
             country: mep.country
           }))
@@ -171,12 +171,9 @@ function VoteExplorerContent() {
     
     setFilters(newFilters);
     
-    // If there are any filters, search immediately
-    const hasFilters = Object.values(newFilters).some(value => value !== '');
-    if (hasFilters) {
-      searchVotes(newFilters);
-    }
-  }, [searchParams]);
+    // Always search, even with empty filters (shows all votes)
+    searchVotes(newFilters);
+  }, [searchParams, searchVotes]);
 
   const searchVotes = useCallback(async (searchFilters: Filters) => {
     setLoading(true);
