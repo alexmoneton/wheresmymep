@@ -120,7 +120,6 @@ function VoteExplorerContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(true);
-  const [useComprehensive] = useState(true); // Always use comprehensive data
 
   // Define searchVotes function before useEffects
   const searchVotes = useCallback(async (searchFilters: Filters) => {
@@ -134,11 +133,6 @@ function VoteExplorerContent() {
           params.set(key, value);
         }
       });
-      
-      // Add comprehensive flag if enabled
-      if (useComprehensive) {
-        params.set('comprehensive', 'true');
-      }
       
       const response = await fetch(`/api/votes/search?${params.toString()}`);
       const data = await response.json();

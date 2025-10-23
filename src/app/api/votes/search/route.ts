@@ -100,46 +100,15 @@ export async function GET(request: NextRequest) {
       comprehensive: searchParams.get('comprehensive') === 'true'
     };
     
-    // Determine data source
-    let notableVotesSource: any;
-    let votesCatalogSource: any;
+    // Use local data files
+    console.log('⚡ Using local data source');
+    const notableVotesSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/notable-votes.json'), 'utf8'));
+    const votesCatalogSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/votes.json'), 'utf8'));
     
-    if (params.comprehensive) {
-      // Fetch comprehensive data from Vercel Blob
-      console.log('🔄 Using comprehensive data source');
-      const baseUrl = process.env.VERCEL_URL 
-        ? `https://${process.env.VERCEL_URL}` 
-        : 'http://localhost:3000';
-      const comprehensiveUrl = `${baseUrl}/api/votes/comprehensive`;
-      console.log(`Fetching from: ${comprehensiveUrl}`);
-      
-      const response = await fetch(comprehensiveUrl);
-      const data = await response.json();
-      
-      if (!data.success) {
-        console.error('❌ Failed to fetch comprehensive data:', data.error);
-        throw new Error(data.error || 'Failed to fetch comprehensive data');
-      }
-      
-      notableVotesSource = data.notableVotes;
-      votesCatalogSource = data.votesCatalog;
-      console.log(`✅ Loaded comprehensive data: ${Object.keys(notableVotesSource).length} MEPs, ${votesCatalogSource.length} votes`);
-      
-      // Log a sample to verify structure
-      const sampleMepId = Object.keys(notableVotesSource)[0];
-      const sampleVotes = notableVotesSource[sampleMepId];
-      console.log(`Sample MEP ${sampleMepId} has ${sampleVotes.length} votes`);
-    } else {
-      // Use local data files
-      console.log('⚡ Using local data source');
-      notableVotesSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/notable-votes.json'), 'utf8'));
-      votesCatalogSource = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/votes.json'), 'utf8'));
-      
-      // Log local data stats
-      const sampleMepId = Object.keys(notableVotesSource)[0];
-      const sampleVotes = notableVotesSource[sampleMepId];
-      console.log(`Local data: Sample MEP ${sampleMepId} has ${sampleVotes.length} votes`);
-    }
+    // Log local data stats
+    const sampleMepId = Object.keys(notableVotesSource)[0];
+    const sampleVotes = notableVotesSource[sampleMepId];
+    console.log(`Local data: Sample MEP ${sampleMepId} has ${sampleVotes.length} votes`);
 
     // Get all MEPs and their notable votes
     const meps = JSON.parse(require('fs').readFileSync(require('path').join(process.cwd(), 'public/data/meps.json'), 'utf8'));
